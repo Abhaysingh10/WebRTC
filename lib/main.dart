@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:web_socket/new_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,11 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    title: "Websocket",
+      title: "Websocket",
       theme: ThemeData(primarySwatch: Colors.deepOrange),
-      home: MyHomePage(title: "WebSocket",),
+      home: MyHomePage(
+        title: "WebSocket",
+      ),
     );
-
   }
 }
 
@@ -32,33 +34,27 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  late IO.Socket socket ;
-
-  void connect(){
-      socket = IO.io("http://192.168.29.230:8080",<String, dynamic>{
-      "transports" : ["websocket"],
-      "autoconnect" : false
-    } );
-    socket.connect();
-    socket.onConnect((data) => print("connected"));
-    if(socket.connected){
-      print("Connected");
-    }else{
-      print("Not Connected");
-
-    }
-  }
-
-  void _incrementCounter() {
-    setState(() {
-    });
-  }
 
   @override
   void initState() {
     // TODO: implement initState
-    connect();
+//    connect();
     super.initState();
+  }
+
+  void connect() {
+    IO.Socket socket = IO.io("https://192.168.29.230:5000", <String, dynamic>{
+      "transports": ["websocket"],
+      "autoConnect": false
+    });
+    socket.connect();
+    socket.onConnect((data) => print("connected"));
+    print(socket.connected);
+  }
+
+  void _incrementCounter() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (c) => ServerPage()));
   }
 
   @override
@@ -68,10 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: SingleChildScrollView(
-          child: Container(color: Colors.grey, height: MediaQuery.of(context).size.height * 1,),
-        )
-      ),
+          child: SingleChildScrollView(
+        child: Container(
+          color: Colors.grey,
+          height: MediaQuery.of(context).size.height * 1,
+        ),
+      )),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
