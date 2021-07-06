@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:ffi';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -17,20 +19,22 @@ class _ServerPageState extends State<ServerPage> {
   var _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
   Random _rnd = Random();
   int? arrayUserLength;
-  late List<dynamic> arrayUser;
+  // ignore: deprecated_member_use
+  List<dynamic>? arrayUser;
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
   @override
   void initState() {
     connect();
+    refresh();
     //refresh().whenComplete(() => null);
     super.initState();
   }
 
   connect() async {
     print("This is SelfId => " + _selfId);
-    socket = IO.io("http://bcb2fea4c0f0.ngrok.io", <String, dynamic>{
+    socket = IO.io("http://20112a941da5.ngrok.io", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false
     });
@@ -46,12 +50,13 @@ class _ServerPageState extends State<ServerPage> {
     print(socket.connected);
   }
 
-  List<dynamic> refresh() {
+  refresh() {
     socket.emit("refresh");
     socket.on("RefreshResponse", (users) {
-      List<dynamic> userID = users;
-      return userID;
+      arrayUser = users;
     });
+    print("This is array of users----> $arrayUser");
+    return arrayUser;
   }
 
   update(users) {
@@ -78,57 +83,17 @@ class _ServerPageState extends State<ServerPage> {
                   context, MaterialPageRoute(builder: (c) => MyApp()))),
           centerTitle: true,
           title: new Text("Server Page"),
+          actions: [
+            GestureDetector(
+              onTap: () => refresh(),
+              child: Icon(Icons.refresh),
+            )
+          ],
         ),
-        // body: FutureBuilder(
-        //     future: null,
-        //     builder: (context, snapshot) {
-        //       if (snapshot.data == null) {
-        //         return Container(
-        //           child: Center(
-        //             child: Text("Loading..."),
-        //           ),
-        //         );
-        //       } else {
-        //         return ListView.builder(
-        //             itemCount: 5,
-        //             itemBuilder: (BuildContext buildContext, int index) {
-        //               return ListTile(
-        //                 title: Text(snapshot.data.toString()),
-        //               );
-        //             });
-        //       }
-        //     })
-        //body:
-        body: Center(
-            child: Column(children: [
-          Container(
-            height: 50,
-            width: 150,
-            color: Colors.red[400],
-            child: MaterialButton(
-              onPressed: () {
-                connect();
-              },
-              child: Text("Connect to Socket"),
-            ),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          Container(
-            height: 50,
-            width: 150,
-            color: Colors.red[400],
-            child: MaterialButton(
-              onPressed: () => disconnect(),
-              child: Text("Disconnect"),
-            ),
-          ),
-          Container(
-              child: IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: () => refresh(),
-          )),
-        ])));
+        body: ListView.builder(itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(arrayUser![index].toString()),
+          );
+        }));
   }
 }
