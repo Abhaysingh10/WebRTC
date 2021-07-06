@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:ffi';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -34,7 +32,7 @@ class _ServerPageState extends State<ServerPage> {
 
   connect() async {
     print("This is SelfId => " + _selfId);
-    socket = IO.io("http://20112a941da5.ngrok.io", <String, dynamic>{
+    socket = IO.io("http://6cebc7b6a99c.ngrok.io", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false
     });
@@ -71,6 +69,17 @@ class _ServerPageState extends State<ServerPage> {
   }
 
   @override
+  void dispose() {
+    disconnect();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  connectToUser(String peerId) {
+    print("This is peerID $peerId");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -90,10 +99,25 @@ class _ServerPageState extends State<ServerPage> {
             )
           ],
         ),
-        body: ListView.builder(itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(arrayUser![index].toString()),
-          );
-        }));
+        body: ListView.builder(
+            itemCount: arrayUser?.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: Icon(
+                  Icons.person,
+                ),
+                trailing: Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: Icon(
+                    Icons.video_call,
+                    size: 35.0,
+                  ),
+                ),
+                onTap: () => {connectToUser(arrayUser![index].toString())},
+                title: (arrayUser![index].toString() == _selfId)
+                    ? Text(arrayUser![index].toString() + "    { Yourself }")
+                    : Text(arrayUser![index].toString()),
+              );
+            }));
   }
 }
