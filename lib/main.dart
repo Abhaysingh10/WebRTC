@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
-import 'package:web_socket/new_page.dart';
+import 'package:web_socket/server_page.dart';
 
 void main() {
   runApp(MyApp());
