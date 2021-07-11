@@ -56,13 +56,12 @@ class _CallPageState extends State<CallPage> {
     final Map<String, dynamic> mediaConstraints = {
       'audio': false,
       'video': {
-        'facingMode': 'useMr',
+        'facingMode': 'user',
       },
     };
-
     MediaStream stream =
         await navigator.mediaDevices.getUserMedia(mediaConstraints);
-    _localRenderer.srcObject = stream;
+    _selfRenderer.srcObject = stream;
     return stream;
   }
 

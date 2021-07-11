@@ -1,9 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:web_socket/server_page.dart';
+import 'package:web_socket/socket.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,14 +13,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Websocket",
-      theme: ThemeData(primarySwatch: Colors.deepOrange),
-      home: MyHomePage(
-        title: "WebSocket",
-      ),
-    );
+    return ChangeNotifierProvider(
+        create: (_) => SocketNode(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: "Websocket",
+          theme: ThemeData(primarySwatch: Colors.deepOrange),
+          home: MyHomePage(
+            title: "WebSocket",
+          ),
+        ));
   }
 }
 
@@ -38,7 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
 //    connect();
     super.initState();
   }

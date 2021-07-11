@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:web_socket/Call.dart';
 import 'package:web_socket/main.dart';
@@ -13,44 +12,40 @@ class ServerPage extends StatefulWidget {
 }
 
 class _ServerPageState extends State<ServerPage> {
-  // CallPage signalling = new CallPage();
-  late String _selfId;
+  late CallPage signalling;
+  late String _selfId = getRandomString(8);
   late IO.Socket socket;
+  //Random Number Generation for UserID
   var _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
   Random _rnd = Random();
   int? arrayUserLength;
-  late SharedPreferences sharedPreferences;
   // ignore: deprecated_member_use
   List<dynamic>? arrayUser;
-  bool screenSharing = false;
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
   @override
-  initState() {
-    _selfId = getRandomString(8);
-    //setPrefs(_selfId);
+  void initState() {
     connect();
     refresh();
     //refresh().whenComplete(() => null);
     super.initState();
   }
 
-  // setPrefs(String id) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   prefs.setString("selfId", _selfId);
-  // }
-
   connect() async {
     print("This is SelfId => " + _selfId);
-    socket = IO.io("http://43b120781438.ngrok.io", <String, dynamic>{
+    socket = IO.io("http://f808028e96d6.ngrok.io", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false
     });
     socket.connect();
     socket.emit("connection", _selfId);
+    socket.on("connectionResponse", (data) => {});
     socket.onConnect((data) {
       print("connected");
+      socket.on("OnlineUsers", (data) {
+        //  print(data);
+      });
     });
     print(socket.connected);
   }
@@ -66,18 +61,20 @@ class _ServerPageState extends State<ServerPage> {
     return arrayUser;
   }
 
+  update(users) {
+    List<dynamic> userId = users;
+    print(userId);
+  }
+
   void disconnect() {
-    // socket.emit("disconnectt");
+    socket.emit("disconnectt");
     //socket.disconnect();
     print(socket.connected);
   }
 
   @override
   void dispose() {
-//    disconnect();
-    arrayUser!.clear();
-    socket.disconnect();
-    // TODO: implement dispose
+    disconnect();
     super.dispose();
   }
 
@@ -85,10 +82,10 @@ class _ServerPageState extends State<ServerPage> {
     print("This is peerID $peerId");
   }
 
-  // _invitePeer(
-  //     BuildContext context, String _peerId, bool useScreen, String selfId) {
-  //   signalling.createState().invite(_peerId, 'video', useScreen, selfId);
-  // }
+  _invitePeer(
+      BuildContext context, String _peerId, bool useScreen, String selfId) {
+    signalling.createState().invite(_peerId, 'video', selfId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +102,7 @@ class _ServerPageState extends State<ServerPage> {
           title: new Text("Server Page"),
           actions: [
             GestureDetector(
-              // onTap: () => Navigator.pushReplacement(
-              //     context, MaterialPageRoute(builder: (c) => CallPage())),
+              onTap: () => refresh(),
               child: Icon(Icons.refresh),
             )
           ],
@@ -133,9 +129,9 @@ class _ServerPageState extends State<ServerPage> {
                   ),
                 ),
                 onTap: () => {connectToUser(arrayUser![index].toString())},
-                title: ((arrayUser![index].toString() == _selfId)
+                title: (arrayUser![index].toString() == _selfId)
                     ? Text(arrayUser![index].toString() + "    { Yourself }")
-                    : Text(arrayUser![index].toString())),
+                    : Text(arrayUser![index].toString()),
               );
             }));
   }
