@@ -15,6 +15,8 @@ class _ServerPageState extends State<ServerPage> {
   late CallPage signalling;
   late String _selfId = getRandomString(8);
   late IO.Socket socket;
+  bool broadcast = false;
+  late var braodcastedMessage;
   //Random Number Generation for UserID
   var _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
   Random _rnd = Random();
@@ -34,7 +36,7 @@ class _ServerPageState extends State<ServerPage> {
 
   connect() async {
     print("This is SelfId => " + _selfId);
-    socket = IO.io("http://f808028e96d6.ngrok.io", <String, dynamic>{
+    socket = IO.io("https://db29d4b8b315.ngrok.io", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false
     });
@@ -48,6 +50,13 @@ class _ServerPageState extends State<ServerPage> {
       });
     });
     print(socket.connected);
+    socket.on('broadcast', (data) {
+      if (data != null) {
+        setState(() {
+          broadcast = true;
+        });
+      }
+    });
   }
 
   refresh() {
@@ -74,6 +83,7 @@ class _ServerPageState extends State<ServerPage> {
 
   @override
   void dispose() {
+    socket.destroy();
     disconnect();
     super.dispose();
   }
@@ -92,7 +102,7 @@ class _ServerPageState extends State<ServerPage> {
     return Scaffold(
         appBar: AppBar(
           actionsIconTheme:
-              IconThemeData(color: Colors.amber, size: 30, opacity: 10),
+              IconThemeData(color: Colors.amber, size: 40, opacity: 10),
           automaticallyImplyLeading: true,
           leading: BackButton(
               color: Colors.black,
@@ -111,6 +121,21 @@ class _ServerPageState extends State<ServerPage> {
             itemCount: arrayUser != null ? arrayUser!.length : 0,
             itemBuilder: (context, index) {
               return ListTile(
+                subtitle: Container(
+                  child: MaterialButton(
+                    color: (arrayUser![index].toString() != _selfId)
+                        ? (broadcast ? Colors.blue : Colors.grey)
+                        : Colors.grey,
+                    disabledColor: Colors.red,
+                    child: Text("Answer"),
+                    onPressed: () => {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (c) => CallPage(_selfId, "nothing")))
+                    },
+                  ),
+                ),
                 leading: Icon(
                   Icons.person,
                 ),

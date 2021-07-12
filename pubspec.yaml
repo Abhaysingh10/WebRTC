@@ -27,6 +27,7 @@ dependencies:
   flutter_webrtc: ^0.6.5
   provider: ^5.0.0
   random_string: ^2.2.0-nullsafety
+  sdp_transform: ^0.3.0
   shared_preferences: ^2.0.6
   socket_io_client: ^1.0.1
 

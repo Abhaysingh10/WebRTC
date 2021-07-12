@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:sdp_transform/sdp_transform.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class CallPage extends StatefulWidget {
   late String _selfId;
@@ -25,6 +27,8 @@ class Session {
 }
 
 class _CallPageState extends State<CallPage> {
+  late Session session;
+  late Map<String, dynamic> description;
   //MediaStream _localStream ;
   RTCVideoRenderer _selfRenderer = new RTCVideoRenderer();
   RTCVideoRenderer _guestRenderer = new RTCVideoRenderer();
@@ -34,6 +38,7 @@ class _CallPageState extends State<CallPage> {
   TextEditingController _fieldController = new TextEditingController();
 //  TextEditingController _selfID = new TextEditingController();
   bool useScreen = false;
+  late IO.Socket socket;
   late MediaStream _localStream;
   JsonEncoder _encoder = new JsonEncoder();
   RTCVideoRenderer _localRenderer = RTCVideoRenderer();
@@ -51,6 +56,64 @@ class _CallPageState extends State<CallPage> {
       */
     ]
   };
+
+  //------------------------------------------------------------------------
+  // Server Section
+
+  void connect() {
+    socket = IO.io("https://db29d4b8b315.ngrok.io", <String, dynamic>{
+      "transports": ["websocket"],
+      "autoConnect": false
+    });
+    socket.connect();
+    socket.onConnect((data) => print("connected"));
+    print(socket.connected);
+    //socket.on("offerReply", (data) => onMessage(data));
+    socket.on("answer", (desc) {
+      description = desc;
+      print("This is answer " + description.length.toString());
+    });
+  }
+
+  answer() {}
+
+  //-----------------------------------------------------------------------
+
+  // void onMessage(message) async {
+  //   Map<String, dynamic> mapData = message;
+  //   var data = mapData["data"];
+  //   switch (mapData["type"]) {
+  //     case "offer":
+  //       {
+  //         var peerId = data['from'];
+  //         var description = data['description'];
+  //         var media = data['media'];
+  //         var sessionId = data['session_id'];
+  //         var session = _session[sessionId];
+  //         var newSession = await _createSession(
+  //             peerId: peerId,
+  //             sessionId: sessionId,
+  //             media: media,
+  //             screenSharing: false);
+  //         _session[sessionId] = newSession;
+  //         await newSession.pc.setRemoteDescription(
+  //             RTCSessionDescription(description['sdp'], description['type']));
+  //         await _createAnswer(newSession, media);
+  //         if (newSession.remoteCandidates.length > 0) {
+  //           newSession.remoteCandidates.forEach((candidate) async {
+  //             await newSession.pc.addCandidate(candidate);
+  //           });
+  //           newSession.remoteCandidates.clear();
+  //         }
+  //       }
+  //       break;
+  //     case 'answer':
+  //       break;
+  //     case "candidate":
+  //       break;
+  //     default:
+  //   }
+  // }
 
   _getUserMedia() async {
     final Map<String, dynamic> mediaConstraints = {
@@ -85,8 +148,26 @@ class _CallPageState extends State<CallPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    connect();
     initRenders();
-    invite(widget.peerId, 'video', false);
+    if (widget.peerId == "nothing") {
+      reply();
+    } else {
+      invite(widget.peerId, 'video', false);
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _selfRenderer.dispose();
+    _localRenderer.dispose();
+  }
+
+  void reply() {
+    print("This is reply section");
+    socket.emit("reply");
   }
 
   initRenders() async {
@@ -117,19 +198,21 @@ class _CallPageState extends State<CallPage> {
 
   Future<void> _createOffer(Session session, String media) async {
     try {
+      print("Inside of create offer");
       RTCSessionDescription s =
           await session.pc.createOffer({'offerToReceiveVideo ': 1});
       print(s.toString());
-      // var sddp = parse(s.sdp);//   <-----------Generting sdp for debugging readability.
-      // print(jsonEncode(session));
+      var sessionn = parse(s.sdp
+          .toString()); //   <-----------Generting sdp for debugging readability.
+      print(jsonEncode(sessionn));
       await session.pc.setLocalDescription(s);
-      // _send('offer', {
-      //   'to' : session.pid,
-      //   'from' : _selfId,
-      //   'description' : {'sdp' :s.sdp, 'type' : s.type},
-      //   'session_id' : session.sid,
-      //   'media' : media,
-      // });
+      _send('offer', {
+        'to': session.pid,
+        'from': widget._selfId,
+        'description': {'sdp': s.sdp, 'type': s.type},
+        'session_id': session.sid,
+        'media': media,
+      });
     } catch (e) {
       print(e.toString());
     }
@@ -177,6 +260,7 @@ class _CallPageState extends State<CallPage> {
     request["type"] = event;
     request["data"] = data;
     // _webSocket.send(_encoder.convert(request));
+    socket.emit("offer", _encoder.convert(request));
     print("This is the request form user -> " + (_encoder.convert(request)));
   }
 
