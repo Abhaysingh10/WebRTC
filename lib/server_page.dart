@@ -114,9 +114,14 @@ class _ServerPageState extends State<ServerPage> {
                 {
                   setState(() {
                     broadcast = true;
+                    print(
+                        "This data is being diplayed over broadcast function " +
+                            data.toString());
                   })
                 }
             });
+
+    socket.on("givingSdp", (data) => print(data));
   }
 
   initRenders() async {
@@ -183,6 +188,10 @@ class _ServerPageState extends State<ServerPage> {
 
   call() {
     invite(_selfId, "video", false);
+  }
+
+  replying() {
+    socket.emit("getMeSdp");
   }
 
   Future<void> _createOffer(Session session, String media) async {
@@ -346,13 +355,7 @@ class _ServerPageState extends State<ServerPage> {
                                 : Colors.grey,
                             disabledColor: Colors.red,
                             child: Text("Answer"),
-                            onPressed: () => {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (c) =>
-                                          CallPage(_selfId, "nothing")))
-                            },
+                            onPressed: () => {replying()},
                           ),
                         ),
                         leading: Icon(
