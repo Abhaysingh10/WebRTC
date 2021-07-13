@@ -33,6 +33,7 @@ class _CallPageState extends State<CallPage> {
   RTCVideoRenderer _selfRenderer = new RTCVideoRenderer();
   RTCVideoRenderer _guestRenderer = new RTCVideoRenderer();
   JsonDecoder _decoder = JsonDecoder();
+  JsonEncoder _encoder = new JsonEncoder();
   // RTCPeerConnection _peerConnection;
   // MediaStream _localStream;
   TextEditingController _fieldController = new TextEditingController();
@@ -40,7 +41,6 @@ class _CallPageState extends State<CallPage> {
   bool useScreen = false;
   late IO.Socket socket;
   late MediaStream _localStream;
-  JsonEncoder _encoder = new JsonEncoder();
   RTCVideoRenderer _localRenderer = RTCVideoRenderer();
   Map<String, Session> _session = {};
   Map<String, dynamic> _iceServers = {
@@ -58,16 +58,22 @@ class _CallPageState extends State<CallPage> {
   };
 
   //------------------------------------------------------------------------
+  //------------------------------------------------------------------------
   // Server Section
 
   void connect() {
-    socket = IO.io("https://db29d4b8b315.ngrok.io", <String, dynamic>{
+    socket = IO.io("http://c5b6671b2a1d.ngrok.io", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false
     });
     socket.connect();
-    socket.onConnect((data) => print("connected"));
-    print(socket.connected);
+    //  socket.onConnect((data) => print(" Connected in call page"));
+    if (socket.connected) {
+      //  print("Connected in call page " + socket.id.toString());
+    } else {
+      print("Not connected");
+    }
+
     //socket.on("offerReply", (data) => onMessage(data));
     socket.on("answer", (desc) {
       description = desc;
@@ -77,6 +83,7 @@ class _CallPageState extends State<CallPage> {
 
   answer() {}
 
+  //-----------------------------------------------------------------------
   //-----------------------------------------------------------------------
 
   // void onMessage(message) async {
@@ -175,11 +182,6 @@ class _CallPageState extends State<CallPage> {
     await _guestRenderer.initialize();
   }
 
-  getId() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    widget._selfId = preferences.getString("selfId")!;
-  }
-
   invite(String peerId, String media, useScreen) async {
     var sessionId = widget._selfId + '-' + peerId;
     Session session = await _createSession(
@@ -225,20 +227,29 @@ class _CallPageState extends State<CallPage> {
       required bool screenSharing}) async {
     var newSession = Session(sid: sessionId, pid: peerId);
     _localStream = await _getUserMedia();
+
     print(_iceServers);
     RTCPeerConnection pc = await createPeerConnection({
       ..._iceServers,
     }, _config);
 
     pc.addStream(_localStream);
+
+    socket.emit("check", "add Stream ");
     pc.onIceCandidate = (e) {
       if (e.candidate != null) {
         print(e.candidate.toString() +
             e.sdpMid.toString() +
             e.sdpMlineIndex.toString());
-        print("This is selfId" + widget._selfId);
+
+        print("This is selfId " +
+            widget._selfId +
+            " " +
+            socket.connected.toString());
         print("This is peerId" + peerId);
       }
+      //  socket.emit("check", "add camdidate "); not working
+
       _send('candidate', {
         'to': peerId,
         'from': widget._selfId,
@@ -259,9 +270,8 @@ class _CallPageState extends State<CallPage> {
     var request = Map();
     request["type"] = event;
     request["data"] = data;
-    // _webSocket.send(_encoder.convert(request));
-    socket.emit("offer", _encoder.convert(request));
-    print("This is the request form user -> " + (_encoder.convert(request)));
+    socket.emit("offer", request.toString());
+    print("This is the request form user -> " + request.toString());
   }
 
   Future<void> _reply(String media, var value) async {
