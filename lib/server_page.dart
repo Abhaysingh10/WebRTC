@@ -45,6 +45,7 @@ class _ServerPageState extends State<ServerPage> {
   late MediaStream _localStream;
   // ignore: deprecated_member_use
   List<dynamic>? arrayUser;
+  Map<String, Session> _sessions = {};
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   Map<String, dynamic> _iceServers = {
@@ -92,7 +93,7 @@ class _ServerPageState extends State<ServerPage> {
 
   connect() async {
     print("This is SelfId => " + _selfId);
-    socket = IO.io("http://b6ed49d8866c.ngrok.io", <String, dynamic>{
+    socket = IO.io("http://bf1c061440db.ngrok.io", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false
     });
@@ -121,7 +122,57 @@ class _ServerPageState extends State<ServerPage> {
                 }
             });
 
-    socket.on("givingSdp", (data) => print(data));
+    socket.on("givingSdp", (sdp) {
+      //   print("Decoding sdp" + jsonDecode(mapData));
+      onMessage(_decoder.convert(sdp));
+    });
+
+    socket.on("givingCandidate",
+        (candidate) => print("This is candidate received $candidate"));
+  }
+
+  void onMessage(message) async {
+    Map<String, dynamic> mapData = message;
+    var data = mapData['data'];
+    print("Mapped Data" + data.toString());
+    switch (mapData["type"]) {
+      case "offer":
+        {
+          var peerId = data['from'];
+          var description = data['description'];
+          var media = data['media'];
+          var sessionId = data['session_id'];
+          var session = _sessions[sessionId];
+          var newSession = await _createSession(
+              peerId: peerId,
+              sessionId: sessionId,
+              media: media,
+              screenSharing: false);
+          _sessions[sessionId] = newSession;
+          await newSession.pc.setRemoteDescription(
+              RTCSessionDescription(description['sdp'], description['type']));
+          await _createAnswer(newSession, media);
+        }
+
+        break;
+      default:
+    }
+  }
+
+  Future<void> _createAnswer(Session session, String media) async {
+    try {
+      RTCSessionDescription s =
+          await session.pc.createAnswer(media == "video" ? _dcConstraints : {});
+      print("This is session description -> " + s.sdp.toString());
+      await session.pc.setRemoteDescription(s);
+      print("Got here till sending answer");
+      _sendAnswer('answer', {
+        'to': session.pid,
+        'from': _selfId,
+        'description': {'sdp': s.sdp, 'type': s.type},
+        'session_id': session.sid,
+      });
+    } catch (e) {}
   }
 
   initRenders() async {
@@ -265,6 +316,14 @@ class _ServerPageState extends State<ServerPage> {
     request["type"] = event;
     request["data"] = data;
     socket.emit("offer", _encoder.convert(request));
+    //print("This is the request form user -> " + _encoder.convert(request));
+  }
+
+  _sendAnswer(event, data) {
+    var request = Map();
+    request["type"] = event;
+    request["data"] = data;
+    socket.emit("answer", _encoder.convert(request));
     //print("This is the request form user -> " + _encoder.convert(request));
   }
 
