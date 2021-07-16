@@ -28,6 +28,7 @@ class Session {
 class _ServerPageState extends State<ServerPage> {
   late CallPage signalling;
   late Session session;
+  late String peerId;
   Map<String, Session> _session = {};
   late String _selfId = getRandomString(8);
   late IO.Socket socket;
@@ -93,13 +94,16 @@ class _ServerPageState extends State<ServerPage> {
 
   connect() async {
     print("This is SelfId => " + _selfId);
-    socket = IO.io("http://9d0cba5cf6c4.ngrok.io", <String, dynamic>{
+    socket = IO.io("http://609936eb4f52.ngrok.io", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false
     });
     socket.connect();
     socket.emit("connection", _selfId);
     socket.on("connectionResponse", (data) => {});
+    socket.on("answerReplying", (data) {
+      print("Answer Replying" + data.toString());
+    });
     socket.onConnect((data) {
       print("connected");
       socket.on("OnlineUsers", (data) {
@@ -122,13 +126,13 @@ class _ServerPageState extends State<ServerPage> {
                 }
             });
 
-    socket.on("givingSdp", (sdp) {
+    socket.on("offer", (sdp) {
       onMessage(_decoder.convert(sdp));
     });
 
-    socket.on("givingCandidate", (data) => onMessage(_decoder.convert(data)));
+    //socket.on("givingCandidate", (data) => onMessage(_decoder.convert(data)));
 
-    socket.on("givingAnswer", (data) => onMessage(_decoder.convert(data)));
+    socket.on("givingAnswer", (data) => {});
 
     socket.on("givingCandidate",
         (candidate) => print("This is candidate received $candidate"));
@@ -143,6 +147,7 @@ class _ServerPageState extends State<ServerPage> {
     switch (mapData["type"]) {
       case "offer":
         {
+          print("Inside offer");
           var peerId = data['from'];
           var description = data['description'];
           var media = data['media'];
@@ -268,12 +273,12 @@ class _ServerPageState extends State<ServerPage> {
     super.dispose();
   }
 
-  connectToUser(String peerId) {
-    print("This is peerID $peerId");
+  connectToUser(String peerID) {
+    peerId = peerID;
   }
 
-  call() {
-    invite(_selfId, "video", false);
+  call(String _peerId) {
+    invite(_peerId, "video", false);
   }
 
   replying() {
@@ -350,6 +355,7 @@ class _ServerPageState extends State<ServerPage> {
     var request = Map();
     request["type"] = event;
     request["data"] = data;
+    // /socket.emit("SendingpeerID", peerId);
     socket.emit("offer", _encoder.convert(request));
     //print("This is the request form user -> " + _encoder.convert(request));
   }
@@ -460,7 +466,8 @@ class _ServerPageState extends State<ServerPage> {
                           child: IconButton(
                             icon: Icon(Icons.video_call),
                             iconSize: 32,
-                            onPressed: () => {call()},
+                            onPressed: () =>
+                                {call(arrayUser![index].toString())},
                           ),
                         ),
                         onTap: () =>
