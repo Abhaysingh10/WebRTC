@@ -94,39 +94,38 @@ class _ServerPageState extends State<ServerPage> {
 
   connect() async {
     print("This is SelfId => " + _selfId);
-    socket = IO.io("http://609936eb4f52.ngrok.io", <String, dynamic>{
+    socket = IO.io("http://69ed5796d0b0.ngrok.io", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false
     });
     socket.connect();
     socket.emit("connection", _selfId);
     socket.on("connectionResponse", (data) => {});
-    socket.on("answerReplying", (data) {
-      print("Answer Replying" + data.toString());
+    socket.on("ansResponse", (data) {
+      if (data != null) {
+        print("Inside answer response");
+      } else {}
+      onMessage(_decoder.convert(data));
     });
     socket.onConnect((data) {
       print("connected");
-      socket.on("OnlineUsers", (data) {
-        //  print(data);
-      });
     });
     print(socket.connected);
-    socket.on(
-        'broadcast',
-        (data) => {
-              print("Boradcasting the data"),
-              if (data != null)
-                {
-                  setState(() {
-                    broadcast = true;
-                    print(
-                        "This data is being diplayed over broadcast function " +
-                            data.toString());
-                  })
-                }
-            });
+    socket.on('broadcast', (data) async {
+      print("Boradcasting the data");
+      if (data != null) {
+        setState(() {
+          broadcast = true;
+          inCalling = true;
+          replying();
+          print("This data is being diplayed over broadcast function " +
+              data.toString());
+        });
+      }
+    });
 
-    socket.on("offer", (sdp) {
+    socket.on("givingsdp", (sdp) {
+      //print("There I am " + _decoder.convert(sdp).toString());
       onMessage(_decoder.convert(sdp));
     });
 
@@ -135,7 +134,7 @@ class _ServerPageState extends State<ServerPage> {
     socket.on("givingAnswer", (data) => {});
 
     socket.on("givingCandidate",
-        (candidate) => print("This is candidate received $candidate"));
+        (candidate) => {onMessage(_decoder.convert(candidate))});
   }
 
   void onMessage(message) async {
@@ -166,11 +165,17 @@ class _ServerPageState extends State<ServerPage> {
         break;
       case 'answer':
         {
+          print("In answer case");
           var description = data['description'];
           var sessionId = data['session_id'];
+          //print("This is description from answer " + description.toString());
+          //print("This is sessionId from answer " + sessionId.toString());
+          // print("description['sdp'] => " + description['sdp'].toString());
+          // print("description['type'] => " + description['type'].toString());
           var session = _sessions[sessionId];
           session!.pc.setRemoteDescription(
               RTCSessionDescription(description['sdp'], description['type']));
+          print("Remote description done right");
         }
         break;
       case 'candidate':
