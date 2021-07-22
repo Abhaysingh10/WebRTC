@@ -20,7 +20,6 @@ class Session {
   String pid;
   late RTCPeerConnection pc;
   late RTCDataChannel dc;
-  late RTCVideoRenderer _selfRenderer;
   late TextEditingController fieldController;
   List<RTCIceCandidate> remoteCandidates = [];
 }
@@ -44,30 +43,27 @@ class _ServerPageState extends State<ServerPage> {
   Random _rnd = Random();
   int? arrayUserLength;
   late MediaStream _localStream;
+  List<MediaStream> _remoteStreams = <MediaStream>[];
   // ignore: deprecated_member_use
   List<dynamic>? arrayUser;
-  Map<String, Session> _sessions = {};
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
-  Map<String, dynamic> _iceServers = {
-    'iceServers': [
-      {'url': 'stun:stun.l.google.com:19302'},
-      /*
-       * turn server configuration example.
-      {
-        'url': 'turn:123.45.67.89:3478',
-        'username': 'change_to_real_user',
-        'credential': 'change_to_real_secret'
-      },
-      */
-    ]
-  };
+
+  //{ for webcall
+  late RTCPeerConnection _peerConnection;
+  late RTCPeerConnection _remotePeerConnection;
+  bool _offer = true;
+  //}
 
   @override
   void initState() {
     connect();
     //refresh();
     initRenders();
+
+    _createPeerConnection().then((pc) {
+      _peerConnection = pc;
+    });
     //refresh().whenComplete(() => null);
     super.initState();
   }
@@ -85,6 +81,14 @@ class _ServerPageState extends State<ServerPage> {
     return stream;
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _guestRenderer.dispose();
+    _selfRenderer.dispose();
+    super.dispose();
+  }
+
   final Map<String, dynamic> _config = {
     'mandatory': {},
     'optional': [
@@ -94,135 +98,130 @@ class _ServerPageState extends State<ServerPage> {
 
   connect() async {
     print("This is SelfId => " + _selfId);
-    socket = IO.io("http://69ed5796d0b0.ngrok.io", <String, dynamic>{
+    socket = IO.io("https://f6076c68cfb5.ngrok.io", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false
     });
     socket.connect();
     socket.emit("connection", _selfId);
-    socket.on("connectionResponse", (data) => {});
-    socket.on("ansResponse", (data) {
-      if (data != null) {
-        print("Inside answer response");
-      } else {}
-      onMessage(_decoder.convert(data));
-    });
-    socket.onConnect((data) {
-      print("connected");
-    });
-    print(socket.connected);
-    socket.on('broadcast', (data) async {
-      print("Boradcasting the data");
-      if (data != null) {
-        setState(() {
-          broadcast = true;
-          inCalling = true;
-          replying();
-          print("This data is being diplayed over broadcast function " +
-              data.toString());
-        });
-      }
-    });
 
-    socket.on("givingsdp", (sdp) {
-      //print("There I am " + _decoder.convert(sdp).toString());
-      onMessage(_decoder.convert(sdp));
-    });
+    //---------------------------This section was for flutter-webrtc-demo
+
+    // socket.on("connectionResponse", (data) => {});
+    // socket.on("ansResponse", (data) {
+    //   if (data != null) {
+    //     print("Inside answer response");
+    //   } else {}
+    //   onMessage(_decoder.convert(data));
+    // });
+    // socket.onConnect((data) {
+    //   print("connected");
+    // });
+    // print(socket.connected);
+    // socket.on('broadcast', (data) {
+    //   //print("Boradcasting the data");
+    //   if (data != null) {
+    //     setState(() {
+    //       broadcast = true;
+    //       //  inCalling = true;
+    //       //replying();
+    //       print("This data is being diplayed over broadcast function " +
+    //           data.toString());
+    //     });
+    //   }
+    // });
+
+    // socket.on("givingsdp", (sdp) {
+    //   print("There I am " + _decoder.convert(sdp).toString());
+    //   onMessage(_decoder.convert(sdp));
+    // });
 
     //socket.on("givingCandidate", (data) => onMessage(_decoder.convert(data)));
 
-    socket.on("givingAnswer", (data) => {});
+    // socket.on("givingAnswer", (data) => {});
 
-    socket.on("givingCandidate",
-        (candidate) => {onMessage(_decoder.convert(candidate))});
+    // socket.on("givingCandidate",
+    //     (candidate) => {onMessage(_decoder.convert(candidate))});
+
+    //-----------------------------------------------------Flutter-webrtc-demo ends here
+
+    // *? This block will only have "WEBCALL sockets"
+
+    socket.on("ansResponse", (data) async {
+      _setRemoteDescription(data.toString());
+    });
+
+    // *? and ends here.
   }
 
-  void onMessage(message) async {
-    Map<String, dynamic> mapData = message;
-    var data = mapData['data'];
-    print("Mapped Data" + data.toString());
-    print("This is map data just before switch case " +
-        mapData["type"].toString());
-    switch (mapData["type"]) {
-      case "offer":
-        {
-          print("Inside offer");
-          var peerId = data['from'];
-          var description = data['description'];
-          var media = data['media'];
-          var sessionId = data['session_id'];
-          var session = _sessions[sessionId];
-          var newSession = await _createSession(
-              peerId: peerId,
-              sessionId: sessionId,
-              media: media,
-              screenSharing: false);
-          _sessions[sessionId] = newSession;
-          await newSession.pc.setRemoteDescription(
-              RTCSessionDescription(description['sdp'], description['type']));
-          await _createAnswer(newSession, media);
-        }
-        break;
-      case 'answer':
-        {
-          print("In answer case");
-          var description = data['description'];
-          var sessionId = data['session_id'];
-          //print("This is description from answer " + description.toString());
-          //print("This is sessionId from answer " + sessionId.toString());
-          // print("description['sdp'] => " + description['sdp'].toString());
-          // print("description['type'] => " + description['type'].toString());
-          var session = _sessions[sessionId];
-          session!.pc.setRemoteDescription(
-              RTCSessionDescription(description['sdp'], description['type']));
-          print("Remote description done right");
-        }
-        break;
-      case 'candidate':
-        {
-          var peerId = data['from'];
-          var candidateMap = data['candidate'];
-          var sessionId = data['session_id'];
-          var session = _sessions[sessionId];
-          RTCIceCandidate candidate = RTCIceCandidate(candidateMap['candidate'],
-              candidateMap['sdpMid'], candidateMap['sdpMLineIndex']);
+  void onMessage(convert) {}
 
-          if (session != null) {
-            if (session.pc != null) {
-              await session.pc.addCandidate(candidate);
-            } else {
-              session.remoteCandidates.add(candidate);
-            }
-          } else {
-            _sessions[sessionId] = Session(pid: peerId, sid: sessionId)
-              ..remoteCandidates.add(candidate);
-          }
-        }
-        break;
+  _createPeerConnection() async {
+    print("Inside createPeerConnection");
+    Map<String, dynamic> configuration = {
+      "iceServers": [
+        {"url": "stun:stun.l.google.com:19302"},
+      ]
+    };
 
-      default:
-    }
+    final Map<String, dynamic> offerSdpConstraints = {
+      "mandatory": {"offerToReceiveAudio": true, "offerToReceiveVideo": true},
+      "optional": [],
+    };
+
+    _localStream = await _getUserMedia();
+
+    RTCPeerConnection pc =
+        await createPeerConnection(configuration, offerSdpConstraints);
+
+    pc.addStream(_localStream);
+    pc.onIceCandidate = (e) {
+      if (e.candidate != null) {
+        print(json.encode({
+          'candidate': e.candidate.toString(),
+          'sdpMid': e.sdpMid.toString(),
+          'sdpMlineIndex': e.sdpMlineIndex
+        }));
+      }
+    };
+    pc.onIceConnectionState = (e) {
+      print(e);
+    };
+
+    pc.onAddStream = (stream) {
+      // <---------- Getting the remote stream here
+      print('addStream: ' + stream.id);
+      _guestRenderer.srcObject = stream;
+    };
+    print("At the end of peerconnection");
+    return pc;
   }
 
-  Future<void> _createAnswer(Session session, String media) async {
-    try {
-      RTCSessionDescription s =
-          await session.pc.createAnswer(media == "data" ? _dcConstraints : {});
-      print("This is session description -> " + s.sdp.toString());
-      await session.pc.setLocalDescription(s);
-      print("Got here till sending answer");
-      _sendAnswer('answer', {
-        'to': session.pid,
-        'from': _selfId,
-        'description': {'sdp': s.sdp, 'type': s.type},
-        'session_id': session.sid,
-      });
-    } catch (e) {}
+  _createOffer(String peerId) async {
+    RTCSessionDescription description = await _peerConnection.createOffer({
+      'offerToReceiveVideo': 1
+    }); //      <------------ createOffer()  initiates the creation of an SDP offer for the purpose of starting a new WebRTC connection to a remote peer.
+    var session = parse(description.sdp.toString());
+    //print(json.encode(session));
+    //print(json.encode(session));
+    //debugPrint(jsonEncode(session), wrapWidth: 1024);
+    // setState(() {
+    //   sdpController.text = json.encode(session);
+    // });
+    // print(session);
+    _offer = true;
+    _peerConnection.setLocalDescription(description);
+    String _peerId = peerId;
+    socket.emit("_sendingsdp", json.encode(session));
+    socket.emit("_sendingPeerId", _peerId);
   }
 
-  initRenders() async {
-    await _selfRenderer.initialize();
-    await _guestRenderer.initialize();
+  void _setRemoteDescription(String _sdp) async {
+    dynamic session = await jsonDecode("$_sdp");
+    String sdp = write(session, null);
+    RTCSessionDescription description =
+        new RTCSessionDescription(sdp, _offer ? 'answer' : 'offer');
+    await _peerConnection.setRemoteDescription(description);
   }
 
   refresh() {
@@ -236,141 +235,24 @@ class _ServerPageState extends State<ServerPage> {
     return arrayUser;
   }
 
-  update(users) {
-    List<dynamic> userId = users;
-    print(userId);
+  replying() {}
+
+  call(String string) async {
+    String peerId = string;
+    setState(() {
+      inCalling = true;
+    });
+    await _createPeerConnection().then((pc) {
+      _peerConnection = pc;
+    });
+    _createOffer(peerId);
   }
 
-  invite(String peerId, String media, useScreen) async {
-    var sessionId = _selfId + '-' + peerId;
-    Session session = await _createSession(
-      sessionId: sessionId,
-      peerId: peerId,
-      media: media,
-      screenSharing: useScreen,
-    );
-    _session[sessionId] = session;
-    print("This is sessionId" + sessionId.toString());
-    _createOffer(
-      session,
-      media,
-    );
-  }
+  connectToUser(String string) {}
 
-  final Map<String, dynamic> _dcConstraints = {
-    'mandatory': {
-      'OfferToReceiveAudio': false,
-      'OfferToReceiveVideo': false,
-    },
-    'optional': [],
-  };
-
-  void disconnect() {
-    socket.emit("disconnectt");
-    //socket.disconnect();
-    print(socket.connected);
-  }
-
-  @override
-  void dispose() {
-    socket.destroy();
-    disconnect();
-    super.dispose();
-  }
-
-  connectToUser(String peerID) {
-    peerId = peerID;
-  }
-
-  call(String _peerId) {
-    invite(_peerId, "video", false);
-  }
-
-  replying() {
-    socket.emit("getMeSdp");
-  }
-
-  Future<void> _createOffer(Session session, String media) async {
-    try {
-      setState(() {
-        inCalling = true;
-      });
-      print("Inside of create offer");
-      RTCSessionDescription s =
-          await session.pc.createOffer({'offerToReceiveVideo ': 1});
-      print(s.toString());
-      var sessionn = parse(s.sdp
-          .toString()); //   <-----------Generting sdp for debugging readability.
-      print(jsonEncode(sessionn));
-      await session.pc.setLocalDescription(s);
-      _send('offer', {
-        'to': session.pid,
-        'from': _selfId,
-        'description': {'sdp': s.sdp, 'type': s.type},
-        'session_id': session.sid,
-        'media': media,
-      });
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  Future<Session> _createSession(
-      {required String sessionId,
-      required String peerId,
-      required String media,
-      required bool screenSharing}) async {
-    var newSession = Session(sid: sessionId, pid: peerId);
-    _localStream = await _getUserMedia();
-
-    print(_iceServers);
-    RTCPeerConnection pc = await createPeerConnection({
-      ..._iceServers,
-    }, _config);
-
-    pc.addStream(_localStream);
-    pc.onIceCandidate = (e) {
-      if (e.candidate != null) {
-        print(e.candidate.toString() +
-            e.sdpMid.toString() +
-            e.sdpMlineIndex.toString());
-
-        print("This is selfId " + _selfId + " " + socket.connected.toString());
-        print("This is peerId" + peerId);
-      }
-      //  socket.emit("check", "add camdidate "); not working
-
-      _send('candidate', {
-        'to': peerId,
-        'from': _selfId,
-        'candidate': {
-          'sdpMLineIndex': e.sdpMlineIndex,
-          'sdpMid': e.sdpMid,
-          'candidate': e.candidate,
-        },
-        'session_id': sessionId,
-      });
-    };
-    // print("This is Session Id" + sessionId);
-    newSession.pc = pc;
-    return newSession;
-  }
-
-  _send(event, data) {
-    var request = Map();
-    request["type"] = event;
-    request["data"] = data;
-    // /socket.emit("SendingpeerID", peerId);
-    socket.emit("offer", _encoder.convert(request));
-    //print("This is the request form user -> " + _encoder.convert(request));
-  }
-
-  _sendAnswer(event, data) {
-    var request = Map();
-    request["type"] = event;
-    request["data"] = data;
-    socket.emit("ans", _encoder.convert(request));
-    //print("This is the request form user -> " + _encoder.convert(request));
+  void initRenders() {
+    _selfRenderer.initialize();
+    _guestRenderer.initialize();
   }
 
   @override
