@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:sdp_transform/sdp_transform.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart';
 
 class CallPage extends StatefulWidget {
   late String _selfId;
@@ -62,10 +64,12 @@ class _CallPageState extends State<CallPage> {
   // Server Section
 
   void connect() {
-    socket = IO.io("http://c5b6671b2a1d.ngrok.io", <String, dynamic>{
-      "transports": ["websocket"],
-      "autoConnect": false
-    });
+    socket = io(
+        'http://localhost:5000',
+        IO.OptionBuilder()
+            .setTransports(['websocket']) // for Flutter or Dart VM
+            .disableAutoConnect() // disable auto-connection
+            .build());
     socket.connect();
     //  socket.onConnect((data) => print(" Connected in call page"));
     if (socket.connected) {
@@ -153,7 +157,8 @@ class _CallPageState extends State<CallPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    print("Iside init");
+
     super.initState();
     connect();
     initRenders();
@@ -168,6 +173,7 @@ class _CallPageState extends State<CallPage> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    socket.dispose();
     _selfRenderer.dispose();
     _localRenderer.dispose();
   }

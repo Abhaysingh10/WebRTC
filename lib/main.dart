@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart';
+import 'package:web_socket/Call.dart';
 import 'package:web_socket/server_page.dart';
 import 'package:web_socket/socket.dart';
 
@@ -37,26 +39,28 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  late IO.Socket socket;
   @override
   void initState() {
-//    connect();
+    connect();
     super.initState();
   }
 
   void connect() {
-    IO.Socket socket = IO.io("https://192.168.29.230:5000", <String, dynamic>{
-      "transports": ["websocket"],
-      "autoConnect": false
-    });
-    socket.connect();
-    socket.onConnect((data) => print("connected"));
-    print(socket.connected);
+    //   socket = io(
+    //       'http://localhost:5000',
+    //       IO.OptionBuilder()
+    //           .setTransports(['websocket']) // for Flutter or Dart VM
+    //           .disableAutoConnect() // disable auto-connection
+    //           .build());
+    //   socket.connect();
+    //   print("Connected");
+    // }
   }
 
   void _incrementCounter() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (c) => ServerPage()));
+        context, MaterialPageRoute(builder: (c) => CallPage('Abhay', 'Singh')));
   }
 
   @override

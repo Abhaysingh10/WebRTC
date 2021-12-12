@@ -57,6 +57,7 @@ class _ServerPageState extends State<ServerPage> {
 
   @override
   void initState() {
+    print("Inside initState");
     connect();
     //refresh();
     initRenders();
@@ -86,6 +87,7 @@ class _ServerPageState extends State<ServerPage> {
     // TODO: implement dispose
     _guestRenderer.dispose();
     _selfRenderer.dispose();
+    socket.dispose();
     super.dispose();
   }
 
@@ -96,62 +98,28 @@ class _ServerPageState extends State<ServerPage> {
     ]
   };
 
-  connect() async {
-    print("This is SelfId => " + _selfId);
-    socket = IO.io("https://f6076c68cfb5.ngrok.io", <String, dynamic>{
-      "transports": ["websocket"],
-      "autoConnect": false
-    });
+  void connect() {
+    socket = IO.io(
+        'http://e41a-2405-201-600c-d806-994c-31fb-b0d6-e25a.ngrok.io',
+        IO.OptionBuilder()
+            .setTransports(['websocket']) // for Flutter or Dart VM
+            .disableAutoConnect() // disable auto-connection
+            .build());
     socket.connect();
-    socket.emit("connection", _selfId);
+    //  socket.onConnect((data) => print(" Connected in call page"));
+    if (socket.connected) {
+      //  print("Connected in call page " + socket.id.toString());
+    } else {
+      print("Not connected");
+    }
 
-    //---------------------------This section was for flutter-webrtc-demo
+    socket.emit('connection', _selfId);
 
-    // socket.on("connectionResponse", (data) => {});
-    // socket.on("ansResponse", (data) {
-    //   if (data != null) {
-    //     print("Inside answer response");
-    //   } else {}
-    //   onMessage(_decoder.convert(data));
+    //socket.on("offerReply", (data) => onMessage(data));
+    // socket.on("answer", (desc) {
+    //   description = desc;
+    //   print("This is answer " + description.length.toString());
     // });
-    // socket.onConnect((data) {
-    //   print("connected");
-    // });
-    // print(socket.connected);
-    // socket.on('broadcast', (data) {
-    //   //print("Boradcasting the data");
-    //   if (data != null) {
-    //     setState(() {
-    //       broadcast = true;
-    //       //  inCalling = true;
-    //       //replying();
-    //       print("This data is being diplayed over broadcast function " +
-    //           data.toString());
-    //     });
-    //   }
-    // });
-
-    // socket.on("givingsdp", (sdp) {
-    //   print("There I am " + _decoder.convert(sdp).toString());
-    //   onMessage(_decoder.convert(sdp));
-    // });
-
-    //socket.on("givingCandidate", (data) => onMessage(_decoder.convert(data)));
-
-    // socket.on("givingAnswer", (data) => {});
-
-    // socket.on("givingCandidate",
-    //     (candidate) => {onMessage(_decoder.convert(candidate))});
-
-    //-----------------------------------------------------Flutter-webrtc-demo ends here
-
-    // *? This block will only have "WEBCALL sockets"
-
-    socket.on("ansResponse", (data) async {
-      _setRemoteDescription(data.toString());
-    });
-
-    // *? and ends here.
   }
 
   void onMessage(convert) {}
@@ -195,6 +163,14 @@ class _ServerPageState extends State<ServerPage> {
     };
     print("At the end of peerconnection");
     return pc;
+  }
+
+  _send(event, data) {
+    var request = Map();
+    request["type"] = event;
+    request["data"] = data;
+    socket.emit("offer", request.toString());
+    print("This is the request form user -> " + request.toString());
   }
 
   _createOffer(String peerId) async {
