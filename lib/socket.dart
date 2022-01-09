@@ -9,10 +9,12 @@ class SocketNode with ChangeNotifier {
   List<dynamic>? arrayUser;
   connect(String _selfId) async {
     print("This is SelfId => " + _selfId);
-    socket = IO.io("http://localhost:5000", <String, dynamic>{
-      "transports": ["websocket"],
-      "autoConnect": false
-    });
+    socket = IO.io(
+        "tp://b85f-2405-201-600c-d806-d8e5-abae-eec2-f431.ngrok.io",
+        <String, dynamic>{
+          "transports": ["websocket"],
+          "autoConnect": false
+        });
     socket.connect();
     socket.emit("connection", _selfId);
     socket.onConnect((data) {

@@ -28,6 +28,7 @@ class _ServerPageState extends State<ServerPage> {
   late CallPage signalling;
   late Session session;
   late String peerId;
+  var x;
   Map<String, Session> _session = {};
   late String _selfId = getRandomString(8);
   late IO.Socket socket;
@@ -41,6 +42,7 @@ class _ServerPageState extends State<ServerPage> {
   //Random Number Generation for UserID
   var _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
   Random _rnd = Random();
+  String? sdpData;
   int? arrayUserLength;
   late MediaStream _localStream;
   List<MediaStream> _remoteStreams = <MediaStream>[];
@@ -52,14 +54,13 @@ class _ServerPageState extends State<ServerPage> {
   //{ for webcall
   late RTCPeerConnection _peerConnection;
   late RTCPeerConnection _remotePeerConnection;
-  bool _offer = true;
+
+  bool _offer = false;
   //}
 
   @override
   void initState() {
-    print("Inside initState");
     connect();
-    //refresh();
     initRenders();
 
     _createPeerConnection().then((pc) {
@@ -100,32 +101,45 @@ class _ServerPageState extends State<ServerPage> {
 
   void connect() {
     socket = IO.io(
-        'http://e41a-2405-201-600c-d806-994c-31fb-b0d6-e25a.ngrok.io',
+        'http://4caa-2405-201-600c-d806-5f2-73bb-4040-5c0f.ngrok.io',
         IO.OptionBuilder()
-            .setTransports(['websocket']) // for Flutter or Dart VM
-            .disableAutoConnect() // disable auto-connection
+            .setTransports(['websocket'])
+            .disableAutoConnect()
             .build());
     socket.connect();
-    //  socket.onConnect((data) => print(" Connected in call page"));
+
     if (socket.connected) {
       //  print("Connected in call page " + socket.id.toString());
     } else {
       print("Not connected");
     }
-
     socket.emit('connection', _selfId);
+    socket.on('broadcastingMessage', (data) => {refresh()});
+    socket.on(
+        "broadcastingMessagesdp",
+        (data) => {
+              x = data,
+              print("This is type of data "),
+              // refresh(),
+              if (data != null) {broadcastMessage(), checkTheOffer(data)}
+            });
+    socket.on('recCandy', (candy) => {_addCandidate(candy.toString())});
+    socket.on('answer', (data) => print(json.decode(data)));
+  }
 
-    //socket.on("offerReply", (data) => onMessage(data));
-    // socket.on("answer", (desc) {
-    //   description = desc;
-    //   print("This is answer " + description.length.toString());
-    // });
+  void broadcastMessage() {
+    setState(() {
+      broadcast = true;
+    });
+  }
+
+  void checkTheOffer(var values) {
+    _setRemoteDescription(values.toString());
   }
 
   void onMessage(convert) {}
 
   _createPeerConnection() async {
-    print("Inside createPeerConnection");
     Map<String, dynamic> configuration = {
       "iceServers": [
         {"url": "stun:stun.l.google.com:19302"},
@@ -133,23 +147,31 @@ class _ServerPageState extends State<ServerPage> {
     };
 
     final Map<String, dynamic> offerSdpConstraints = {
-      "mandatory": {"offerToReceiveAudio": true, "offerToReceiveVideo": true},
+      "mandatory": {"OfferToReceiveAudio": true, "OfferToReceiveVideo": true},
       "optional": [],
     };
 
     _localStream = await _getUserMedia();
-
     RTCPeerConnection pc =
         await createPeerConnection(configuration, offerSdpConstraints);
-
     pc.addStream(_localStream);
+    var limit = 0;
     pc.onIceCandidate = (e) {
-      if (e.candidate != null) {
-        print(json.encode({
+      if (limit == 0) {
+        if (e.candidate != null) {
+          print(json.encode({
+            'candidate': e.candidate.toString(),
+            'sdpMid': e.sdpMid.toString(),
+            'sdpMlineIndex': e.sdpMlineIndex
+          }));
+        }
+        var candy = (json.encode({
           'candidate': e.candidate.toString(),
           'sdpMid': e.sdpMid.toString(),
           'sdpMlineIndex': e.sdpMlineIndex
         }));
+        socket.emit("sendingCandidate", candy);
+        limit = 1;
       }
     };
     pc.onIceConnectionState = (e) {
@@ -165,35 +187,60 @@ class _ServerPageState extends State<ServerPage> {
     return pc;
   }
 
-  _send(event, data) {
+  _send(event, data, peerid) {
     var request = Map();
     request["type"] = event;
     request["data"] = data;
-    socket.emit("offer", request.toString());
-    print("This is the request form user -> " + request.toString());
+    var datas = new List.filled(2, [], growable: false);
+    datas[0].add(event);
+    datas[1].add(data);
+    socket.emit(event, data);
+    socket.emit("rec", peerid);
+    print("This is the request form user -> " + data);
+  }
+
+  _sendAns(event, data, peerid) {
+    var request = Map();
+    request["type"] = event;
+    request["data"] = data;
+    var datas = new List.filled(2, [], growable: false);
+    datas[0].add(event);
+    datas[1].add(data);
+    socket.emit(event, data);
+    socket.emit("recAns", peerid);
+    print("This is the request form user -> " + data);
+
+    //socket.emit("sendingCandidate", candy);
   }
 
   _createOffer(String peerId) async {
     RTCSessionDescription description = await _peerConnection.createOffer({
       'offerToReceiveVideo': 1
     }); //      <------------ createOffer()  initiates the creation of an SDP offer for the purpose of starting a new WebRTC connection to a remote peer.
-    var session = parse(description.sdp.toString());
-    //print(json.encode(session));
-    //print(json.encode(session));
-    //debugPrint(jsonEncode(session), wrapWidth: 1024);
-    // setState(() {
-    //   sdpController.text = json.encode(session);
-    // });
-    // print(session);
+    var session = parse(description.sdp!.toString());
     _offer = true;
     _peerConnection.setLocalDescription(description);
-    String _peerId = peerId;
-    socket.emit("_sendingsdp", json.encode(session));
-    socket.emit("_sendingPeerId", _peerId);
+    debugPrint("Printing before Sending sdp -> " + json.encode(session));
+    _send("offer", json.encode(session), peerId);
   }
 
-  void _setRemoteDescription(String _sdp) async {
+  _createAnswer(String peerId) async {
+    setState(() {
+      inCalling = true;
+    });
+    RTCSessionDescription description =
+        await _peerConnection.createAnswer({'offerToReceiveVideo': 1});
+
+    var session = parse(description.sdp.toString());
+    print(json.encode(session));
+    _peerConnection.setLocalDescription(description);
+    _sendAns("answer", json.encode(session), peerId);
+  }
+
+  void _setRemoteDescription(_sdp) async {
+    String data = _sdp.toString();
     dynamic session = await jsonDecode("$_sdp");
+    print(" This is session " + session.toString());
     String sdp = write(session, null);
     RTCSessionDescription description =
         new RTCSessionDescription(sdp, _offer ? 'answer' : 'offer');
@@ -211,24 +258,32 @@ class _ServerPageState extends State<ServerPage> {
     return arrayUser;
   }
 
-  replying() {}
+  replying() {
+    socket.emit('reply');
+  }
 
   call(String string) async {
     String peerId = string;
     setState(() {
       inCalling = true;
     });
-    await _createPeerConnection().then((pc) {
-      _peerConnection = pc;
-    });
+
     _createOffer(peerId);
+  }
+
+  void _addCandidate(String candy) async {
+    dynamic session = await jsonDecode('$candy');
+    print(session['candidate']);
+    dynamic candidate = new RTCIceCandidate(
+        session['candidate'], session['sdpMid'], session['sdpMlineIndex']);
+    await _peerConnection.addCandidate(candidate);
   }
 
   connectToUser(String string) {}
 
-  void initRenders() {
-    _selfRenderer.initialize();
-    _guestRenderer.initialize();
+  void initRenders() async {
+    await _selfRenderer.initialize();
+    await _guestRenderer.initialize();
   }
 
   @override
@@ -318,7 +373,8 @@ class _ServerPageState extends State<ServerPage> {
                                 : Colors.grey,
                             disabledColor: Colors.red,
                             child: Text("Answer"),
-                            onPressed: () => {replying()},
+                            onPressed: () =>
+                                {_createAnswer(arrayUser![index].toString())},
                           ),
                         ),
                         leading: Icon(

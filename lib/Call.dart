@@ -65,7 +65,7 @@ class _CallPageState extends State<CallPage> {
 
   void connect() {
     socket = io(
-        'http://localhost:5000',
+        'http://b85f-2405-201-600c-d806-d8e5-abae-eec2-f431.ngrok.io',
         IO.OptionBuilder()
             .setTransports(['websocket']) // for Flutter or Dart VM
             .disableAutoConnect() // disable auto-connection
@@ -73,7 +73,7 @@ class _CallPageState extends State<CallPage> {
     socket.connect();
     //  socket.onConnect((data) => print(" Connected in call page"));
     if (socket.connected) {
-      //  print("Connected in call page " + socket.id.toString());
+      print("Connected in call page " + socket.id.toString());
     } else {
       print("Not connected");
     }

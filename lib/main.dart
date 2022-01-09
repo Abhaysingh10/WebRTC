@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (c) => CallPage('Abhay', 'Singh')));
+        context, MaterialPageRoute(builder: (c) => ServerPage()));
   }
 
   @override
