@@ -75,7 +75,7 @@ class _CallPageState extends State<CallPage> {
     if (socket.connected) {
       print("Connected in call page " + socket.id.toString());
     } else {
-      print("Not connected");
+      print("");
     }
 
     //socket.on("offerReply", (data) => onMessage(data));
