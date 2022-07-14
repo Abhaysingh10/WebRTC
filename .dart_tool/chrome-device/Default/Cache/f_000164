@@ -1,0 +1,372 @@
+define(['dart_sdk', 'packages/webrtc_interface/src/rtc_video_renderer.dart', 'packages/dart_webrtc/src/media_stream_impl.dart', 'packages/flutter/src/services/system_channels.dart', 'packages/flutter/src/foundation/change_notifier.dart', 'packages/webrtc_interface/src/media_stream.dart'], (function load__packages__flutter_webrtc__src__web__rtc_video_renderer_impl_dart(dart_sdk, packages__webrtc_interface__src__rtc_video_renderer$46dart, packages__dart_webrtc__src__media_stream_impl$46dart, packages__flutter__src__services__system_channels$46dart, packages__flutter__src__foundation__change_notifier$46dart, packages__webrtc_interface__src__media_stream$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _interceptors = dart_sdk._interceptors;
+  const async = dart_sdk.async;
+  const html = dart_sdk.html;
+  const js_util = dart_sdk.js_util;
+  const ui = dart_sdk.ui;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const rtc_video_renderer = packages__webrtc_interface__src__rtc_video_renderer$46dart.src__rtc_video_renderer;
+  const media_stream_impl = packages__dart_webrtc__src__media_stream_impl$46dart.src__media_stream_impl;
+  const message_codec = packages__flutter__src__services__system_channels$46dart.src__services__message_codec;
+  const change_notifier = packages__flutter__src__foundation__change_notifier$46dart.src__foundation__change_notifier;
+  const media_stream = packages__webrtc_interface__src__media_stream$46dart.src__media_stream;
+  var rtc_video_renderer_impl = Object.create(dart.library);
+  var $objectFit = dartx.objectFit;
+  var $style = dartx.style;
+  var $toInt = dartx.toInt;
+  var $muted = dartx.muted;
+  var $videoWidth = dartx.videoWidth;
+  var $toDouble = dartx.toDouble;
+  var $videoHeight = dartx.videoHeight;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $getVideoTracks = dartx.getVideoTracks;
+  var $getAudioTracks = dartx.getAudioTracks;
+  var $id = dartx.id;
+  var $autoplay = dartx.autoplay;
+  var $append = dartx.append;
+  var $display = dartx.display;
+  var $forEach = dartx.forEach;
+  var $removeAttribute = dartx.removeAttribute;
+  var $remove = dartx.remove;
+  var $hasChildNodes = dartx.hasChildNodes;
+  var $toString = dartx.toString;
+  var $clear = dartx.clear;
+  var $controls = dartx.controls;
+  var $border = dartx.border;
+  var $width = dartx.width;
+  var $height = dartx.height;
+  var $setAttribute = dartx.setAttribute;
+  var $onCanPlay = dartx.onCanPlay;
+  var $add = dartx.add;
+  var $onResize = dartx.onResize;
+  var $onError = dartx.onError;
+  var $code = dartx.code;
+  var $_get = dartx._get;
+  var $onEnded = dartx.onEnded;
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    JSArrayOfStreamSubscription: () => (T.JSArrayOfStreamSubscription = dart.constFn(_interceptors.JSArray$(async.StreamSubscription)))(),
+    StreamSubscriptionTovoid: () => (T.StreamSubscriptionTovoid = dart.constFn(dart.fnType(dart.void, [async.StreamSubscription])))(),
+    DivElementN: () => (T.DivElementN = dart.constFn(dart.nullable(html.DivElement)))(),
+    ObjectN: () => (T.ObjectN = dart.constFn(dart.nullable(core.Object)))(),
+    JSArrayOfObjectN: () => (T.JSArrayOfObjectN = dart.constFn(_interceptors.JSArray$(T.ObjectN())))(),
+    dynamicTovoid: () => (T.dynamicTovoid = dart.constFn(dart.fnType(dart.void, [dart.dynamic])))(),
+    EventTovoid: () => (T.EventTovoid = dart.constFn(dart.fnType(dart.void, [html.Event])))(),
+    intToVideoElement: () => (T.intToVideoElement = dart.constFn(dart.fnType(html.VideoElement, [core.int])))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.constMap(core.int, core.String, [1, "MEDIA_ERR_ABORTED", 2, "MEDIA_ERR_NETWORK", 3, "MEDIA_ERR_DECODE", 4, "MEDIA_ERR_SRC_NOT_SUPPORTED"]);
+    },
+    get C1() {
+      return C[1] = dart.constMap(core.int, core.String, [1, "The user canceled the fetching of the video.", 2, "A network error occurred while fetching the video, despite having previously been available.", 3, "An error occurred while trying to decode the video, despite having previously been determined to be usable.", 4, "The video has been found to be unsuitable (missing or in a format not supported by your browser)."]);
+    }
+  }, false);
+  var C = Array(2).fill(void 0);
+  var I = ["package:flutter_webrtc/src/web/rtc_video_renderer_impl.dart"];
+  var mirror = dart.privateName(rtc_video_renderer_impl, "RTCVideoRenderer.mirror");
+  var onResize = dart.privateName(rtc_video_renderer_impl, "RTCVideoRenderer.onResize");
+  var _audioElement = dart.privateName(rtc_video_renderer_impl, "_audioElement");
+  var _videoStream = dart.privateName(rtc_video_renderer_impl, "_videoStream");
+  var _audioStream = dart.privateName(rtc_video_renderer_impl, "_audioStream");
+  var _srcObject = dart.privateName(rtc_video_renderer_impl, "_srcObject");
+  var _subscriptions = dart.privateName(rtc_video_renderer_impl, "_subscriptions");
+  var _objectFit = dart.privateName(rtc_video_renderer_impl, "_objectFit");
+  var _muted = dart.privateName(rtc_video_renderer_impl, "_muted");
+  var _textureId = dart.privateName(rtc_video_renderer_impl, "_textureId");
+  var _elementIdForAudio = dart.privateName(rtc_video_renderer_impl, "_elementIdForAudio");
+  var _elementIdForVideo = dart.privateName(rtc_video_renderer_impl, "_elementIdForVideo");
+  var _updateAllValues = dart.privateName(rtc_video_renderer_impl, "_updateAllValues");
+  var _ensureAudioManagerDiv = dart.privateName(rtc_video_renderer_impl, "_ensureAudioManagerDiv");
+  const dispose = Symbol("dispose");
+  rtc_video_renderer_impl.RTCVideoRenderer = class RTCVideoRenderer extends change_notifier.ValueNotifier$(rtc_video_renderer.RTCVideoValue) {
+    get mirror() {
+      return this[mirror];
+    }
+    set mirror(value) {
+      this[mirror] = value;
+    }
+    get onResize() {
+      return this[onResize];
+    }
+    set onResize(value) {
+      this[onResize] = value;
+    }
+    set objectFit(fit) {
+      let t0;
+      if (this[_objectFit] === fit) return;
+      this[_objectFit] = fit;
+      t0 = this.findHtmlView();
+      t0 == null ? null : t0[$style][$objectFit] = fit;
+    }
+    get videoWidth() {
+      return this.value.width[$toInt]();
+    }
+    get videoHeight() {
+      return this.value.height[$toInt]();
+    }
+    get textureId() {
+      return this[_textureId];
+    }
+    get muted() {
+      return this[_muted];
+    }
+    set muted(mute) {
+      let t0;
+      t0 = this[_audioElement];
+      return t0 == null ? null : t0[$muted] = this[_muted] = mute;
+    }
+    get renderVideo() {
+      return this[_srcObject] != null;
+    }
+    get [_elementIdForAudio]() {
+      return "audio_RTCVideoRenderer-" + dart.str(this.textureId);
+    }
+    get [_elementIdForVideo]() {
+      return "video_RTCVideoRenderer-" + dart.str(this.textureId);
+    }
+    [_updateAllValues]() {
+      let t0, t0$, t0$0, t0$1;
+      let element = this.findHtmlView();
+      this.value = this.value.copyWith({rotation: 0, width: (t0$ = (t0 = element, t0 == null ? null : t0[$videoWidth][$toDouble]()), t0$ == null ? 0.0 : t0$), height: (t0$1 = (t0$0 = element, t0$0 == null ? null : t0$0[$videoHeight][$toDouble]()), t0$1 == null ? 0.0 : t0$1), renderVideo: this.renderVideo});
+    }
+    get srcObject() {
+      return this[_srcObject];
+    }
+    set srcObject(stream) {
+      let t0, t0$, t0$0, t0$1, t0$2;
+      if (stream == null) {
+        t0 = this.findHtmlView();
+        t0 == null ? null : t0.srcObject = null;
+        t0$ = this[_audioElement];
+        t0$ == null ? null : t0$.srcObject = null;
+        this[_srcObject] = null;
+        return;
+      }
+      this[_srcObject] = media_stream_impl.MediaStreamWeb.as(stream);
+      if (this[_srcObject] != null) {
+        if (stream.getVideoTracks()[$isNotEmpty]) {
+          this[_videoStream] = html.MediaStream.new();
+          for (let track of dart.nullCheck(this[_srcObject]).jsStream[$getVideoTracks]()) {
+            dart.nullCheck(this[_videoStream]).addTrack(track);
+          }
+        }
+        if (stream.getAudioTracks()[$isNotEmpty]) {
+          this[_audioStream] = html.MediaStream.new();
+          for (let track of dart.nullCheck(this[_srcObject]).jsStream[$getAudioTracks]()) {
+            dart.nullCheck(this[_audioStream]).addTrack(track);
+          }
+        }
+      } else {
+        this[_videoStream] = null;
+        this[_audioStream] = null;
+      }
+      if (this[_audioStream] != null) {
+        if (this[_audioElement] == null) {
+          this[_audioElement] = (t0$0 = html.AudioElement.new(), (() => {
+            t0$0[$id] = this[_elementIdForAudio];
+            t0$0[$muted] = stream.ownerTag === "local";
+            t0$0[$autoplay] = true;
+            return t0$0;
+          })());
+          this[_ensureAudioManagerDiv]()[$append](dart.nullCheck(this[_audioElement]));
+        }
+        t0$1 = this[_audioElement];
+        t0$1 == null ? null : t0$1.srcObject = this[_audioStream];
+      }
+      t0$2 = this.findHtmlView();
+      t0$2 == null ? null : t0$2.srcObject = this[_videoStream];
+      this.value = this.value.copyWith({renderVideo: this.renderVideo});
+    }
+    [_ensureAudioManagerDiv]() {
+      let t0, t0$;
+      let div = html.document.getElementById("html_webrtc_audio_manager_list");
+      if (div != null) return html.DivElement.as(div);
+      div = (t0 = html.DivElement.new(), (() => {
+        t0[$id] = "html_webrtc_audio_manager_list";
+        t0[$style][$display] = "none";
+        return t0;
+      })());
+      t0$ = html.document.body;
+      t0$ == null ? null : t0$[$append](div);
+      return html.DivElement.as(div);
+    }
+    findHtmlView() {
+      let element = html.document.getElementById(this[_elementIdForVideo]);
+      if (element != null) return html.VideoElement.as(element);
+    }
+    dispose() {
+      return async.async(dart.void, (function* dispose$() {
+        let t0, t0$, t0$0;
+        this[_srcObject] = null;
+        this[_subscriptions][$forEach](dart.fn(s => s.cancel(), T.StreamSubscriptionTovoid()));
+        let element = this.findHtmlView();
+        t0 = element;
+        t0 == null ? null : t0[$removeAttribute]("src");
+        t0$ = element;
+        t0$ == null ? null : t0$.load();
+        t0$0 = this[_audioElement];
+        t0$0 == null ? null : t0$0[$remove]();
+        let audioManager = T.DivElementN().as(html.document.getElementById("html_webrtc_audio_manager_list"));
+        if (audioManager != null && !audioManager[$hasChildNodes]()) {
+          audioManager[$remove]();
+        }
+        return this[dispose]();
+      }).bind(this));
+    }
+    audioOutput(deviceId) {
+      return async.async(core.bool, (function* audioOutput() {
+        try {
+          let element = this[_audioElement];
+          if (element != null && js_util.hasProperty(element, "setSinkId")) {
+            yield js_util.promiseToFuture(dart.void, core.Object.as(js_util.callMethod(element, "setSinkId", T.JSArrayOfObjectN().of([deviceId]))));
+            return true;
+          }
+        } catch (e$) {
+          let e = dart.getThrown(e$);
+          if (core.Object.is(e)) {
+            core.print("Unable to setSinkId: " + e[$toString]());
+          } else
+            throw e$;
+        }
+        return false;
+      }).bind(this));
+    }
+    initialize() {
+      return async.async(dart.void, (function* initialize() {
+        ui.platformViewRegistry.registerViewFactory("RTCVideoRenderer-" + dart.str(this.textureId), dart.fn(viewId => {
+          let t1;
+          this[_subscriptions][$forEach](dart.fn(s => s.cancel(), T.StreamSubscriptionTovoid()));
+          this[_subscriptions][$clear]();
+          let element = (t1 = html.VideoElement.new(), (() => {
+            t1[$autoplay] = true;
+            t1[$muted] = true;
+            t1[$controls] = false;
+            t1[$style][$objectFit] = this[_objectFit];
+            t1[$style][$border] = "none";
+            t1[$style][$width] = "100%";
+            t1[$style][$height] = "100%";
+            t1.srcObject = this[_videoStream];
+            t1[$id] = this[_elementIdForVideo];
+            t1[$setAttribute]("playsinline", "true");
+            return t1;
+          })());
+          this[_subscriptions][$add](element[$onCanPlay].listen(dart.fn(_ => {
+            this[_updateAllValues]();
+          }, T.dynamicTovoid())));
+          this[_subscriptions][$add](element[$onResize].listen(dart.fn(_ => {
+            let t1;
+            this[_updateAllValues]();
+            t1 = this.onResize;
+            t1 == null ? null : dart.dcall(t1, []);
+          }, T.dynamicTovoid())));
+          this[_subscriptions][$add](element[$onError].listen(dart.fn(_ => {
+            let error = element.error;
+            core.print("RTCVideoRenderer: videoElement.onError, " + dart.toString(error));
+            dart.throw(new message_codec.PlatformException.new({code: dart.nullCheck(rtc_video_renderer_impl._kErrorValueToErrorName[$_get](dart.nullCheck(error)[$code])), message: error.message !== "" ? error.message : rtc_video_renderer_impl._kDefaultErrorMessage, details: rtc_video_renderer_impl._kErrorValueToErrorDescription[$_get](error[$code])}));
+          }, T.EventTovoid())));
+          this[_subscriptions][$add](element[$onEnded].listen(dart.fn(_ => {
+          }, T.dynamicTovoid())));
+          return element;
+        }, T.intToVideoElement()));
+      }).bind(this));
+    }
+    [dispose]() {
+      return super.dispose();
+    }
+  };
+  (rtc_video_renderer_impl.RTCVideoRenderer.new = function() {
+    let t0;
+    this[_audioElement] = null;
+    this[_videoStream] = null;
+    this[_audioStream] = null;
+    this[_srcObject] = null;
+    this[mirror] = false;
+    this[_subscriptions] = T.JSArrayOfStreamSubscription().of([]);
+    this[_objectFit] = "contain";
+    this[_muted] = false;
+    this[onResize] = null;
+    this[_textureId] = (t0 = rtc_video_renderer_impl.RTCVideoRenderer._textureCounter, rtc_video_renderer_impl.RTCVideoRenderer._textureCounter = dart.notNull(t0) + 1, t0);
+    rtc_video_renderer_impl.RTCVideoRenderer.__proto__.new.call(this, rtc_video_renderer.RTCVideoValue.empty);
+    ;
+  }).prototype = rtc_video_renderer_impl.RTCVideoRenderer.prototype;
+  dart.addTypeTests(rtc_video_renderer_impl.RTCVideoRenderer);
+  dart.addTypeCaches(rtc_video_renderer_impl.RTCVideoRenderer);
+  rtc_video_renderer_impl.RTCVideoRenderer[dart.implements] = () => [rtc_video_renderer.VideoRenderer];
+  dart.setMethodSignature(rtc_video_renderer_impl.RTCVideoRenderer, () => ({
+    __proto__: dart.getMethods(rtc_video_renderer_impl.RTCVideoRenderer.__proto__),
+    [_updateAllValues]: dart.fnType(dart.void, []),
+    [_ensureAudioManagerDiv]: dart.fnType(html.DivElement, []),
+    findHtmlView: dart.fnType(dart.nullable(html.VideoElement), []),
+    dispose: dart.fnType(async.Future$(dart.void), []),
+    audioOutput: dart.fnType(async.Future$(core.bool), [core.String]),
+    initialize: dart.fnType(async.Future$(dart.void), [])
+  }));
+  dart.setGetterSignature(rtc_video_renderer_impl.RTCVideoRenderer, () => ({
+    __proto__: dart.getGetters(rtc_video_renderer_impl.RTCVideoRenderer.__proto__),
+    videoWidth: core.int,
+    videoHeight: core.int,
+    textureId: core.int,
+    muted: core.bool,
+    renderVideo: core.bool,
+    [_elementIdForAudio]: core.String,
+    [_elementIdForVideo]: core.String,
+    srcObject: dart.nullable(media_stream.MediaStream)
+  }));
+  dart.setSetterSignature(rtc_video_renderer_impl.RTCVideoRenderer, () => ({
+    __proto__: dart.getSetters(rtc_video_renderer_impl.RTCVideoRenderer.__proto__),
+    objectFit: core.String,
+    muted: core.bool,
+    srcObject: dart.nullable(media_stream.MediaStream)
+  }));
+  dart.setLibraryUri(rtc_video_renderer_impl.RTCVideoRenderer, I[0]);
+  dart.setFieldSignature(rtc_video_renderer_impl.RTCVideoRenderer, () => ({
+    __proto__: dart.getFields(rtc_video_renderer_impl.RTCVideoRenderer.__proto__),
+    [_audioElement]: dart.fieldType(dart.nullable(html.AudioElement)),
+    [_videoStream]: dart.fieldType(dart.nullable(html.MediaStream)),
+    [_audioStream]: dart.fieldType(dart.nullable(html.MediaStream)),
+    [_srcObject]: dart.fieldType(dart.nullable(media_stream_impl.MediaStreamWeb)),
+    [_textureId]: dart.finalFieldType(core.int),
+    mirror: dart.fieldType(core.bool),
+    [_subscriptions]: dart.finalFieldType(core.List$(async.StreamSubscription)),
+    [_objectFit]: dart.fieldType(core.String),
+    [_muted]: dart.fieldType(core.bool),
+    onResize: dart.fieldType(dart.nullable(core.Function))
+  }));
+  dart.defineLazy(rtc_video_renderer_impl.RTCVideoRenderer, {
+    /*rtc_video_renderer_impl.RTCVideoRenderer._elementIdForAudioManager*/get _elementIdForAudioManager() {
+      return "html_webrtc_audio_manager_list";
+    },
+    /*rtc_video_renderer_impl.RTCVideoRenderer._textureCounter*/get _textureCounter() {
+      return 1;
+    },
+    set _textureCounter(_) {}
+  }, false);
+  dart.defineLazy(rtc_video_renderer_impl, {
+    /*rtc_video_renderer_impl._kErrorValueToErrorName*/get _kErrorValueToErrorName() {
+      return C[0] || CT.C0;
+    },
+    /*rtc_video_renderer_impl._kErrorValueToErrorDescription*/get _kErrorValueToErrorDescription() {
+      return C[1] || CT.C1;
+    },
+    /*rtc_video_renderer_impl._kDefaultErrorMessage*/get _kDefaultErrorMessage() {
+      return "No further diagnostic information can be determined or provided.";
+    }
+  }, false);
+  dart.trackLibraries("packages/flutter_webrtc/src/web/rtc_video_renderer_impl.dart", {
+    "package:flutter_webrtc/src/web/rtc_video_renderer_impl.dart": rtc_video_renderer_impl
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["rtc_video_renderer_impl.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../../../D:/packages/flutter_webrtc/src/web/rtc_video_renderer_impl.dart.lib.js"}');
+  // Exports:
+  return {
+    src__web__rtc_video_renderer_impl: rtc_video_renderer_impl
+  };
+}));
+
+//# sourceMappingURL=rtc_video_renderer_impl.dart.lib.js.map

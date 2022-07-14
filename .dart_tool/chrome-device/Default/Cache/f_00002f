@@ -1,0 +1,315 @@
+define(['dart_sdk', 'packages/socket_io_common/src/parser/binary.dart', 'packages/logging/src/logger.dart', 'packages/socket_io_common/src/util/event_emitter.dart'], (function load__packages__socket_io_common__socket_io_common_dart(dart_sdk, packages__socket_io_common__src__parser__binary$46dart, packages__logging__src__logger$46dart, packages__socket_io_common__src__util__event_emitter$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _interceptors = dart_sdk._interceptors;
+  const convert = dart_sdk.convert;
+  const typed_data = dart_sdk.typed_data;
+  const _js_helper = dart_sdk._js_helper;
+  const _internal = dart_sdk._internal;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const binary = packages__socket_io_common__src__parser__binary$46dart.src__parser__binary;
+  const logger = packages__logging__src__logger$46dart.src__logger;
+  const event_emitter = packages__socket_io_common__src__util__event_emitter$46dart.src__util__event_emitter;
+  var socket_io_common = Object.create(dart.library);
+  var parser = Object.create(dart.library);
+  var $_get = dartx._get;
+  var $addAll = dartx.addAll;
+  var $_set = dartx._set;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $substring = dartx.substring;
+  var $add = dartx.add;
+  var $length = dartx.length;
+  var $cast = dartx.cast;
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    JSArrayOfString: () => (T.JSArrayOfString = dart.constFn(_interceptors.JSArray$(core.String)))(),
+    dynamicToNull: () => (T.dynamicToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic])))(),
+    IdentityMapOfString$dynamic: () => (T.IdentityMapOfString$dynamic = dart.constFn(_js_helper.IdentityMap$(core.String, dart.dynamic)))(),
+    MapOfString$dynamic: () => (T.MapOfString$dynamic = dart.constFn(core.Map$(core.String, dart.dynamic)))(),
+    MapN: () => (T.MapN = dart.constFn(dart.nullable(core.Map)))(),
+    ListOfint: () => (T.ListOfint = dart.constFn(core.List$(core.int)))(),
+    StringN: () => (T.StringN = dart.constFn(dart.nullable(core.String)))(),
+    JSArrayOfStringN: () => (T.JSArrayOfStringN = dart.constFn(_interceptors.JSArray$(T.StringN())))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  var I = ["package:socket_io_common/src/parser/parser.dart"];
+  parser.Encoder = class Encoder extends core.Object {
+    encode(obj, callback) {
+      parser.Encoder._logger.fine("encoding packet " + dart.str(obj));
+      if (5 === dart.dsend(obj, '_get', ["type"]) || 6 === dart.dsend(obj, '_get', ["type"])) {
+        parser.Encoder.encodeAsBinary(obj, callback);
+      } else {
+        let encoding = parser.Encoder.encodeAsString(obj);
+        dart.dcall(callback, [T.JSArrayOfString().of([encoding])]);
+      }
+    }
+    static encodeAsString(obj) {
+      let str = dart.str(dart.dsend(obj, '_get', ["type"]));
+      if (5 === dart.dsend(obj, '_get', ["type"]) || 6 === dart.dsend(obj, '_get', ["type"])) {
+        str = str + (dart.str(dart.dsend(obj, '_get', ["attachments"])) + "-");
+      }
+      if (dart.dsend(obj, '_get', ["nsp"]) != null && "/" !== dart.dsend(obj, '_get', ["nsp"])) {
+        str = str + core.String.as(dart.dsend(dart.dsend(obj, '_get', ["nsp"]), '+', [","]));
+      }
+      if (dart.dsend(obj, '_get', ["id"]) != null) {
+        str = str + dart.str(dart.dsend(obj, '_get', ["id"]));
+      }
+      if (dart.dsend(obj, '_get', ["data"]) != null) {
+        str = str + convert.json.encode(dart.dsend(obj, '_get', ["data"]));
+      }
+      parser.Encoder._logger.fine("encoded " + dart.str(obj) + " as " + str);
+      return str;
+    }
+    static encodeAsBinary(obj, callback) {
+      let writeEncoding = dart.fn(bloblessData => {
+        let t0;
+        let deconstruction = binary.Binary.deconstructPacket(core.Map.as(bloblessData));
+        let pack = parser.Encoder.encodeAsString(deconstruction[$_get]("packet"));
+        let buffers = deconstruction[$_get]("buffers");
+        dart.dcall(callback, [(t0 = [pack], (() => {
+            t0[$addAll](core.Iterable.as(buffers));
+            return t0;
+          })())]);
+      }, T.dynamicToNull());
+      writeEncoding(obj);
+    }
+  };
+  (parser.Encoder.new = function() {
+    ;
+  }).prototype = parser.Encoder.prototype;
+  dart.addTypeTests(parser.Encoder);
+  dart.addTypeCaches(parser.Encoder);
+  dart.setMethodSignature(parser.Encoder, () => ({
+    __proto__: dart.getMethods(parser.Encoder.__proto__),
+    encode: dart.fnType(dart.dynamic, [dart.dynamic, dart.dynamic])
+  }));
+  dart.setLibraryUri(parser.Encoder, I[0]);
+  dart.defineLazy(parser.Encoder, {
+    /*parser.Encoder._logger*/get _logger() {
+      return logger.Logger.new("socket_io:parser.Encoder");
+    }
+  }, false);
+  var reconstructor = dart.privateName(parser, "Decoder.reconstructor");
+  parser.Decoder = class Decoder extends event_emitter.EventEmitter {
+    get reconstructor() {
+      return this[reconstructor];
+    }
+    set reconstructor(value) {
+      this[reconstructor] = value;
+    }
+    add(obj) {
+      let packet = null;
+      if (typeof obj == 'string') {
+        packet = parser.Decoder.decodeString(obj);
+        if (5 === dart.dsend(packet, '_get', ["type"]) || 6 === dart.dsend(packet, '_get', ["type"])) {
+          this.reconstructor = new parser.BinaryReconstructor.new(packet);
+          if (dart.equals(dart.dsend(dart.dload(this.reconstructor, 'reconPack'), '_get', ["attachments"]), 0)) {
+            this.emit("decoded", packet);
+          }
+        } else {
+          this.emit("decoded", packet);
+        }
+      } else if (obj != null && typed_data.ByteBuffer.is(obj) || typed_data.Uint8List.is(obj) || core.Map.is(obj) && obj[$_get]("base64") != null) {
+        if (this.reconstructor == null) {
+          dart.throw(new core.UnsupportedError.new("got binary data when not reconstructing a packet"));
+        } else {
+          packet = dart.dsend(this.reconstructor, 'takeBinaryData', [obj]);
+          if (packet != null) {
+            this.reconstructor = null;
+            this.emit("decoded", packet);
+          }
+        }
+      } else {
+        dart.throw(new core.UnsupportedError.new("Unknown type: " + core.String.as(obj)));
+      }
+    }
+    static decodeString(str) {
+      let t0, t1, t0$, t0$0, t1$, t0$1;
+      let i = 0;
+      let endLen = str.length - 1;
+      let p = new (T.IdentityMapOfString$dynamic()).from(["type", core.num.parse(str[$_get](0))]);
+      if (parser.PacketTypes[$_get](core.int.as(p[$_get]("type"))) == null) return parser.error();
+      if (5 === p[$_get]("type") || 6 === p[$_get]("type")) {
+        let buf = "";
+        while (str[$_get](i = i + 1) !== "-") {
+          buf = buf + str[$_get](i);
+          if (i === endLen) break;
+        }
+        if (buf !== dart.str((t0 = core.num.tryParse(buf), t0 == null ? -1 : t0)) || str[$_get](i) !== "-") {
+          dart.throw(new core.ArgumentError.new("Illegal attachments"));
+        }
+        p[$_set]("attachments", core.num.parse(buf));
+      }
+      if (str.length > i + 1 && "/" === str[$_get](i + 1)) {
+        p[$_set]("nsp", "");
+        while ((i = i + 1) > 0) {
+          let c = str[$_get](i);
+          if ("," === c) break;
+          t0$ = p;
+          t1 = "nsp";
+          t0$[$_set](t1, dart.dsend(t0$[$_get](t1), '+', [c]));
+          if (i === endLen) break;
+        }
+      } else {
+        p[$_set]("nsp", "/");
+      }
+      let next = i < endLen - 1 ? str[$_get](i + 1) : null;
+      if ((t0$0 = next, t0$0 == null ? null : t0$0[$isNotEmpty]) === true && dart.str(core.num.tryParse(dart.nullCheck(next))) === next) {
+        p[$_set]("id", "");
+        while ((i = i + 1) > 0) {
+          let c = str[$_get](i);
+          if (dart.str(core.num.tryParse(c)) !== c) {
+            i = i - 1;
+            break;
+          }
+          t0$1 = p;
+          t1$ = "id";
+          t0$1[$_set](t1$, dart.dsend(t0$1[$_get](t1$), '+', [str[$_get](i)]));
+          if (i === endLen - 1) break;
+        }
+      }
+      if (i < endLen - 1 && str[$_get](i = i + 1)[$isNotEmpty] === true) {
+        p = T.MapOfString$dynamic().as(parser.Decoder.tryParse(p, str[$substring](i)));
+      }
+      return p;
+    }
+    static tryParse(p, str) {
+      try {
+        dart.dsend(p, '_set', ["data", convert.json.decode(core.String.as(str))]);
+      } catch (e$) {
+        let e = dart.getThrown(e$);
+        if (core.Object.is(e)) {
+          return parser.error();
+        } else
+          throw e$;
+      }
+      return p;
+    }
+    destroy() {
+      if (this.reconstructor != null) {
+        dart.dsend(this.reconstructor, 'finishedReconstruction', []);
+      }
+    }
+  };
+  (parser.Decoder.new = function() {
+    this[reconstructor] = null;
+    parser.Decoder.__proto__.new.call(this);
+    ;
+  }).prototype = parser.Decoder.prototype;
+  dart.addTypeTests(parser.Decoder);
+  dart.addTypeCaches(parser.Decoder);
+  dart.setMethodSignature(parser.Decoder, () => ({
+    __proto__: dart.getMethods(parser.Decoder.__proto__),
+    add: dart.fnType(dart.dynamic, [dart.dynamic]),
+    destroy: dart.fnType(dart.dynamic, [])
+  }));
+  dart.setLibraryUri(parser.Decoder, I[0]);
+  dart.setFieldSignature(parser.Decoder, () => ({
+    __proto__: dart.getFields(parser.Decoder.__proto__),
+    reconstructor: dart.fieldType(dart.dynamic)
+  }));
+  var buffers = dart.privateName(parser, "BinaryReconstructor.buffers");
+  var __BinaryReconstructor_reconPack = dart.privateName(parser, "_#BinaryReconstructor#reconPack");
+  var __BinaryReconstructor_reconPack_isSet = dart.privateName(parser, "_#BinaryReconstructor#reconPack#isSet");
+  parser.BinaryReconstructor = class BinaryReconstructor extends core.Object {
+    get buffers() {
+      return this[buffers];
+    }
+    set buffers(value) {
+      this[buffers] = value;
+    }
+    get reconPack() {
+      return this[__BinaryReconstructor_reconPack_isSet] ? this[__BinaryReconstructor_reconPack] : dart.throw(new _internal.LateError.fieldNI("reconPack"));
+    }
+    set reconPack(t1) {
+      this[__BinaryReconstructor_reconPack_isSet] = true;
+      this[__BinaryReconstructor_reconPack] = t1;
+    }
+    takeBinaryData(binData) {
+      this.buffers[$add](binData);
+      if (this.buffers[$length] === dart.nullCheck(this.reconPack)[$_get]("attachments")) {
+        let packet = binary.Binary.reconstructPacket(dart.nullCheck(this.reconPack), this.buffers[$cast](T.ListOfint()));
+        this.finishedReconstruction();
+        return packet;
+      }
+      return null;
+    }
+    finishedReconstruction() {
+      this.reconPack = null;
+      this.buffers = [];
+    }
+  };
+  (parser.BinaryReconstructor.new = function(packet) {
+    this[__BinaryReconstructor_reconPack] = null;
+    this[__BinaryReconstructor_reconPack_isSet] = false;
+    this[buffers] = [];
+    this.reconPack = T.MapN().as(packet);
+  }).prototype = parser.BinaryReconstructor.prototype;
+  dart.addTypeTests(parser.BinaryReconstructor);
+  dart.addTypeCaches(parser.BinaryReconstructor);
+  dart.setMethodSignature(parser.BinaryReconstructor, () => ({
+    __proto__: dart.getMethods(parser.BinaryReconstructor.__proto__),
+    takeBinaryData: dart.fnType(dart.dynamic, [dart.dynamic]),
+    finishedReconstruction: dart.fnType(dart.void, [])
+  }));
+  dart.setGetterSignature(parser.BinaryReconstructor, () => ({
+    __proto__: dart.getGetters(parser.BinaryReconstructor.__proto__),
+    reconPack: dart.nullable(core.Map)
+  }));
+  dart.setSetterSignature(parser.BinaryReconstructor, () => ({
+    __proto__: dart.getSetters(parser.BinaryReconstructor.__proto__),
+    reconPack: dart.nullable(core.Map)
+  }));
+  dart.setLibraryUri(parser.BinaryReconstructor, I[0]);
+  dart.setFieldSignature(parser.BinaryReconstructor, () => ({
+    __proto__: dart.getFields(parser.BinaryReconstructor.__proto__),
+    [__BinaryReconstructor_reconPack]: dart.fieldType(dart.nullable(core.Map)),
+    [__BinaryReconstructor_reconPack_isSet]: dart.fieldType(core.bool),
+    buffers: dart.fieldType(core.List)
+  }));
+  parser.error = function error() {
+    return new _js_helper.LinkedMap.from(["type", 4, "data", "parser error"]);
+  };
+  dart.defineLazy(parser, {
+    /*parser.CONNECT*/get CONNECT() {
+      return 0;
+    },
+    /*parser.DISCONNECT*/get DISCONNECT() {
+      return 1;
+    },
+    /*parser.EVENT*/get EVENT() {
+      return 2;
+    },
+    /*parser.ACK*/get ACK() {
+      return 3;
+    },
+    /*parser.ERROR*/get ERROR() {
+      return 4;
+    },
+    /*parser.BINARY_EVENT*/get BINARY_EVENT() {
+      return 5;
+    },
+    /*parser.BINARY_ACK*/get BINARY_ACK() {
+      return 6;
+    },
+    /*parser.PacketTypes*/get PacketTypes() {
+      return T.JSArrayOfStringN().of(["CONNECT", "DISCONNECT", "EVENT", "ACK", "ERROR", "BINARY_EVENT", "BINARY_ACK"]);
+    },
+    set PacketTypes(_) {}
+  }, false);
+  dart.trackLibraries("packages/socket_io_common/socket_io_common.dart", {
+    "package:socket_io_common/socket_io_common.dart": socket_io_common,
+    "package:socket_io_common/src/parser/parser.dart": parser
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["src/parser/parser.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../D:/packages/socket_io_common/socket_io_common.dart.lib.js"}');
+  // Exports:
+  return {
+    socket_io_common: socket_io_common,
+    src__parser__parser: parser
+  };
+}));
+
+//# sourceMappingURL=socket_io_common.dart.lib.js.map

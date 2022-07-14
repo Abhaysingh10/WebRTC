@@ -1,0 +1,2335 @@
+define(['dart_sdk', 'packages/flutter/src/widgets/widget_span.dart', 'packages/webrtc_interface/src/rtc_ice_candidate.dart', 'packages/webrtc_interface/src/rtc_peerconnection.dart', 'packages/webrtc_interface/src/rtc_data_channel.dart', 'packages/flutter_webrtc/src/web/rtc_video_renderer_impl.dart', 'packages/webrtc_interface/src/media_stream.dart', 'packages/dart_webrtc/src/factory_impl.dart', 'packages/socket_io_client/src/darty.dart', 'packages/webrtc_interface/src/enums.dart', 'packages/sdp_transform/src/parser.dart', 'packages/sdp_transform/src/writer.dart', 'packages/webrtc_interface/src/rtc_session_description.dart', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter_webrtc/src/web/rtc_video_view_impl.dart', 'packages/flutter/src/rendering/flex.dart', 'packages/flutter/src/widgets/icon.dart', 'packages/flutter/src/widgets/icon_data.dart', 'packages/flutter/src/material/icons.dart', 'packages/flutter/src/material/colors.dart', 'packages/flutter/src/widgets/icon_theme_data.dart', 'packages/flutter/src/material/page.dart', 'packages/flutter/src/widgets/scroll_view.dart', 'packages/flutter/src/painting/edge_insets.dart', 'packages/web_socket/Call.dart', 'packages/socket_io_client/src/manager.dart', 'packages/provider/src/listenable_provider.dart', 'packages/web_socket/socket.dart', 'packages/flutter/src/material/app.dart', 'packages/flutter/src/widgets/single_child_scroll_view.dart'], (function load__packages__web_socket__server_page_dart(dart_sdk, packages__flutter__src__widgets__widget_span$46dart, packages__webrtc_interface__src__rtc_ice_candidate$46dart, packages__webrtc_interface__src__rtc_peerconnection$46dart, packages__webrtc_interface__src__rtc_data_channel$46dart, packages__flutter_webrtc__src__web__rtc_video_renderer_impl$46dart, packages__webrtc_interface__src__media_stream$46dart, packages__dart_webrtc__src__factory_impl$46dart, packages__socket_io_client__src__darty$46dart, packages__webrtc_interface__src__enums$46dart, packages__sdp_transform__src__parser$46dart, packages__sdp_transform__src__writer$46dart, packages__webrtc_interface__src__rtc_session_description$46dart, packages__flutter__src__material__icon_button$46dart, packages__flutter_webrtc__src__web__rtc_video_view_impl$46dart, packages__flutter__src__rendering__flex$46dart, packages__flutter__src__widgets__icon$46dart, packages__flutter__src__widgets__icon_data$46dart, packages__flutter__src__material__icons$46dart, packages__flutter__src__material__colors$46dart, packages__flutter__src__widgets__icon_theme_data$46dart, packages__flutter__src__material__page$46dart, packages__flutter__src__widgets__scroll_view$46dart, packages__flutter__src__painting__edge_insets$46dart, packages__web_socket__Call$46dart, packages__socket_io_client__src__manager$46dart, packages__provider__src__listenable_provider$46dart, packages__web_socket__socket$46dart, packages__flutter__src__material__app$46dart, packages__flutter__src__widgets__single_child_scroll_view$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _interceptors = dart_sdk._interceptors;
+  const _internal = dart_sdk._internal;
+  const _js_helper = dart_sdk._js_helper;
+  const convert = dart_sdk.convert;
+  const math = dart_sdk.math;
+  const async = dart_sdk.async;
+  const collection = dart_sdk.collection;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const editable_text = packages__flutter__src__widgets__widget_span$46dart.src__widgets__editable_text;
+  const container = packages__flutter__src__widgets__widget_span$46dart.src__widgets__container;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const media_query = packages__flutter__src__widgets__widget_span$46dart.src__widgets__media_query;
+  const navigator = packages__flutter__src__widgets__widget_span$46dart.src__widgets__navigator;
+  const text = packages__flutter__src__widgets__widget_span$46dart.src__widgets__text;
+  const gesture_detector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__gesture_detector;
+  const binding = packages__flutter__src__widgets__widget_span$46dart.src__widgets__binding;
+  const rtc_ice_candidate = packages__webrtc_interface__src__rtc_ice_candidate$46dart.src__rtc_ice_candidate;
+  const rtc_peerconnection = packages__webrtc_interface__src__rtc_peerconnection$46dart.src__rtc_peerconnection;
+  const rtc_data_channel = packages__webrtc_interface__src__rtc_data_channel$46dart.src__rtc_data_channel;
+  const rtc_video_renderer_impl = packages__flutter_webrtc__src__web__rtc_video_renderer_impl$46dart.src__web__rtc_video_renderer_impl;
+  const media_stream = packages__webrtc_interface__src__media_stream$46dart.src__media_stream;
+  const factory_impl = packages__dart_webrtc__src__factory_impl$46dart.src__factory_impl;
+  const socket_io_client = packages__socket_io_client__src__darty$46dart.socket_io_client;
+  const darty = packages__socket_io_client__src__darty$46dart.src__darty;
+  const enums = packages__webrtc_interface__src__enums$46dart.src__enums;
+  const parser = packages__sdp_transform__src__parser$46dart.src__parser;
+  const writer = packages__sdp_transform__src__writer$46dart.src__writer;
+  const rtc_session_description = packages__webrtc_interface__src__rtc_session_description$46dart.src__rtc_session_description;
+  const scaffold = packages__flutter__src__material__icon_button$46dart.src__material__scaffold;
+  const floating_action_button = packages__flutter__src__material__icon_button$46dart.src__material__floating_action_button;
+  const app_bar = packages__flutter__src__material__icon_button$46dart.src__material__app_bar;
+  const back_button = packages__flutter__src__material__icon_button$46dart.src__material__back_button;
+  const list_tile = packages__flutter__src__material__icon_button$46dart.src__material__list_tile;
+  const material_button = packages__flutter__src__material__icon_button$46dart.src__material__material_button;
+  const icon_button = packages__flutter__src__material__icon_button$46dart.src__material__icon_button;
+  const theme_data = packages__flutter__src__material__icon_button$46dart.src__material__theme_data;
+  const rtc_video_view_impl = packages__flutter_webrtc__src__web__rtc_video_view_impl$46dart.src__web__rtc_video_view_impl;
+  const flex = packages__flutter__src__rendering__flex$46dart.src__rendering__flex;
+  const icon = packages__flutter__src__widgets__icon$46dart.src__widgets__icon;
+  const icon_data = packages__flutter__src__widgets__icon_data$46dart.src__widgets__icon_data;
+  const icons = packages__flutter__src__material__icons$46dart.src__material__icons;
+  const colors = packages__flutter__src__material__colors$46dart.src__material__colors;
+  const icon_theme_data = packages__flutter__src__widgets__icon_theme_data$46dart.src__widgets__icon_theme_data;
+  const page = packages__flutter__src__material__page$46dart.src__material__page;
+  const scroll_view = packages__flutter__src__widgets__scroll_view$46dart.src__widgets__scroll_view;
+  const edge_insets = packages__flutter__src__painting__edge_insets$46dart.src__painting__edge_insets;
+  const Call = packages__web_socket__Call$46dart.Call;
+  const socket = packages__socket_io_client__src__manager$46dart.src__socket;
+  const change_notifier_provider = packages__provider__src__listenable_provider$46dart.src__change_notifier_provider;
+  const socket$ = packages__web_socket__socket$46dart.socket;
+  const app = packages__flutter__src__material__app$46dart.src__material__app;
+  const single_child_scroll_view = packages__flutter__src__widgets__single_child_scroll_view$46dart.src__widgets__single_child_scroll_view;
+  var server_page = Object.create(dart.library);
+  var main = Object.create(dart.library);
+  var $codeUnitAt = dartx.codeUnitAt;
+  var $toString = dartx.toString;
+  var $add = dartx.add;
+  var $first = dartx.first;
+  var $_set = dartx._set;
+  var $_get = dartx._get;
+  var $length = dartx.length;
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    JSArrayOfRTCIceCandidate: () => (T.JSArrayOfRTCIceCandidate = dart.constFn(_interceptors.JSArray$(rtc_ice_candidate.RTCIceCandidate)))(),
+    IdentityMapOfString$Session: () => (T.IdentityMapOfString$Session = dart.constFn(_js_helper.IdentityMap$(core.String, server_page.Session)))(),
+    JSArrayOfMediaStream: () => (T.JSArrayOfMediaStream = dart.constFn(_interceptors.JSArray$(media_stream.MediaStream)))(),
+    IdentityMapOfString$bool: () => (T.IdentityMapOfString$bool = dart.constFn(_js_helper.IdentityMap$(core.String, core.bool)))(),
+    MapOfString$bool: () => (T.MapOfString$bool = dart.constFn(core.Map$(core.String, core.bool)))(),
+    JSArrayOfMapOfString$bool: () => (T.JSArrayOfMapOfString$bool = dart.constFn(_interceptors.JSArray$(T.MapOfString$bool())))(),
+    IdentityMapOfString$dynamic: () => (T.IdentityMapOfString$dynamic = dart.constFn(_js_helper.IdentityMap$(core.String, dart.dynamic)))(),
+    IterableOfint: () => (T.IterableOfint = dart.constFn(core.Iterable$(core.int)))(),
+    intToint: () => (T.intToint = dart.constFn(dart.fnType(core.int, [core.int])))(),
+    dynamicToNull: () => (T.dynamicToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic])))(),
+    IdentityMapOfString$String: () => (T.IdentityMapOfString$String = dart.constFn(_js_helper.IdentityMap$(core.String, core.String)))(),
+    JSArrayOfString: () => (T.JSArrayOfString = dart.constFn(_interceptors.JSArray$(core.String)))(),
+    dynamicToSet: () => (T.dynamicToSet = dart.constFn(dart.fnType(core.Set, [dart.dynamic])))(),
+    LinkedHashSetOfvoid: () => (T.LinkedHashSetOfvoid = dart.constFn(collection.LinkedHashSet$(dart.void)))(),
+    SetOfvoid: () => (T.SetOfvoid = dart.constFn(core.Set$(dart.void)))(),
+    dynamicToSetOfvoid: () => (T.dynamicToSetOfvoid = dart.constFn(dart.fnType(T.SetOfvoid(), [dart.dynamic])))(),
+    dynamicTovoid: () => (T.dynamicTovoid = dart.constFn(dart.fnType(dart.void, [dart.dynamic])))(),
+    VoidTovoid: () => (T.VoidTovoid = dart.constFn(dart.fnType(dart.void, [])))(),
+    MapOfString$String: () => (T.MapOfString$String = dart.constFn(core.Map$(core.String, core.String)))(),
+    JSArrayOfMapOfString$String: () => (T.JSArrayOfMapOfString$String = dart.constFn(_interceptors.JSArray$(T.MapOfString$String())))(),
+    ObjectN: () => (T.ObjectN = dart.constFn(dart.nullable(core.Object)))(),
+    IdentityMapOfString$ObjectN: () => (T.IdentityMapOfString$ObjectN = dart.constFn(_js_helper.IdentityMap$(core.String, T.ObjectN())))(),
+    RTCIceCandidateToNull: () => (T.RTCIceCandidateToNull = dart.constFn(dart.fnType(core.Null, [rtc_ice_candidate.RTCIceCandidate])))(),
+    RTCIceConnectionStateToNull: () => (T.RTCIceConnectionStateToNull = dart.constFn(dart.fnType(core.Null, [enums.RTCIceConnectionState])))(),
+    MediaStreamToNull: () => (T.MediaStreamToNull = dart.constFn(dart.fnType(core.Null, [media_stream.MediaStream])))(),
+    ListOfList: () => (T.ListOfList = dart.constFn(core.List$(core.List)))(),
+    MapOfString$dynamic: () => (T.MapOfString$dynamic = dart.constFn(core.Map$(core.String, dart.dynamic)))(),
+    ListN: () => (T.ListN = dart.constFn(dart.nullable(core.List)))(),
+    StringN: () => (T.StringN = dart.constFn(dart.nullable(core.String)))(),
+    intN: () => (T.intN = dart.constFn(dart.nullable(core.int)))(),
+    JSArrayOfWidget: () => (T.JSArrayOfWidget = dart.constFn(_interceptors.JSArray$(framework.Widget)))(),
+    BuildContextToMyApp: () => (T.BuildContextToMyApp = dart.constFn(dart.fnType(main.MyApp, [framework.BuildContext])))(),
+    BuildContextAndintToListTile: () => (T.BuildContextAndintToListTile = dart.constFn(dart.fnType(list_tile.ListTile, [framework.BuildContext, core.int])))(),
+    ChangeNotifierProviderOfSocketNode: () => (T.ChangeNotifierProviderOfSocketNode = dart.constFn(change_notifier_provider.ChangeNotifierProvider$(socket$.SocketNode)))(),
+    BuildContextToSocketNode: () => (T.BuildContextToSocketNode = dart.constFn(dart.fnType(socket$.SocketNode, [framework.BuildContext])))(),
+    BuildContextToServerPage: () => (T.BuildContextToServerPage = dart.constFn(dart.fnType(server_page.ServerPage, [framework.BuildContext])))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 5000000
+      });
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "_renderer",
+        [_Location_column]: 47,
+        [_Location_line]: 318,
+        [_Location_file]: null
+      });
+    },
+    get C2() {
+      return C[2] = dart.constList([C[3] || CT.C3], widget_inspector._Location);
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[2] || CT.C2,
+        [_Location_name]: null,
+        [_Location_column]: 34,
+        [_Location_line]: 318,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 23,
+        [_Location_line]: 318,
+        [_Location_file]: null
+      });
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 23,
+        [_Location_line]: 319,
+        [_Location_file]: null
+      });
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 23,
+        [_Location_line]: 320,
+        [_Location_file]: null
+      });
+    },
+    get C5() {
+      return C[5] = dart.constList([C[6] || CT.C6, C[7] || CT.C7, C[8] || CT.C8], widget_inspector._Location);
+    },
+    get C4() {
+      return C[4] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[5] || CT.C5,
+        [_Location_name]: null,
+        [_Location_column]: 28,
+        [_Location_line]: 316,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 21,
+        [_Location_line]: 316,
+        [_Location_file]: null
+      });
+    },
+    get C10() {
+      return C[10] = dart.constList([C[11] || CT.C11], widget_inspector._Location);
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[10] || CT.C10,
+        [_Location_name]: null,
+        [_Location_column]: 19,
+        [_Location_line]: 315,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C14() {
+      return C[14] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "_renderer",
+        [_Location_column]: 47,
+        [_Location_line]: 327,
+        [_Location_file]: null
+      });
+    },
+    get C13() {
+      return C[13] = dart.constList([C[14] || CT.C14], widget_inspector._Location);
+    },
+    get C12() {
+      return C[12] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[13] || CT.C13,
+        [_Location_name]: null,
+        [_Location_column]: 34,
+        [_Location_line]: 327,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 23,
+        [_Location_line]: 327,
+        [_Location_file]: null
+      });
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 23,
+        [_Location_line]: 329,
+        [_Location_file]: null
+      });
+    },
+    get C19() {
+      return C[19] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 23,
+        [_Location_line]: 330,
+        [_Location_file]: null
+      });
+    },
+    get C16() {
+      return C[16] = dart.constList([C[17] || CT.C17, C[18] || CT.C18, C[19] || CT.C19], widget_inspector._Location);
+    },
+    get C15() {
+      return C[15] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[16] || CT.C16,
+        [_Location_name]: null,
+        [_Location_column]: 28,
+        [_Location_line]: 326,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "left",
+        [_Location_column]: 21,
+        [_Location_line]: 324,
+        [_Location_file]: null
+      });
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "top",
+        [_Location_column]: 21,
+        [_Location_line]: 325,
+        [_Location_file]: null
+      });
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 21,
+        [_Location_line]: 326,
+        [_Location_file]: null
+      });
+    },
+    get C21() {
+      return C[21] = dart.constList([C[22] || CT.C22, C[23] || CT.C23, C[24] || CT.C24], widget_inspector._Location);
+    },
+    get C20() {
+      return C[20] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[21] || CT.C21,
+        [_Location_name]: null,
+        [_Location_column]: 19,
+        [_Location_line]: 323,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C28() {
+      return C[28] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 55,
+        [_Location_line]: 342,
+        [_Location_file]: null
+      });
+    },
+    get C27() {
+      return C[27] = dart.constList([C[28] || CT.C28], widget_inspector._Location);
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[27] || CT.C27,
+        [_Location_name]: null,
+        [_Location_column]: 44,
+        [_Location_line]: 342,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: icon_data.IconData.prototype,
+        [IconData_matchTextDirection]: false,
+        [IconData_fontPackage]: null,
+        [IconData_fontFamily]: "MaterialIcons",
+        [IconData_codePoint]: 58923
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: icon.Icon.prototype,
+        [Widget__location]: C[26] || CT.C26,
+        [Widget_key]: null,
+        [Icon_textDirection]: null,
+        [Icon_semanticLabel]: null,
+        [Icon_color]: null,
+        [Icon_size]: null,
+        [Icon_icon]: C[29] || CT.C29
+      });
+    },
+    get C32() {
+      return C[32] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 31,
+        [_Location_line]: 342,
+        [_Location_file]: null
+      });
+    },
+    get C33() {
+      return C[33] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 31,
+        [_Location_line]: 343,
+        [_Location_file]: null
+      });
+    },
+    get C31() {
+      return C[31] = dart.constList([C[32] || CT.C32, C[33] || CT.C33], widget_inspector._Location);
+    },
+    get C30() {
+      return C[30] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[31] || CT.C31,
+        [_Location_name]: null,
+        [_Location_column]: 29,
+        [_Location_line]: 341,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C36() {
+      return C[36] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 49,
+        [_Location_line]: 352,
+        [_Location_file]: null
+      });
+    },
+    get C35() {
+      return C[35] = dart.constList([C[36] || CT.C36], widget_inspector._Location);
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[35] || CT.C35,
+        [_Location_name]: null,
+        [_Location_column]: 38,
+        [_Location_line]: 352,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C39() {
+      return C[39] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 31,
+        [_Location_line]: 346,
+        [_Location_file]: null
+      });
+    },
+    get C40() {
+      return C[40] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "tooltip",
+        [_Location_column]: 31,
+        [_Location_line]: 351,
+        [_Location_file]: null
+      });
+    },
+    get C41() {
+      return C[41] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 31,
+        [_Location_line]: 352,
+        [_Location_file]: null
+      });
+    },
+    get C42() {
+      return C[42] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "backgroundColor",
+        [_Location_column]: 31,
+        [_Location_line]: 353,
+        [_Location_file]: null
+      });
+    },
+    get C38() {
+      return C[38] = dart.constList([C[39] || CT.C39, C[40] || CT.C40, C[41] || CT.C41, C[42] || CT.C42], widget_inspector._Location);
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[38] || CT.C38,
+        [_Location_name]: null,
+        [_Location_column]: 29,
+        [_Location_line]: 345,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C46() {
+      return C[46] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 55,
+        [_Location_line]: 356,
+        [_Location_file]: null
+      });
+    },
+    get C45() {
+      return C[45] = dart.constList([C[46] || CT.C46], widget_inspector._Location);
+    },
+    get C44() {
+      return C[44] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[45] || CT.C45,
+        [_Location_name]: null,
+        [_Location_column]: 44,
+        [_Location_line]: 356,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C47() {
+      return C[47] = dart.const({
+        __proto__: icon_data.IconData.prototype,
+        [IconData_matchTextDirection]: false,
+        [IconData_fontPackage]: null,
+        [IconData_fontFamily]: "MaterialIcons",
+        [IconData_codePoint]: 58341
+      });
+    },
+    get C43() {
+      return C[43] = dart.const({
+        __proto__: icon.Icon.prototype,
+        [Widget__location]: C[44] || CT.C44,
+        [Widget_key]: null,
+        [Icon_textDirection]: null,
+        [Icon_semanticLabel]: null,
+        [Icon_color]: null,
+        [Icon_size]: null,
+        [Icon_icon]: C[47] || CT.C47
+      });
+    },
+    get C50() {
+      return C[50] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 31,
+        [_Location_line]: 356,
+        [_Location_file]: null
+      });
+    },
+    get C51() {
+      return C[51] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 31,
+        [_Location_line]: 357,
+        [_Location_file]: null
+      });
+    },
+    get C49() {
+      return C[49] = dart.constList([C[50] || CT.C50, C[51] || CT.C51], widget_inspector._Location);
+    },
+    get C48() {
+      return C[48] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[49] || CT.C49,
+        [_Location_name]: null,
+        [_Location_column]: 29,
+        [_Location_line]: 355,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C54() {
+      return C[54] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "mainAxisAlignment",
+        [_Location_column]: 27,
+        [_Location_line]: 339,
+        [_Location_file]: null
+      });
+    },
+    get C55() {
+      return C[55] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 27,
+        [_Location_line]: 340,
+        [_Location_file]: null
+      });
+    },
+    get C53() {
+      return C[53] = dart.constList([C[54] || CT.C54, C[55] || CT.C55], widget_inspector._Location);
+    },
+    get C52() {
+      return C[52] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[53] || CT.C53,
+        [_Location_name]: null,
+        [_Location_column]: 30,
+        [_Location_line]: 338,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C58() {
+      return C[58] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 23,
+        [_Location_line]: 337,
+        [_Location_file]: null
+      });
+    },
+    get C59() {
+      return C[59] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 23,
+        [_Location_line]: 338,
+        [_Location_file]: null
+      });
+    },
+    get C57() {
+      return C[57] = dart.constList([C[58] || CT.C58, C[59] || CT.C59], widget_inspector._Location);
+    },
+    get C56() {
+      return C[56] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[57] || CT.C57,
+        [_Location_name]: null,
+        [_Location_column]: 28,
+        [_Location_line]: 336,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C62() {
+      return C[62] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "bottom",
+        [_Location_column]: 21,
+        [_Location_line]: 334,
+        [_Location_file]: null
+      });
+    },
+    get C63() {
+      return C[63] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "left",
+        [_Location_column]: 21,
+        [_Location_line]: 335,
+        [_Location_file]: null
+      });
+    },
+    get C64() {
+      return C[64] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 21,
+        [_Location_line]: 336,
+        [_Location_file]: null
+      });
+    },
+    get C61() {
+      return C[61] = dart.constList([C[62] || CT.C62, C[63] || CT.C63, C[64] || CT.C64], widget_inspector._Location);
+    },
+    get C60() {
+      return C[60] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[61] || CT.C61,
+        [_Location_name]: null,
+        [_Location_column]: 19,
+        [_Location_line]: 333,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C67() {
+      return C[67] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 30,
+        [_Location_line]: 314,
+        [_Location_file]: null
+      });
+    },
+    get C66() {
+      return C[66] = dart.constList([C[67] || CT.C67], widget_inspector._Location);
+    },
+    get C65() {
+      return C[65] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[66] || CT.C66,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 314,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C70() {
+      return C[70] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 17,
+        [_Location_line]: 314,
+        [_Location_file]: null
+      });
+    },
+    get C69() {
+      return C[69] = dart.constList([C[70] || CT.C70], widget_inspector._Location);
+    },
+    get C68() {
+      return C[68] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[69] || CT.C69,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 313,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C72() {
+      return C[72] = dart.constList([], widget_inspector._Location);
+    },
+    get C71() {
+      return C[71] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[72] || CT.C72,
+        [_Location_name]: null,
+        [_Location_column]: 70,
+        [_Location_line]: 372,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C75() {
+      return C[75] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "color",
+        [_Location_column]: 23,
+        [_Location_line]: 370,
+        [_Location_file]: null
+      });
+    },
+    get C76() {
+      return C[76] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 23,
+        [_Location_line]: 371,
+        [_Location_file]: null
+      });
+    },
+    get C74() {
+      return C[74] = dart.constList([C[75] || CT.C75, C[76] || CT.C76], widget_inspector._Location);
+    },
+    get C73() {
+      return C[73] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[74] || CT.C74,
+        [_Location_name]: null,
+        [_Location_column]: 28,
+        [_Location_line]: 369,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C79() {
+      return C[79] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 35,
+        [_Location_line]: 374,
+        [_Location_file]: null
+      });
+    },
+    get C78() {
+      return C[78] = dart.constList([C[79] || CT.C79], widget_inspector._Location);
+    },
+    get C77() {
+      return C[77] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[78] || CT.C78,
+        [_Location_name]: null,
+        [_Location_column]: 30,
+        [_Location_line]: 374,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C82() {
+      return C[82] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 41,
+        [_Location_line]: 378,
+        [_Location_file]: null
+      });
+    },
+    get C81() {
+      return C[81] = dart.constList([C[82] || CT.C82], widget_inspector._Location);
+    },
+    get C80() {
+      return C[80] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[81] || CT.C81,
+        [_Location_name]: null,
+        [_Location_column]: 30,
+        [_Location_line]: 378,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C85() {
+      return C[85] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onTap",
+        [_Location_column]: 23,
+        [_Location_line]: 377,
+        [_Location_file]: null
+      });
+    },
+    get C86() {
+      return C[86] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 23,
+        [_Location_line]: 378,
+        [_Location_file]: null
+      });
+    },
+    get C84() {
+      return C[84] = dart.constList([C[85] || CT.C85, C[86] || CT.C86], widget_inspector._Location);
+    },
+    get C83() {
+      return C[83] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[84] || CT.C84,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 376,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C89() {
+      return C[89] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "actionsIconTheme",
+        [_Location_column]: 19,
+        [_Location_line]: 366,
+        [_Location_file]: null
+      });
+    },
+    get C90() {
+      return C[90] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "automaticallyImplyLeading",
+        [_Location_column]: 19,
+        [_Location_line]: 368,
+        [_Location_file]: null
+      });
+    },
+    get C91() {
+      return C[91] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "leading",
+        [_Location_column]: 19,
+        [_Location_line]: 369,
+        [_Location_file]: null
+      });
+    },
+    get C92() {
+      return C[92] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "centerTitle",
+        [_Location_column]: 19,
+        [_Location_line]: 373,
+        [_Location_file]: null
+      });
+    },
+    get C93() {
+      return C[93] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 19,
+        [_Location_line]: 374,
+        [_Location_file]: null
+      });
+    },
+    get C94() {
+      return C[94] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "actions",
+        [_Location_column]: 19,
+        [_Location_line]: 375,
+        [_Location_file]: null
+      });
+    },
+    get C88() {
+      return C[88] = dart.constList([C[89] || CT.C89, C[90] || CT.C90, C[91] || CT.C91, C[92] || CT.C92, C[93] || CT.C93, C[94] || CT.C94], widget_inspector._Location);
+    },
+    get C87() {
+      return C[87] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[88] || CT.C88,
+        [_Location_name]: null,
+        [_Location_column]: 25,
+        [_Location_line]: 365,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C97() {
+      return C[97] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 41,
+        [_Location_line]: 392,
+        [_Location_file]: null
+      });
+    },
+    get C96() {
+      return C[96] = dart.constList([C[97] || CT.C97], widget_inspector._Location);
+    },
+    get C95() {
+      return C[95] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[96] || CT.C96,
+        [_Location_name]: null,
+        [_Location_column]: 36,
+        [_Location_line]: 392,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C100() {
+      return C[100] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "color",
+        [_Location_column]: 29,
+        [_Location_line]: 388,
+        [_Location_file]: null
+      });
+    },
+    get C101() {
+      return C[101] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "disabledColor",
+        [_Location_column]: 29,
+        [_Location_line]: 391,
+        [_Location_file]: null
+      });
+    },
+    get C102() {
+      return C[102] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 29,
+        [_Location_line]: 392,
+        [_Location_file]: null
+      });
+    },
+    get C103() {
+      return C[103] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 29,
+        [_Location_line]: 393,
+        [_Location_file]: null
+      });
+    },
+    get C99() {
+      return C[99] = dart.constList([C[100] || CT.C100, C[101] || CT.C101, C[102] || CT.C102, C[103] || CT.C103], widget_inspector._Location);
+    },
+    get C98() {
+      return C[98] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[99] || CT.C99,
+        [_Location_name]: null,
+        [_Location_column]: 34,
+        [_Location_line]: 387,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C106() {
+      return C[106] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 27,
+        [_Location_line]: 387,
+        [_Location_file]: null
+      });
+    },
+    get C105() {
+      return C[105] = dart.constList([C[106] || CT.C106], widget_inspector._Location);
+    },
+    get C104() {
+      return C[104] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[105] || CT.C105,
+        [_Location_name]: null,
+        [_Location_column]: 35,
+        [_Location_line]: 386,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C109() {
+      return C[109] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 33,
+        [_Location_line]: 398,
+        [_Location_file]: null
+      });
+    },
+    get C108() {
+      return C[108] = dart.constList([C[109] || CT.C109], widget_inspector._Location);
+    },
+    get C107() {
+      return C[107] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[108] || CT.C108,
+        [_Location_name]: null,
+        [_Location_column]: 34,
+        [_Location_line]: 397,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C110() {
+      return C[110] = dart.const({
+        __proto__: edge_insets.EdgeInsets.prototype,
+        [EdgeInsets_bottom]: 0,
+        [EdgeInsets_right]: 20,
+        [EdgeInsets_top]: 0,
+        [EdgeInsets_left]: 0
+      });
+    },
+    get C113() {
+      return C[113] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 46,
+        [_Location_line]: 403,
+        [_Location_file]: null
+      });
+    },
+    get C112() {
+      return C[112] = dart.constList([C[113] || CT.C113], widget_inspector._Location);
+    },
+    get C111() {
+      return C[111] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[112] || CT.C112,
+        [_Location_name]: null,
+        [_Location_column]: 35,
+        [_Location_line]: 403,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C116() {
+      return C[116] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 29,
+        [_Location_line]: 403,
+        [_Location_file]: null
+      });
+    },
+    get C117() {
+      return C[117] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "iconSize",
+        [_Location_column]: 29,
+        [_Location_line]: 404,
+        [_Location_file]: null
+      });
+    },
+    get C118() {
+      return C[118] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 29,
+        [_Location_line]: 405,
+        [_Location_file]: null
+      });
+    },
+    get C115() {
+      return C[115] = dart.constList([C[116] || CT.C116, C[117] || CT.C117, C[118] || CT.C118], widget_inspector._Location);
+    },
+    get C114() {
+      return C[114] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[115] || CT.C115,
+        [_Location_name]: null,
+        [_Location_column]: 34,
+        [_Location_line]: 402,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C121() {
+      return C[121] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 27,
+        [_Location_line]: 401,
+        [_Location_file]: null
+      });
+    },
+    get C122() {
+      return C[122] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 27,
+        [_Location_line]: 402,
+        [_Location_file]: null
+      });
+    },
+    get C120() {
+      return C[120] = dart.constList([C[121] || CT.C121, C[122] || CT.C122], widget_inspector._Location);
+    },
+    get C119() {
+      return C[119] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[120] || CT.C120,
+        [_Location_name]: null,
+        [_Location_column]: 35,
+        [_Location_line]: 400,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C125() {
+      return C[125] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 65,
+        [_Location_line]: 412,
+        [_Location_file]: null
+      });
+    },
+    get C124() {
+      return C[124] = dart.constList([C[125] || CT.C125], widget_inspector._Location);
+    },
+    get C123() {
+      return C[123] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[124] || CT.C124,
+        [_Location_name]: null,
+        [_Location_column]: 31,
+        [_Location_line]: 412,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C128() {
+      return C[128] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 54,
+        [_Location_line]: 414,
+        [_Location_file]: null
+      });
+    },
+    get C127() {
+      return C[127] = dart.constList([C[128] || CT.C128], widget_inspector._Location);
+    },
+    get C126() {
+      return C[126] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[127] || CT.C127,
+        [_Location_name]: null,
+        [_Location_column]: 31,
+        [_Location_line]: 414,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C131() {
+      return C[131] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "subtitle",
+        [_Location_column]: 25,
+        [_Location_line]: 386,
+        [_Location_file]: null
+      });
+    },
+    get C132() {
+      return C[132] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "leading",
+        [_Location_column]: 25,
+        [_Location_line]: 397,
+        [_Location_file]: null
+      });
+    },
+    get C133() {
+      return C[133] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "trailing",
+        [_Location_column]: 25,
+        [_Location_line]: 400,
+        [_Location_file]: null
+      });
+    },
+    get C134() {
+      return C[134] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onTap",
+        [_Location_column]: 25,
+        [_Location_line]: 409,
+        [_Location_file]: null
+      });
+    },
+    get C135() {
+      return C[135] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 25,
+        [_Location_line]: 411,
+        [_Location_file]: null
+      });
+    },
+    get C130() {
+      return C[130] = dart.constList([C[131] || CT.C131, C[132] || CT.C132, C[133] || CT.C133, C[134] || CT.C134, C[135] || CT.C135], widget_inspector._Location);
+    },
+    get C129() {
+      return C[129] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[130] || CT.C130,
+        [_Location_name]: null,
+        [_Location_column]: 30,
+        [_Location_line]: 385,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C138() {
+      return C[138] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "itemCount",
+        [_Location_column]: 21,
+        [_Location_line]: 383,
+        [_Location_file]: null
+      });
+    },
+    get C139() {
+      return C[139] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "itemBuilder",
+        [_Location_column]: 21,
+        [_Location_line]: 384,
+        [_Location_file]: null
+      });
+    },
+    get C137() {
+      return C[137] = dart.constList([C[138] || CT.C138, C[139] || CT.C139], widget_inspector._Location);
+    },
+    get C136() {
+      return C[136] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[137] || CT.C137,
+        [_Location_name]: null,
+        [_Location_column]: 32,
+        [_Location_line]: 382,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C142() {
+      return C[142] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "appBar",
+        [_Location_column]: 17,
+        [_Location_line]: 365,
+        [_Location_file]: null
+      });
+    },
+    get C143() {
+      return C[143] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "body",
+        [_Location_column]: 17,
+        [_Location_line]: 382,
+        [_Location_file]: null
+      });
+    },
+    get C141() {
+      return C[141] = dart.constList([C[142] || CT.C142, C[143] || CT.C143], widget_inspector._Location);
+    },
+    get C140() {
+      return C[140] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[141] || CT.C141,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 364,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C146() {
+      return C[146] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "body",
+        [_Location_column]: 9,
+        [_Location_line]: 312,
+        [_Location_file]: null
+      });
+    },
+    get C145() {
+      return C[145] = dart.constList([C[146] || CT.C146], widget_inspector._Location);
+    },
+    get C144() {
+      return C[144] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[145] || CT.C145,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 308,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/server_page.dart"
+      });
+    },
+    get C149() {
+      return C[149] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 13,
+        [_Location_line]: 25,
+        [_Location_file]: null
+      });
+    },
+    get C148() {
+      return C[148] = dart.constList([C[149] || CT.C149], widget_inspector._Location);
+    },
+    get C147() {
+      return C[147] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[148] || CT.C148,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 24,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/main.dart"
+      });
+    },
+    get C152() {
+      return C[152] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "debugShowCheckedModeBanner",
+        [_Location_column]: 11,
+        [_Location_line]: 21,
+        [_Location_file]: null
+      });
+    },
+    get C153() {
+      return C[153] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 11,
+        [_Location_line]: 22,
+        [_Location_file]: null
+      });
+    },
+    get C154() {
+      return C[154] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "theme",
+        [_Location_column]: 11,
+        [_Location_line]: 23,
+        [_Location_file]: null
+      });
+    },
+    get C155() {
+      return C[155] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "home",
+        [_Location_column]: 11,
+        [_Location_line]: 24,
+        [_Location_file]: null
+      });
+    },
+    get C151() {
+      return C[151] = dart.constList([C[152] || CT.C152, C[153] || CT.C153, C[154] || CT.C154, C[155] || CT.C155], widget_inspector._Location);
+    },
+    get C150() {
+      return C[150] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[151] || CT.C151,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 20,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/main.dart"
+      });
+    },
+    get C158() {
+      return C[158] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "create",
+        [_Location_column]: 9,
+        [_Location_line]: 19,
+        [_Location_file]: null
+      });
+    },
+    get C159() {
+      return C[159] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 20,
+        [_Location_file]: null
+      });
+    },
+    get C157() {
+      return C[157] = dart.constList([C[158] || CT.C158, C[159] || CT.C159], widget_inspector._Location);
+    },
+    get C156() {
+      return C[156] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[157] || CT.C157,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 18,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/main.dart"
+      });
+    },
+    get C160() {
+      return C[160] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[72] || CT.C72,
+        [_Location_name]: null,
+        [_Location_column]: 52,
+        [_Location_line]: 63,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/main.dart"
+      });
+    },
+    get C163() {
+      return C[163] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 28,
+        [_Location_line]: 70,
+        [_Location_file]: null
+      });
+    },
+    get C162() {
+      return C[162] = dart.constList([C[163] || CT.C163], widget_inspector._Location);
+    },
+    get C161() {
+      return C[161] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[162] || CT.C162,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 70,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/main.dart"
+      });
+    },
+    get C166() {
+      return C[166] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 9,
+        [_Location_line]: 70,
+        [_Location_file]: null
+      });
+    },
+    get C165() {
+      return C[165] = dart.constList([C[166] || CT.C166], widget_inspector._Location);
+    },
+    get C164() {
+      return C[164] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[165] || CT.C165,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 69,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/main.dart"
+      });
+    },
+    get C169() {
+      return C[169] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "color",
+        [_Location_column]: 11,
+        [_Location_line]: 75,
+        [_Location_file]: null
+      });
+    },
+    get C170() {
+      return C[170] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 11,
+        [_Location_line]: 76,
+        [_Location_file]: null
+      });
+    },
+    get C168() {
+      return C[168] = dart.constList([C[169] || CT.C169, C[170] || CT.C170], widget_inspector._Location);
+    },
+    get C167() {
+      return C[167] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[168] || CT.C168,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 74,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/main.dart"
+      });
+    },
+    get C173() {
+      return C[173] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 74,
+        [_Location_file]: null
+      });
+    },
+    get C172() {
+      return C[172] = dart.constList([C[173] || CT.C173], widget_inspector._Location);
+    },
+    get C171() {
+      return C[171] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[172] || CT.C172,
+        [_Location_name]: null,
+        [_Location_column]: 18,
+        [_Location_line]: 73,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/main.dart"
+      });
+    },
+    get C176() {
+      return C[176] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 11,
+        [_Location_line]: 73,
+        [_Location_file]: null
+      });
+    },
+    get C175() {
+      return C[175] = dart.constList([C[176] || CT.C176], widget_inspector._Location);
+    },
+    get C174() {
+      return C[174] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[175] || CT.C175,
+        [_Location_name]: null,
+        [_Location_column]: 13,
+        [_Location_line]: 72,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/main.dart"
+      });
+    },
+    get C179() {
+      return C[179] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 27,
+        [_Location_line]: 82,
+        [_Location_file]: null
+      });
+    },
+    get C178() {
+      return C[178] = dart.constList([C[179] || CT.C179], widget_inspector._Location);
+    },
+    get C177() {
+      return C[177] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[178] || CT.C178,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 82,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/main.dart"
+      });
+    },
+    get C182() {
+      return C[182] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 9,
+        [_Location_line]: 80,
+        [_Location_file]: null
+      });
+    },
+    get C183() {
+      return C[183] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "tooltip",
+        [_Location_column]: 9,
+        [_Location_line]: 81,
+        [_Location_file]: null
+      });
+    },
+    get C184() {
+      return C[184] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 82,
+        [_Location_file]: null
+      });
+    },
+    get C181() {
+      return C[181] = dart.constList([C[182] || CT.C182, C[183] || CT.C183, C[184] || CT.C184], widget_inspector._Location);
+    },
+    get C180() {
+      return C[180] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[181] || CT.C181,
+        [_Location_name]: null,
+        [_Location_column]: 29,
+        [_Location_line]: 79,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/main.dart"
+      });
+    },
+    get C187() {
+      return C[187] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "appBar",
+        [_Location_column]: 7,
+        [_Location_line]: 69,
+        [_Location_file]: null
+      });
+    },
+    get C188() {
+      return C[188] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "body",
+        [_Location_column]: 7,
+        [_Location_line]: 72,
+        [_Location_file]: null
+      });
+    },
+    get C189() {
+      return C[189] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "floatingActionButton",
+        [_Location_column]: 7,
+        [_Location_line]: 79,
+        [_Location_file]: null
+      });
+    },
+    get C186() {
+      return C[186] = dart.constList([C[187] || CT.C187, C[188] || CT.C188, C[189] || CT.C189], widget_inspector._Location);
+    },
+    get C185() {
+      return C[185] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[186] || CT.C186,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 68,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/main.dart"
+      });
+    },
+    get C190() {
+      return C[190] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[72] || CT.C72,
+        [_Location_name]: null,
+        [_Location_column]: 10,
+        [_Location_line]: 11,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/main.dart"
+      });
+    }
+  }, false);
+  var C = Array(191).fill(void 0);
+  var I = [
+    "package:web_socket/server_page.dart",
+    "package:web_socket/main.dart"
+  ];
+  server_page.ServerPage = class ServerPage extends framework.StatefulWidget {
+    createState() {
+      return new server_page._ServerPageState.new();
+    }
+  };
+  (server_page.ServerPage.new = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    server_page.ServerPage.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = server_page.ServerPage.prototype;
+  dart.addTypeTests(server_page.ServerPage);
+  dart.addTypeCaches(server_page.ServerPage);
+  dart.setMethodSignature(server_page.ServerPage, () => ({
+    __proto__: dart.getMethods(server_page.ServerPage.__proto__),
+    createState: dart.fnType(server_page._ServerPageState, [])
+  }));
+  dart.setLibraryUri(server_page.ServerPage, I[0]);
+  var sid$ = dart.privateName(server_page, "Session.sid");
+  var pid$ = dart.privateName(server_page, "Session.pid");
+  var remoteCandidates = dart.privateName(server_page, "Session.remoteCandidates");
+  var __Session_pc = dart.privateName(server_page, "_#Session#pc");
+  var __Session_dc = dart.privateName(server_page, "_#Session#dc");
+  var __Session_fieldController = dart.privateName(server_page, "_#Session#fieldController");
+  server_page.Session = class Session extends core.Object {
+    get sid() {
+      return this[sid$];
+    }
+    set sid(value) {
+      this[sid$] = value;
+    }
+    get pid() {
+      return this[pid$];
+    }
+    set pid(value) {
+      this[pid$] = value;
+    }
+    get remoteCandidates() {
+      return this[remoteCandidates];
+    }
+    set remoteCandidates(value) {
+      this[remoteCandidates] = value;
+    }
+    get pc() {
+      let t0;
+      t0 = this[__Session_pc];
+      return t0 == null ? dart.throw(new _internal.LateError.fieldNI("pc")) : t0;
+    }
+    set pc(t0) {
+      this[__Session_pc] = t0;
+    }
+    get dc() {
+      let t1;
+      t1 = this[__Session_dc];
+      return t1 == null ? dart.throw(new _internal.LateError.fieldNI("dc")) : t1;
+    }
+    set dc(t1) {
+      this[__Session_dc] = t1;
+    }
+    get fieldController() {
+      let t2;
+      t2 = this[__Session_fieldController];
+      return t2 == null ? dart.throw(new _internal.LateError.fieldNI("fieldController")) : t2;
+    }
+    set fieldController(t2) {
+      this[__Session_fieldController] = t2;
+    }
+  };
+  (server_page.Session.new = function(opts) {
+    let sid = opts && 'sid' in opts ? opts.sid : null;
+    let pid = opts && 'pid' in opts ? opts.pid : null;
+    this[__Session_pc] = null;
+    this[__Session_dc] = null;
+    this[__Session_fieldController] = null;
+    this[remoteCandidates] = T.JSArrayOfRTCIceCandidate().of([]);
+    this[sid$] = sid;
+    this[pid$] = pid;
+    ;
+  }).prototype = server_page.Session.prototype;
+  dart.addTypeTests(server_page.Session);
+  dart.addTypeCaches(server_page.Session);
+  dart.setGetterSignature(server_page.Session, () => ({
+    __proto__: dart.getGetters(server_page.Session.__proto__),
+    pc: rtc_peerconnection.RTCPeerConnection,
+    dc: rtc_data_channel.RTCDataChannel,
+    fieldController: editable_text.TextEditingController
+  }));
+  dart.setSetterSignature(server_page.Session, () => ({
+    __proto__: dart.getSetters(server_page.Session.__proto__),
+    pc: rtc_peerconnection.RTCPeerConnection,
+    dc: rtc_data_channel.RTCDataChannel,
+    fieldController: editable_text.TextEditingController
+  }));
+  dart.setLibraryUri(server_page.Session, I[0]);
+  dart.setFieldSignature(server_page.Session, () => ({
+    __proto__: dart.getFields(server_page.Session.__proto__),
+    sid: dart.fieldType(core.String),
+    pid: dart.fieldType(core.String),
+    [__Session_pc]: dart.fieldType(dart.nullable(rtc_peerconnection.RTCPeerConnection)),
+    [__Session_dc]: dart.fieldType(dart.nullable(rtc_data_channel.RTCDataChannel)),
+    [__Session_fieldController]: dart.fieldType(dart.nullable(editable_text.TextEditingController)),
+    remoteCandidates: dart.fieldType(core.List$(rtc_ice_candidate.RTCIceCandidate))
+  }));
+  var ___ServerPageState_signalling = dart.privateName(server_page, "_#_ServerPageState#signalling");
+  var ___ServerPageState_session = dart.privateName(server_page, "_#_ServerPageState#session");
+  var ___ServerPageState_peerId = dart.privateName(server_page, "_#_ServerPageState#peerId");
+  var _session = dart.privateName(server_page, "_session");
+  var ___ServerPageState__selfId = dart.privateName(server_page, "_#_ServerPageState#_selfId");
+  var ___ServerPageState_socket = dart.privateName(server_page, "_#_ServerPageState#socket");
+  var _selfRenderer = dart.privateName(server_page, "_selfRenderer");
+  var _guestRenderer = dart.privateName(server_page, "_guestRenderer");
+  var ___ServerPageState_braodcastedMessage = dart.privateName(server_page, "_#_ServerPageState#braodcastedMessage");
+  var ___ServerPageState_braodcastedMessage_isSet = dart.privateName(server_page, "_#_ServerPageState#braodcastedMessage#isSet");
+  var _decoder = dart.privateName(server_page, "_decoder");
+  var _encoder = dart.privateName(server_page, "_encoder");
+  var _chars = dart.privateName(server_page, "_chars");
+  var _rnd = dart.privateName(server_page, "_rnd");
+  var ___ServerPageState__localStream = dart.privateName(server_page, "_#_ServerPageState#_localStream");
+  var _remoteStreams = dart.privateName(server_page, "_remoteStreams");
+  var ___ServerPageState__peerConnection = dart.privateName(server_page, "_#_ServerPageState#_peerConnection");
+  var ___ServerPageState__remotePeerConnection = dart.privateName(server_page, "_#_ServerPageState#_remotePeerConnection");
+  var _offer = dart.privateName(server_page, "_offer");
+  var _config = dart.privateName(server_page, "_config");
+  var _selfId = dart.privateName(server_page, "_selfId");
+  var _localStream = dart.privateName(server_page, "_localStream");
+  var _peerConnection = dart.privateName(server_page, "_peerConnection");
+  var _remotePeerConnection = dart.privateName(server_page, "_remotePeerConnection");
+  var _createPeerConnection = dart.privateName(server_page, "_createPeerConnection");
+  var _getUserMedia = dart.privateName(server_page, "_getUserMedia");
+  var _setRemoteDescription = dart.privateName(server_page, "_setRemoteDescription");
+  var _send = dart.privateName(server_page, "_send");
+  var Duration__duration = dart.privateName(core, "Duration._duration");
+  var _sendAns = dart.privateName(server_page, "_sendAns");
+  var _createOffer = dart.privateName(server_page, "_createOffer");
+  var _createAnswer = dart.privateName(server_page, "_createAnswer");
+  var _addCandidate = dart.privateName(server_page, "_addCandidate");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  var Widget__location = dart.privateName(framework, "Widget._location");
+  var Widget_key = dart.privateName(framework, "Widget.key");
+  var Icon_textDirection = dart.privateName(icon, "Icon.textDirection");
+  var Icon_semanticLabel = dart.privateName(icon, "Icon.semanticLabel");
+  var Icon_color = dart.privateName(icon, "Icon.color");
+  var Icon_size = dart.privateName(icon, "Icon.size");
+  var IconData_matchTextDirection = dart.privateName(icon_data, "IconData.matchTextDirection");
+  var IconData_fontPackage = dart.privateName(icon_data, "IconData.fontPackage");
+  var IconData_fontFamily = dart.privateName(icon_data, "IconData.fontFamily");
+  var IconData_codePoint = dart.privateName(icon_data, "IconData.codePoint");
+  var Icon_icon = dart.privateName(icon, "Icon.icon");
+  var EdgeInsets_bottom = dart.privateName(edge_insets, "EdgeInsets.bottom");
+  var EdgeInsets_right = dart.privateName(edge_insets, "EdgeInsets.right");
+  var EdgeInsets_top = dart.privateName(edge_insets, "EdgeInsets.top");
+  var EdgeInsets_left = dart.privateName(edge_insets, "EdgeInsets.left");
+  server_page._ServerPageState = class _ServerPageState extends framework.State$(server_page.ServerPage) {
+    get signalling() {
+      let t3;
+      t3 = this[___ServerPageState_signalling];
+      return t3 == null ? dart.throw(new _internal.LateError.fieldNI("signalling")) : t3;
+    }
+    set signalling(t3) {
+      this[___ServerPageState_signalling] = t3;
+    }
+    get session() {
+      let t4;
+      t4 = this[___ServerPageState_session];
+      return t4 == null ? dart.throw(new _internal.LateError.fieldNI("session")) : t4;
+    }
+    set session(t4) {
+      this[___ServerPageState_session] = t4;
+    }
+    get peerId() {
+      let t5;
+      t5 = this[___ServerPageState_peerId];
+      return t5 == null ? dart.throw(new _internal.LateError.fieldNI("peerId")) : t5;
+    }
+    set peerId(t5) {
+      this[___ServerPageState_peerId] = t5;
+    }
+    get [_selfId]() {
+      let t6;
+      t6 = this[___ServerPageState__selfId];
+      return t6 == null ? this[___ServerPageState__selfId] = this.getRandomString(8) : t6;
+    }
+    set [_selfId](t6) {
+      this[___ServerPageState__selfId] = t6;
+    }
+    get socket() {
+      let t7;
+      t7 = this[___ServerPageState_socket];
+      return t7 == null ? dart.throw(new _internal.LateError.fieldNI("socket")) : t7;
+    }
+    set socket(t7) {
+      this[___ServerPageState_socket] = t7;
+    }
+    get braodcastedMessage() {
+      return this[___ServerPageState_braodcastedMessage_isSet] ? this[___ServerPageState_braodcastedMessage] : dart.throw(new _internal.LateError.fieldNI("braodcastedMessage"));
+    }
+    set braodcastedMessage(t8) {
+      this[___ServerPageState_braodcastedMessage_isSet] = true;
+      this[___ServerPageState_braodcastedMessage] = t8;
+    }
+    set [_localStream](t9) {
+      this[___ServerPageState__localStream] = t9;
+    }
+    get [_localStream]() {
+      let t10;
+      t10 = this[___ServerPageState__localStream];
+      return t10 == null ? dart.throw(new _internal.LateError.fieldNI("_localStream")) : t10;
+    }
+    getRandomString(length) {
+      return core.String.fromCharCodes(T.IterableOfint().generate(length, dart.fn(_ => this[_chars][$codeUnitAt](this[_rnd].nextInt(this[_chars].length)), T.intToint())));
+    }
+    get [_peerConnection]() {
+      let t10;
+      t10 = this[___ServerPageState__peerConnection];
+      return t10 == null ? dart.throw(new _internal.LateError.fieldNI("_peerConnection")) : t10;
+    }
+    set [_peerConnection](t10) {
+      this[___ServerPageState__peerConnection] = t10;
+    }
+    get [_remotePeerConnection]() {
+      let t11;
+      t11 = this[___ServerPageState__remotePeerConnection];
+      return t11 == null ? dart.throw(new _internal.LateError.fieldNI("_remotePeerConnection")) : t11;
+    }
+    set [_remotePeerConnection](t11) {
+      this[___ServerPageState__remotePeerConnection] = t11;
+    }
+    initState() {
+      this.connect();
+      this.initRenders();
+      dart.dsend(this[_createPeerConnection](), 'then', [dart.fn(pc => {
+          this[_peerConnection] = rtc_peerconnection.RTCPeerConnection.as(pc);
+        }, T.dynamicToNull())]);
+      super.initState();
+    }
+    [_getUserMedia]() {
+      return async.async(dart.dynamic, (function* _getUserMedia() {
+        let mediaConstraints = new (T.IdentityMapOfString$dynamic()).from(["audio", true, "video", new (T.IdentityMapOfString$String()).from(["facingMode", "user"])]);
+        let stream = (yield factory_impl.navigator.mediaDevices.getUserMedia(mediaConstraints));
+        this[_selfRenderer].srcObject = stream;
+        return stream;
+      }).bind(this));
+    }
+    dispose() {
+      this[_guestRenderer].dispose();
+      this[_selfRenderer].dispose();
+      this.socket.dispose();
+      super.dispose();
+    }
+    connect() {
+      this.socket = socket_io_client.io("http://4146-2405-201-600c-d806-f5bd-1c2d-aa4-45b.ngrok.io", new darty.OptionBuilder.new().setTransports(T.JSArrayOfString().of(["websocket"])).disableAutoConnect().build());
+      this.socket.connect();
+      if (this.socket.connected) {
+      } else {
+        core.print("Not connected");
+      }
+      this.socket.emit("connection", this[_selfId]);
+      this.socket.on("broadcastingMessage", dart.fn(data => collection.LinkedHashSet.from([this.refresh()]), T.dynamicToSet()));
+      this.socket.on("broadcastingMessagesdp", dart.fn(data => (() => {
+        let t12 = T.LinkedHashSetOfvoid().from([this.x = data, core.print("This is type of data ")]);
+        if (data != null) t12.add(T.LinkedHashSetOfvoid().from([this.broadcastMessage(), this.checkTheOffer(data)]));
+        return t12;
+      })(), T.dynamicToSetOfvoid()));
+      this.socket.on("recCandy", dart.fn(candy => T.LinkedHashSetOfvoid().from([core.print("This is the candidate I received " + dart.toString(candy))]), T.dynamicToSetOfvoid()));
+      this.socket.on("answer", dart.fn(data => core.print(convert.json.decode(core.String.as(data))), T.dynamicTovoid()));
+    }
+    broadcastMessage() {
+      this.setState(dart.fn(() => {
+        this.broadcast = true;
+      }, T.VoidTovoid()));
+    }
+    checkTheOffer(values) {
+      this[_setRemoteDescription](dart.toString(values));
+    }
+    onMessage(convert) {
+    }
+    [_createPeerConnection]() {
+      return async.async(dart.dynamic, (function* _createPeerConnection() {
+        let configuration = new (T.IdentityMapOfString$dynamic()).from(["iceServers", T.JSArrayOfMapOfString$String().of([new (T.IdentityMapOfString$String()).from(["url", "stun:stun.l.google.com:19302"])])]);
+        let offerSdpConstraints = new (T.IdentityMapOfString$dynamic()).from(["mandatory", new (T.IdentityMapOfString$bool()).from(["OfferToReceiveAudio", true, "OfferToReceiveVideo", true]), "optional", []]);
+        this[_localStream] = media_stream.MediaStream.as(yield this[_getUserMedia]());
+        let pc = (yield factory_impl.createPeerConnection(configuration, offerSdpConstraints));
+        pc.addStream(this[_localStream]);
+        let limit = 0;
+        pc.onIceCandidate = dart.fn(e => {
+          if (limit === 0) {
+            if (e.candidate != null) {
+              core.print(convert.json.encode(new (T.IdentityMapOfString$ObjectN()).from(["candidate", dart.toString(e.candidate), "sdpMid", dart.toString(e.sdpMid), "sdpMlineIndex", e.sdpMlineIndex])));
+            }
+            core.print("This is candidate in _createPeerConnection");
+            this.candy[$add](convert.json.encode(new (T.IdentityMapOfString$ObjectN()).from(["candidate", dart.toString(e.candidate), "sdpMid", dart.toString(e.sdpMid), "sdpMlineIndex", e.sdpMlineIndex])));
+            core.print("Candidate stored here" + core.String.as(this.candy[$first]));
+            this.socket.emit("sendingCandidate", this.candy[$first]);
+            core.print("Iterating through candy ");
+            for (let e of this.candy) {
+              core.print("This is inside for loop " + core.String.as(e));
+            }
+          }
+          limit = 1;
+        }, T.RTCIceCandidateToNull());
+        pc.onIceConnectionState = dart.fn(e => {
+          core.print(e);
+        }, T.RTCIceConnectionStateToNull());
+        pc.onAddStream = dart.fn(stream => {
+          core.print("addStream: " + stream.id);
+          this[_guestRenderer].srcObject = stream;
+        }, T.MediaStreamToNull());
+        core.print("At the end of peerconnection");
+        return pc;
+      }).bind(this));
+    }
+    [_send](event, data, peerid) {
+      let request = new _js_helper.LinkedMap.new();
+      request[$_set]("type", event);
+      request[$_set]("data", data);
+      let datas = T.ListOfList().filled(2, [], {growable: false});
+      datas[$_get](0)[$add](event);
+      datas[$_get](1)[$add](data);
+      this.socket.emit(core.String.as(event), data);
+      this.socket.emit("rec", peerid);
+    }
+    [_sendAns](event, data, peerid) {
+      return async.async(dart.dynamic, (function* _sendAns() {
+        let request = new _js_helper.LinkedMap.new();
+        request[$_set]("type", event);
+        request[$_set]("data", data);
+        let datas = T.ListOfList().filled(2, [], {growable: false});
+        datas[$_get](0)[$add](event);
+        datas[$_get](1)[$add](data);
+        this.socket.emit(core.String.as(event), data);
+        this.socket.emit("sendingCandidate", this.candy);
+        yield async.Future.delayed(C[0] || CT.C0);
+        this.socket.emit("recAns", peerid);
+      }).bind(this));
+    }
+    [_createOffer](peerId) {
+      return async.async(dart.dynamic, (function* _createOffer() {
+        let description = (yield this[_peerConnection].createOffer(new (T.IdentityMapOfString$dynamic()).from(["offerToReceiveVideo", 1])));
+        let session = parser.parse(dart.nullCheck(description.sdp)[$toString]());
+        this[_offer] = true;
+        this[_peerConnection].setLocalDescription(description);
+        this[_send]("offer", convert.json.encode(session), peerId);
+      }).bind(this));
+    }
+    [_createAnswer](peerId) {
+      return async.async(dart.dynamic, (function* _createAnswer() {
+        this.setState(dart.fn(() => {
+          this.inCalling = true;
+        }, T.VoidTovoid()));
+        let description = (yield this[_peerConnection].createAnswer(new (T.IdentityMapOfString$dynamic()).from(["offerToReceiveVideo", 1])));
+        let session = parser.parse(dart.toString(description.sdp));
+        this[_peerConnection].setLocalDescription(description);
+        this[_sendAns]("answer", convert.json.encode(session), peerId);
+      }).bind(this));
+    }
+    [_setRemoteDescription](_sdp) {
+      return async.async(dart.void, (function* _setRemoteDescription() {
+        let data = dart.toString(_sdp);
+        let session = (yield convert.jsonDecode(dart.str(_sdp)));
+        let sdp = writer.write(T.MapOfString$dynamic().as(session), null);
+        let description = new rtc_session_description.RTCSessionDescription.new(sdp, this[_offer] ? "answer" : "offer");
+        yield this[_peerConnection].setRemoteDescription(description);
+      }).bind(this));
+    }
+    refresh() {
+      this.socket.emit("refresh");
+      this.socket.on("RefreshResponse", dart.fn(users => {
+        this.setState(dart.fn(() => {
+          this.arrayUser = T.ListN().as(users);
+        }, T.VoidTovoid()));
+      }, T.dynamicToNull()));
+      core.print("This is array of users----> " + dart.str(this.arrayUser));
+      return this.arrayUser;
+    }
+    replying() {
+      this.socket.emit("reply");
+    }
+    call(string) {
+      return async.async(dart.dynamic, (function* call() {
+        let peerId = string;
+        this.setState(dart.fn(() => {
+          this.inCalling = true;
+        }, T.VoidTovoid()));
+        this[_createOffer](peerId);
+      }).bind(this));
+    }
+    [_addCandidate](candy) {
+      return async.async(dart.void, (function* _addCandidate() {
+        let session = (yield convert.jsonDecode(candy));
+        core.print(dart.dsend(session, '_get', ["candidate"]));
+        let candidate = new rtc_ice_candidate.RTCIceCandidate.new(T.StringN().as(dart.dsend(session, '_get', ["candidate"])), T.StringN().as(dart.dsend(session, '_get', ["sdpMid"])), T.intN().as(dart.dsend(session, '_get', ["sdpMlineIndex"])));
+        yield this[_peerConnection].addCandidate(rtc_ice_candidate.RTCIceCandidate.as(candidate));
+      }).bind(this));
+    }
+    connectToUser(string) {
+    }
+    initRenders() {
+      return async.async(dart.void, (function* initRenders() {
+        yield this[_selfRenderer].initialize();
+        yield this[_guestRenderer].initialize();
+      }).bind(this));
+    }
+    build(context) {
+      return new scaffold.Scaffold.new({body: this.inCalling ? new container.Container.new({child: new basic.Stack.new({children: T.JSArrayOfWidget().of([new basic.Positioned.new({child: new container.Container.new({child: new rtc_video_view_impl.RTCVideoView.new(this[_guestRenderer], {$creationLocationd_0dea112b090073317d4: C[1] || CT.C1}), width: media_query.MediaQuery.of(context).size.width, height: media_query.MediaQuery.of(context).size.height, $creationLocationd_0dea112b090073317d4: C[4] || CT.C4}), $creationLocationd_0dea112b090073317d4: C[9] || CT.C9}), new basic.Positioned.new({left: 20.0, top: media_query.MediaQuery.of(context).size.height * 0.1, child: new container.Container.new({child: new rtc_video_view_impl.RTCVideoView.new(this[_selfRenderer], {$creationLocationd_0dea112b090073317d4: C[12] || CT.C12}), height: media_query.MediaQuery.of(context).size.height * 0.17, width: media_query.MediaQuery.of(context).size.width * 0.25, $creationLocationd_0dea112b090073317d4: C[15] || CT.C15}), $creationLocationd_0dea112b090073317d4: C[20] || CT.C20}), new basic.Positioned.new({bottom: 50.0, left: 120.0, child: new basic.SizedBox.new({width: 200.0, child: new basic.Row.new({mainAxisAlignment: flex.MainAxisAlignment.spaceBetween, children: T.JSArrayOfWidget().of([new floating_action_button.FloatingActionButton.new({child: C[25] || CT.C25, onPressed: null, $creationLocationd_0dea112b090073317d4: C[30] || CT.C30}), new floating_action_button.FloatingActionButton.new({onPressed: dart.fn(() => {
+                          this.setState(dart.fn(() => {
+                            this.inCalling = false;
+                          }, T.VoidTovoid()));
+                        }, T.VoidTovoid()), tooltip: "Hangup", child: new icon.Icon.new(icons.Icons.call_end, {$creationLocationd_0dea112b090073317d4: C[34] || CT.C34}), backgroundColor: colors.Colors.pink, $creationLocationd_0dea112b090073317d4: C[37] || CT.C37}), new floating_action_button.FloatingActionButton.new({child: C[43] || CT.C43, onPressed: null, $creationLocationd_0dea112b090073317d4: C[48] || CT.C48})]), $creationLocationd_0dea112b090073317d4: C[52] || CT.C52}), $creationLocationd_0dea112b090073317d4: C[56] || CT.C56}), $creationLocationd_0dea112b090073317d4: C[60] || CT.C60})]), $creationLocationd_0dea112b090073317d4: C[65] || CT.C65}), $creationLocationd_0dea112b090073317d4: C[68] || CT.C68}) : new scaffold.Scaffold.new({appBar: new app_bar.AppBar.new({actionsIconTheme: new icon_theme_data.IconThemeData.new({color: colors.Colors.amber, size: 40.0, opacity: 10.0}), automaticallyImplyLeading: true, leading: new back_button.BackButton.new({color: colors.Colors.black, onPressed: dart.fn(() => navigator.Navigator.pushReplacement(dart.dynamic, T.ObjectN(), context, new page.MaterialPageRoute.new({builder: dart.fn(c => new main.MyApp.new({$creationLocationd_0dea112b090073317d4: C[71] || CT.C71}), T.BuildContextToMyApp())})), T.VoidTovoid()), $creationLocationd_0dea112b090073317d4: C[73] || CT.C73}), centerTitle: true, title: new text.Text.new("Server Page", {$creationLocationd_0dea112b090073317d4: C[77] || CT.C77}), actions: T.JSArrayOfWidget().of([new gesture_detector.GestureDetector.new({onTap: dart.fn(() => this.refresh(), T.VoidTovoid()), child: new icon.Icon.new(icons.Icons.refresh, {$creationLocationd_0dea112b090073317d4: C[80] || CT.C80}), $creationLocationd_0dea112b090073317d4: C[83] || CT.C83})]), $creationLocationd_0dea112b090073317d4: C[87] || CT.C87}), body: new scroll_view.ListView.builder({itemCount: this.arrayUser != null ? dart.nullCheck(this.arrayUser)[$length] : 0, itemBuilder: dart.fn((context, index) => new list_tile.ListTile.new({subtitle: new container.Container.new({child: new material_button.MaterialButton.new({color: dart.toString(dart.nullCheck(this.arrayUser)[$_get](index)) !== this[_selfId] ? this.broadcast ? colors.Colors.blue : colors.Colors.grey : colors.Colors.grey, disabledColor: colors.Colors.red, child: new text.Text.new("Answer", {$creationLocationd_0dea112b090073317d4: C[95] || CT.C95}), onPressed: dart.fn(() => collection.LinkedHashSet.from([this[_createAnswer](dart.toString(dart.nullCheck(this.arrayUser)[$_get](index)))]), T.VoidTovoid()), $creationLocationd_0dea112b090073317d4: C[98] || CT.C98}), $creationLocationd_0dea112b090073317d4: C[104] || CT.C104}), leading: new icon.Icon.new(icons.Icons.person, {$creationLocationd_0dea112b090073317d4: C[107] || CT.C107}), trailing: new basic.Padding.new({padding: C[110] || CT.C110, child: new icon_button.IconButton.new({icon: new icon.Icon.new(icons.Icons.video_call, {$creationLocationd_0dea112b090073317d4: C[111] || CT.C111}), iconSize: 32.0, onPressed: dart.fn(() => collection.LinkedHashSet.from([this.call(dart.toString(dart.nullCheck(this.arrayUser)[$_get](index)))]), T.VoidTovoid()), $creationLocationd_0dea112b090073317d4: C[114] || CT.C114}), $creationLocationd_0dea112b090073317d4: C[119] || CT.C119}), onTap: dart.fn(() => collection.LinkedHashSet.from([this.connectToUser(dart.toString(dart.nullCheck(this.arrayUser)[$_get](index)))]), T.VoidTovoid()), title: dart.toString(dart.nullCheck(this.arrayUser)[$_get](index)) === this[_selfId] ? new text.Text.new(dart.toString(dart.nullCheck(this.arrayUser)[$_get](index)) + "    { Yourself }", {$creationLocationd_0dea112b090073317d4: C[123] || CT.C123}) : new text.Text.new(dart.toString(dart.nullCheck(this.arrayUser)[$_get](index)), {$creationLocationd_0dea112b090073317d4: C[126] || CT.C126}), $creationLocationd_0dea112b090073317d4: C[129] || CT.C129}), T.BuildContextAndintToListTile()), $creationLocationd_0dea112b090073317d4: C[136] || CT.C136}), $creationLocationd_0dea112b090073317d4: C[140] || CT.C140}), $creationLocationd_0dea112b090073317d4: C[144] || CT.C144});
+    }
+  };
+  (server_page._ServerPageState.new = function() {
+    this[___ServerPageState_signalling] = null;
+    this[___ServerPageState_session] = null;
+    this[___ServerPageState_peerId] = null;
+    this.x = null;
+    this[_session] = new (T.IdentityMapOfString$Session()).new();
+    this[___ServerPageState__selfId] = null;
+    this[___ServerPageState_socket] = null;
+    this.broadcast = false;
+    this[_selfRenderer] = new rtc_video_renderer_impl.RTCVideoRenderer.new();
+    this[_guestRenderer] = new rtc_video_renderer_impl.RTCVideoRenderer.new();
+    this[___ServerPageState_braodcastedMessage] = null;
+    this[___ServerPageState_braodcastedMessage_isSet] = false;
+    this[_decoder] = new convert.JsonDecoder.new();
+    this[_encoder] = new convert.JsonEncoder.new();
+    this.inCalling = false;
+    this[_chars] = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890";
+    this[_rnd] = math.Random.new();
+    this.sdpData = null;
+    this.candy = [];
+    this.arrayUserLength = null;
+    this[___ServerPageState__localStream] = null;
+    this[_remoteStreams] = T.JSArrayOfMediaStream().of([]);
+    this.arrayUser = null;
+    this[___ServerPageState__peerConnection] = null;
+    this[___ServerPageState__remotePeerConnection] = null;
+    this[_offer] = false;
+    this[_config] = new (T.IdentityMapOfString$dynamic()).from(["mandatory", new _js_helper.LinkedMap.new(), "optional", T.JSArrayOfMapOfString$bool().of([new (T.IdentityMapOfString$bool()).from(["DtlsSrtpKeyAgreement", true])])]);
+    server_page._ServerPageState.__proto__.new.call(this);
+    ;
+  }).prototype = server_page._ServerPageState.prototype;
+  dart.addTypeTests(server_page._ServerPageState);
+  dart.addTypeCaches(server_page._ServerPageState);
+  dart.setMethodSignature(server_page._ServerPageState, () => ({
+    __proto__: dart.getMethods(server_page._ServerPageState.__proto__),
+    getRandomString: dart.fnType(core.String, [core.int]),
+    [_getUserMedia]: dart.fnType(dart.dynamic, []),
+    connect: dart.fnType(dart.void, []),
+    broadcastMessage: dart.fnType(dart.void, []),
+    checkTheOffer: dart.fnType(dart.void, [dart.dynamic]),
+    onMessage: dart.fnType(dart.void, [dart.dynamic]),
+    [_createPeerConnection]: dart.fnType(dart.dynamic, []),
+    [_send]: dart.fnType(dart.dynamic, [dart.dynamic, dart.dynamic, dart.dynamic]),
+    [_sendAns]: dart.fnType(dart.dynamic, [dart.dynamic, dart.dynamic, dart.dynamic]),
+    [_createOffer]: dart.fnType(dart.dynamic, [core.String]),
+    [_createAnswer]: dart.fnType(dart.dynamic, [core.String]),
+    [_setRemoteDescription]: dart.fnType(dart.void, [dart.dynamic]),
+    refresh: dart.fnType(dart.dynamic, []),
+    replying: dart.fnType(dart.dynamic, []),
+    call: dart.fnType(dart.dynamic, [core.String]),
+    [_addCandidate]: dart.fnType(dart.void, [core.String]),
+    connectToUser: dart.fnType(dart.dynamic, [core.String]),
+    initRenders: dart.fnType(dart.void, []),
+    build: dart.fnType(framework.Widget, [framework.BuildContext])
+  }));
+  dart.setGetterSignature(server_page._ServerPageState, () => ({
+    __proto__: dart.getGetters(server_page._ServerPageState.__proto__),
+    signalling: Call.CallPage,
+    session: server_page.Session,
+    peerId: core.String,
+    [_selfId]: core.String,
+    socket: socket.Socket,
+    braodcastedMessage: dart.dynamic,
+    [_localStream]: media_stream.MediaStream,
+    [_peerConnection]: rtc_peerconnection.RTCPeerConnection,
+    [_remotePeerConnection]: rtc_peerconnection.RTCPeerConnection
+  }));
+  dart.setSetterSignature(server_page._ServerPageState, () => ({
+    __proto__: dart.getSetters(server_page._ServerPageState.__proto__),
+    signalling: Call.CallPage,
+    session: server_page.Session,
+    peerId: core.String,
+    [_selfId]: core.String,
+    socket: socket.Socket,
+    braodcastedMessage: dart.dynamic,
+    [_localStream]: media_stream.MediaStream,
+    [_peerConnection]: rtc_peerconnection.RTCPeerConnection,
+    [_remotePeerConnection]: rtc_peerconnection.RTCPeerConnection
+  }));
+  dart.setLibraryUri(server_page._ServerPageState, I[0]);
+  dart.setFieldSignature(server_page._ServerPageState, () => ({
+    __proto__: dart.getFields(server_page._ServerPageState.__proto__),
+    [___ServerPageState_signalling]: dart.fieldType(dart.nullable(Call.CallPage)),
+    [___ServerPageState_session]: dart.fieldType(dart.nullable(server_page.Session)),
+    [___ServerPageState_peerId]: dart.fieldType(dart.nullable(core.String)),
+    x: dart.fieldType(dart.dynamic),
+    [_session]: dart.fieldType(core.Map$(core.String, server_page.Session)),
+    [___ServerPageState__selfId]: dart.fieldType(dart.nullable(core.String)),
+    [___ServerPageState_socket]: dart.fieldType(dart.nullable(socket.Socket)),
+    broadcast: dart.fieldType(core.bool),
+    [_selfRenderer]: dart.fieldType(rtc_video_renderer_impl.RTCVideoRenderer),
+    [_guestRenderer]: dart.fieldType(rtc_video_renderer_impl.RTCVideoRenderer),
+    [___ServerPageState_braodcastedMessage]: dart.fieldType(dart.dynamic),
+    [___ServerPageState_braodcastedMessage_isSet]: dart.fieldType(core.bool),
+    [_decoder]: dart.fieldType(convert.JsonDecoder),
+    [_encoder]: dart.fieldType(convert.JsonEncoder),
+    inCalling: dart.fieldType(core.bool),
+    [_chars]: dart.fieldType(core.String),
+    [_rnd]: dart.fieldType(math.Random),
+    sdpData: dart.fieldType(dart.nullable(core.String)),
+    candy: dart.fieldType(core.List),
+    arrayUserLength: dart.fieldType(dart.nullable(core.int)),
+    [___ServerPageState__localStream]: dart.fieldType(dart.nullable(media_stream.MediaStream)),
+    [_remoteStreams]: dart.fieldType(core.List$(media_stream.MediaStream)),
+    arrayUser: dart.fieldType(dart.nullable(core.List)),
+    [___ServerPageState__peerConnection]: dart.fieldType(dart.nullable(rtc_peerconnection.RTCPeerConnection)),
+    [___ServerPageState__remotePeerConnection]: dart.fieldType(dart.nullable(rtc_peerconnection.RTCPeerConnection)),
+    [_offer]: dart.fieldType(core.bool),
+    [_config]: dart.finalFieldType(core.Map$(core.String, dart.dynamic))
+  }));
+  main.MyApp = class MyApp extends framework.StatelessWidget {
+    build(context) {
+      return new (T.ChangeNotifierProviderOfSocketNode()).new({create: dart.fn(_ => new socket$.SocketNode.new(), T.BuildContextToSocketNode()), child: new app.MaterialApp.new({debugShowCheckedModeBanner: false, title: "Websocket", theme: theme_data.ThemeData.new({primarySwatch: colors.Colors.deepOrange}), home: new main.MyHomePage.new({title: "WebSocket", $creationLocationd_0dea112b090073317d4: C[147] || CT.C147}), $creationLocationd_0dea112b090073317d4: C[150] || CT.C150}), $creationLocationd_0dea112b090073317d4: C[156] || CT.C156});
+    }
+  };
+  (main.MyApp.new = function(opts) {
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    main.MyApp.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = main.MyApp.prototype;
+  dart.addTypeTests(main.MyApp);
+  dart.addTypeCaches(main.MyApp);
+  dart.setMethodSignature(main.MyApp, () => ({
+    __proto__: dart.getMethods(main.MyApp.__proto__),
+    build: dart.fnType(framework.Widget, [framework.BuildContext])
+  }));
+  dart.setLibraryUri(main.MyApp, I[1]);
+  var title$ = dart.privateName(main, "MyHomePage.title");
+  main.MyHomePage = class MyHomePage extends framework.StatefulWidget {
+    get title() {
+      return this[title$];
+    }
+    set title(value) {
+      super.title = value;
+    }
+    createState() {
+      return new main._MyHomePageState.new();
+    }
+  };
+  (main.MyHomePage.new = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let title = opts && 'title' in opts ? opts.title : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[title$] = title;
+    main.MyHomePage.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = main.MyHomePage.prototype;
+  dart.addTypeTests(main.MyHomePage);
+  dart.addTypeCaches(main.MyHomePage);
+  dart.setMethodSignature(main.MyHomePage, () => ({
+    __proto__: dart.getMethods(main.MyHomePage.__proto__),
+    createState: dart.fnType(main._MyHomePageState, [])
+  }));
+  dart.setLibraryUri(main.MyHomePage, I[1]);
+  dart.setFieldSignature(main.MyHomePage, () => ({
+    __proto__: dart.getFields(main.MyHomePage.__proto__),
+    title: dart.finalFieldType(core.String)
+  }));
+  var _counter = dart.privateName(main, "_counter");
+  var ___MyHomePageState_socket = dart.privateName(main, "_#_MyHomePageState#socket");
+  var _incrementCounter = dart.privateName(main, "_incrementCounter");
+  main._MyHomePageState = class _MyHomePageState extends framework.State$(main.MyHomePage) {
+    get socket() {
+      let t13;
+      t13 = this[___MyHomePageState_socket];
+      return t13 == null ? dart.throw(new _internal.LateError.fieldNI("socket")) : t13;
+    }
+    set socket(t13) {
+      this[___MyHomePageState_socket] = t13;
+    }
+    initState() {
+      this.connect();
+      super.initState();
+    }
+    connect() {
+    }
+    [_incrementCounter]() {
+      navigator.Navigator.pushReplacement(dart.dynamic, T.ObjectN(), this.context, new page.MaterialPageRoute.new({builder: dart.fn(c => new server_page.ServerPage.new({$creationLocationd_0dea112b090073317d4: C[160] || CT.C160}), T.BuildContextToServerPage())}));
+    }
+    build(context) {
+      return new scaffold.Scaffold.new({appBar: new app_bar.AppBar.new({title: new text.Text.new(this.widget.title, {$creationLocationd_0dea112b090073317d4: C[161] || CT.C161}), $creationLocationd_0dea112b090073317d4: C[164] || CT.C164}), body: new basic.Center.new({child: new single_child_scroll_view.SingleChildScrollView.new({child: new container.Container.new({color: colors.Colors.grey, height: media_query.MediaQuery.of(context).size.height * 1, $creationLocationd_0dea112b090073317d4: C[167] || CT.C167}), $creationLocationd_0dea112b090073317d4: C[171] || CT.C171}), $creationLocationd_0dea112b090073317d4: C[174] || CT.C174}), floatingActionButton: new floating_action_button.FloatingActionButton.new({onPressed: dart.bind(this, _incrementCounter), tooltip: "Increment", child: new icon.Icon.new(icons.Icons.add, {$creationLocationd_0dea112b090073317d4: C[177] || CT.C177}), $creationLocationd_0dea112b090073317d4: C[180] || CT.C180}), $creationLocationd_0dea112b090073317d4: C[185] || CT.C185});
+    }
+  };
+  (main._MyHomePageState.new = function() {
+    this[_counter] = 0;
+    this[___MyHomePageState_socket] = null;
+    main._MyHomePageState.__proto__.new.call(this);
+    ;
+  }).prototype = main._MyHomePageState.prototype;
+  dart.addTypeTests(main._MyHomePageState);
+  dart.addTypeCaches(main._MyHomePageState);
+  dart.setMethodSignature(main._MyHomePageState, () => ({
+    __proto__: dart.getMethods(main._MyHomePageState.__proto__),
+    connect: dart.fnType(dart.void, []),
+    [_incrementCounter]: dart.fnType(dart.void, []),
+    build: dart.fnType(framework.Widget, [framework.BuildContext])
+  }));
+  dart.setGetterSignature(main._MyHomePageState, () => ({
+    __proto__: dart.getGetters(main._MyHomePageState.__proto__),
+    socket: socket.Socket
+  }));
+  dart.setSetterSignature(main._MyHomePageState, () => ({
+    __proto__: dart.getSetters(main._MyHomePageState.__proto__),
+    socket: socket.Socket
+  }));
+  dart.setLibraryUri(main._MyHomePageState, I[1]);
+  dart.setFieldSignature(main._MyHomePageState, () => ({
+    __proto__: dart.getFields(main._MyHomePageState.__proto__),
+    [_counter]: dart.fieldType(core.int),
+    [___MyHomePageState_socket]: dart.fieldType(dart.nullable(socket.Socket))
+  }));
+  main.main = function main$() {
+    binding.runApp(new main.MyApp.new({$creationLocationd_0dea112b090073317d4: C[190] || CT.C190}));
+  };
+  dart.trackLibraries("packages/web_socket/server_page.dart", {
+    "package:web_socket/server_page.dart": server_page,
+    "package:web_socket/main.dart": main
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["server_page.dart","main.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;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","file":"../../../../packages/web_socket/server_page.dart.lib.js"}');
+  // Exports:
+  return {
+    server_page: server_page,
+    main: main
+  };
+}));
+
+//# sourceMappingURL=server_page.dart.lib.js.map

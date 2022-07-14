@@ -1,0 +1,517 @@
+define(['dart_sdk', 'packages/webrtc_interface/src/media_stream.dart', 'packages/dart_webrtc/src/media_stream_impl.dart', 'packages/dart_webrtc/src/media_stream_track_impl.dart', 'packages/dart_webrtc/src/rtc_data_channel_impl.dart', 'packages/webrtc_interface/src/enums.dart', 'packages/webrtc_interface/src/rtc_track_event.dart', 'packages/dart_webrtc/src/rtc_rtp_receiver_impl.dart', 'packages/dart_webrtc/src/rtc_rtp_transceiver_impl.dart', 'packages/webrtc_interface/src/rtc_session_description.dart', 'packages/webrtc_interface/src/rtc_stats_report.dart', 'packages/webrtc_interface/src/rtc_data_channel.dart', 'packages/dart_webrtc/src/rtc_dtmf_sender_impl.dart', 'packages/webrtc_interface/src/rtc_ice_candidate.dart', 'packages/dart_webrtc/src/rtc_rtp_sender_impl.dart', 'packages/webrtc_interface/src/rtc_rtp_sender.dart', 'packages/webrtc_interface/src/rtc_rtp_receiver.dart', 'packages/webrtc_interface/src/rtc_rtp_transceiver.dart', 'packages/webrtc_interface/src/rtc_peerconnection.dart', 'packages/webrtc_interface/src/media_stream_track.dart', 'packages/webrtc_interface/src/rtc_dtmf_sender.dart'], (function load__packages__dart_webrtc__src__rtc_peerconnection_impl_dart(dart_sdk, packages__webrtc_interface__src__media_stream$46dart, packages__dart_webrtc__src__media_stream_impl$46dart, packages__dart_webrtc__src__media_stream_track_impl$46dart, packages__dart_webrtc__src__rtc_data_channel_impl$46dart, packages__webrtc_interface__src__enums$46dart, packages__webrtc_interface__src__rtc_track_event$46dart, packages__dart_webrtc__src__rtc_rtp_receiver_impl$46dart, packages__dart_webrtc__src__rtc_rtp_transceiver_impl$46dart, packages__webrtc_interface__src__rtc_session_description$46dart, packages__webrtc_interface__src__rtc_stats_report$46dart, packages__webrtc_interface__src__rtc_data_channel$46dart, packages__dart_webrtc__src__rtc_dtmf_sender_impl$46dart, packages__webrtc_interface__src__rtc_ice_candidate$46dart, packages__dart_webrtc__src__rtc_rtp_sender_impl$46dart, packages__webrtc_interface__src__rtc_rtp_sender$46dart, packages__webrtc_interface__src__rtc_rtp_receiver$46dart, packages__webrtc_interface__src__rtc_rtp_transceiver$46dart, packages__webrtc_interface__src__rtc_peerconnection$46dart, packages__webrtc_interface__src__media_stream_track$46dart, packages__webrtc_interface__src__rtc_dtmf_sender$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _js_helper = dart_sdk._js_helper;
+  const html = dart_sdk.html;
+  const js_util = dart_sdk.js_util;
+  const js = dart_sdk.js;
+  const _interceptors = dart_sdk._interceptors;
+  const _internal = dart_sdk._internal;
+  const async = dart_sdk.async;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const media_stream = packages__webrtc_interface__src__media_stream$46dart.src__media_stream;
+  const media_stream_impl = packages__dart_webrtc__src__media_stream_impl$46dart.src__media_stream_impl;
+  const media_stream_track_impl = packages__dart_webrtc__src__media_stream_track_impl$46dart.src__media_stream_track_impl;
+  const rtc_data_channel_impl = packages__dart_webrtc__src__rtc_data_channel_impl$46dart.src__rtc_data_channel_impl;
+  const enums = packages__webrtc_interface__src__enums$46dart.src__enums;
+  const rtc_track_event = packages__webrtc_interface__src__rtc_track_event$46dart.src__rtc_track_event;
+  const rtc_rtp_receiver_impl = packages__dart_webrtc__src__rtc_rtp_receiver_impl$46dart.src__rtc_rtp_receiver_impl;
+  const rtc_rtp_transceiver_impl = packages__dart_webrtc__src__rtc_rtp_transceiver_impl$46dart.src__rtc_rtp_transceiver_impl;
+  const rtc_session_description = packages__webrtc_interface__src__rtc_session_description$46dart.src__rtc_session_description;
+  const rtc_stats_report = packages__webrtc_interface__src__rtc_stats_report$46dart.src__rtc_stats_report;
+  const rtc_data_channel = packages__webrtc_interface__src__rtc_data_channel$46dart.src__rtc_data_channel;
+  const rtc_dtmf_sender_impl = packages__dart_webrtc__src__rtc_dtmf_sender_impl$46dart.src__rtc_dtmf_sender_impl;
+  const rtc_ice_candidate = packages__webrtc_interface__src__rtc_ice_candidate$46dart.src__rtc_ice_candidate;
+  const rtc_rtp_sender_impl = packages__dart_webrtc__src__rtc_rtp_sender_impl$46dart.src__rtc_rtp_sender_impl;
+  const rtc_rtp_sender = packages__webrtc_interface__src__rtc_rtp_sender$46dart.src__rtc_rtp_sender;
+  const rtc_rtp_receiver = packages__webrtc_interface__src__rtc_rtp_receiver$46dart.src__rtc_rtp_receiver;
+  const rtc_rtp_transceiver = packages__webrtc_interface__src__rtc_rtp_transceiver$46dart.src__rtc_rtp_transceiver;
+  const rtc_peerconnection = packages__webrtc_interface__src__rtc_peerconnection$46dart.src__rtc_peerconnection;
+  const media_stream_track = packages__webrtc_interface__src__media_stream_track$46dart.src__media_stream_track;
+  const rtc_dtmf_sender = packages__webrtc_interface__src__rtc_dtmf_sender$46dart.src__rtc_dtmf_sender;
+  var rtc_peerconnection_impl = Object.create(dart.library);
+  var $onAddStream = dartx.onAddStream;
+  var $putIfAbsent = dartx.putIfAbsent;
+  var $onAddTrack = dartx.onAddTrack;
+  var $onRemoveTrack = dartx.onRemoveTrack;
+  var $onDataChannel = dartx.onDataChannel;
+  var $onIceCandidate = dartx.onIceCandidate;
+  var $onIceConnectionStateChange = dartx.onIceConnectionStateChange;
+  var $onRemoveStream = dartx.onRemoveStream;
+  var $remove = dartx.remove;
+  var $onSignalingStateChange = dartx.onSignalingStateChange;
+  var $onNegotiationNeeded = dartx.onNegotiationNeeded;
+  var $onTrack = dartx.onTrack;
+  var $map = dartx.map;
+  var $toList = dartx.toList;
+  var $addAll = dartx.addAll;
+  var $setConfiguration = dartx.setConfiguration;
+  var $addStream = dartx.addStream;
+  var $setLocalDescription = dartx.setLocalDescription;
+  var $setRemoteDescription = dartx.setRemoteDescription;
+  var $toString = dartx.toString;
+  var $getStats = dartx.getStats;
+  var $add = dartx.add;
+  var $getLocalStreams = dartx.getLocalStreams;
+  var $_get = dartx._get;
+  var $getRemoteStreams = dartx.getRemoteStreams;
+  var $_set = dartx._set;
+  var $createDataChannel = dartx.createDataChannel;
+  var $createDtmfSender = dartx.createDtmfSender;
+  var $addTrack = dartx.addTrack;
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    IdentityMapOfString$MediaStream: () => (T.IdentityMapOfString$MediaStream = dart.constFn(_js_helper.IdentityMap$(core.String, media_stream.MediaStream)))(),
+    IdentityMapOfString$dynamic: () => (T.IdentityMapOfString$dynamic = dart.constFn(_js_helper.IdentityMap$(core.String, dart.dynamic)))(),
+    VoidToMediaStreamWeb: () => (T.VoidToMediaStreamWeb = dart.constFn(dart.fnType(media_stream_impl.MediaStreamWeb, [])))(),
+    voidToNull: () => (T.voidToNull = dart.constFn(dart.fnType(core.Null, [dart.void])))(),
+    EventTovoid: () => (T.EventTovoid = dart.constFn(dart.fnType(dart.void, [html.Event])))(),
+    MediaStreamEventTovoid: () => (T.MediaStreamEventTovoid = dart.constFn(dart.fnType(dart.void, [html.MediaStreamEvent])))(),
+    RtcDataChannelEventTovoid: () => (T.RtcDataChannelEventTovoid = dart.constFn(dart.fnType(dart.void, [html.RtcDataChannelEvent])))(),
+    RtcPeerConnectionIceEventTovoid: () => (T.RtcPeerConnectionIceEventTovoid = dart.constFn(dart.fnType(dart.void, [html.RtcPeerConnectionIceEvent])))(),
+    dynamicToNull: () => (T.dynamicToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic])))(),
+    dynamicToMediaStreamWeb: () => (T.dynamicToMediaStreamWeb = dart.constFn(dart.fnType(media_stream_impl.MediaStreamWeb, [dart.dynamic])))(),
+    JSArrayOfMediaStream: () => (T.JSArrayOfMediaStream = dart.constFn(_interceptors.JSArray$(media_stream.MediaStream)))(),
+    RtcTrackEventTovoid: () => (T.RtcTrackEventTovoid = dart.constFn(dart.fnType(dart.void, [html.RtcTrackEvent])))(),
+    FutureOfvoid: () => (T.FutureOfvoid = dart.constFn(async.Future$(dart.void)))(),
+    StringN: () => (T.StringN = dart.constFn(dart.nullable(core.String)))(),
+    RTCSessionDescriptionN: () => (T.RTCSessionDescriptionN = dart.constFn(dart.nullable(rtc_session_description.RTCSessionDescription)))(),
+    CompleterOfvoid: () => (T.CompleterOfvoid = dart.constFn(async.Completer$(dart.void)))(),
+    VoidTovoid: () => (T.VoidTovoid = dart.constFn(dart.fnType(dart.void, [])))(),
+    dynamicTovoid: () => (T.dynamicTovoid = dart.constFn(dart.fnType(dart.void, [dart.dynamic])))(),
+    ObjectN: () => (T.ObjectN = dart.constFn(dart.nullable(core.Object)))(),
+    JSArrayOfObjectN: () => (T.JSArrayOfObjectN = dart.constFn(_interceptors.JSArray$(T.ObjectN())))(),
+    JSArrayOfStatsReport: () => (T.JSArrayOfStatsReport = dart.constFn(_interceptors.JSArray$(rtc_stats_report.StatsReport)))(),
+    dynamicAnddynamicToNull: () => (T.dynamicAnddynamicToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic, dart.dynamic])))(),
+    ListOfStatsReport: () => (T.ListOfStatsReport = dart.constFn(core.List$(rtc_stats_report.StatsReport)))(),
+    MediaStreamToMediaStream: () => (T.MediaStreamToMediaStream = dart.constFn(dart.fnType(media_stream.MediaStream, [html.MediaStream])))(),
+    FutureOfRTCDataChannel: () => (T.FutureOfRTCDataChannel = dart.constFn(async.Future$(rtc_data_channel.RTCDataChannel)))(),
+    FutureOfbool: () => (T.FutureOfbool = dart.constFn(async.Future$(core.bool)))(),
+    JSArrayOfRTCRtpSender: () => (T.JSArrayOfRTCRtpSender = dart.constFn(_interceptors.JSArray$(rtc_rtp_sender.RTCRtpSender)))(),
+    ListOfRTCRtpSender: () => (T.ListOfRTCRtpSender = dart.constFn(core.List$(rtc_rtp_sender.RTCRtpSender)))(),
+    JSArrayOfRTCRtpReceiver: () => (T.JSArrayOfRTCRtpReceiver = dart.constFn(_interceptors.JSArray$(rtc_rtp_receiver.RTCRtpReceiver)))(),
+    ListOfRTCRtpReceiver: () => (T.ListOfRTCRtpReceiver = dart.constFn(core.List$(rtc_rtp_receiver.RTCRtpReceiver)))(),
+    JSArrayOfRTCRtpTransceiver: () => (T.JSArrayOfRTCRtpTransceiver = dart.constFn(_interceptors.JSArray$(rtc_rtp_transceiver.RTCRtpTransceiver)))(),
+    ListOfRTCRtpTransceiver: () => (T.ListOfRTCRtpTransceiver = dart.constFn(core.List$(rtc_rtp_transceiver.RTCRtpTransceiver)))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  var I = [
+    "file:///C:/Users/Abhay/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/dart_webrtc-1.0.2/lib/src/rtc_peerconnection_impl.dart",
+    "package:dart_webrtc/src/rtc_peerconnection_impl.dart"
+  ];
+  var __RTCPeerConnectionWeb__jsPc = dart.privateName(rtc_peerconnection_impl, "_#RTCPeerConnectionWeb#_jsPc");
+  var _localStreams = dart.privateName(rtc_peerconnection_impl, "_localStreams");
+  var _remoteStreams = dart.privateName(rtc_peerconnection_impl, "_remoteStreams");
+  var _configuration = dart.privateName(rtc_peerconnection_impl, "_configuration");
+  var _signalingState = dart.privateName(rtc_peerconnection_impl, "_signalingState");
+  var _iceGatheringState = dart.privateName(rtc_peerconnection_impl, "_iceGatheringState");
+  var _iceConnectionState = dart.privateName(rtc_peerconnection_impl, "_iceConnectionState");
+  var _connectionState = dart.privateName(rtc_peerconnection_impl, "_connectionState");
+  var _peerConnectionId$ = dart.privateName(rtc_peerconnection_impl, "_peerConnectionId");
+  var _jsPc$ = dart.privateName(rtc_peerconnection_impl, "_jsPc");
+  var _iceFromJs = dart.privateName(rtc_peerconnection_impl, "_iceFromJs");
+  var _sessionFromJs = dart.privateName(rtc_peerconnection_impl, "_sessionFromJs");
+  var _iceToJs = dart.privateName(rtc_peerconnection_impl, "_iceToJs");
+  rtc_peerconnection_impl.RTCPeerConnectionWeb = class RTCPeerConnectionWeb extends rtc_peerconnection.RTCPeerConnection {
+    get [_jsPc$]() {
+      let t0;
+      t0 = this[__RTCPeerConnectionWeb__jsPc];
+      return t0 == null ? dart.throw(new _internal.LateError.fieldNI("_jsPc")) : t0;
+    }
+    set [_jsPc$](t0) {
+      if (this[__RTCPeerConnectionWeb__jsPc] == null)
+        this[__RTCPeerConnectionWeb__jsPc] = t0;
+      else
+        dart.throw(new _internal.LateError.fieldAI("_jsPc"));
+    }
+    get signalingState() {
+      return this[_signalingState];
+    }
+    get iceGatheringState() {
+      return this[_iceGatheringState];
+    }
+    get iceConnectionState() {
+      return this[_iceConnectionState];
+    }
+    get connectionState() {
+      return this[_connectionState];
+    }
+    dispose() {
+      this[_jsPc$].close();
+      return T.FutureOfvoid().value();
+    }
+    get getConfiguration() {
+      return this[_configuration];
+    }
+    setConfiguration(configuration) {
+      this[_configuration][$addAll](configuration);
+      this[_jsPc$][$setConfiguration](configuration);
+      return T.FutureOfvoid().value();
+    }
+    createOffer(constraints = null) {
+      return async.async(rtc_session_description.RTCSessionDescription, (function* createOffer() {
+        let args = constraints != null ? [js_util.jsify(constraints)] : [];
+        let desc = (yield js_util.promiseToFuture(dart.dynamic, core.Object.as(js_util.callMethod(this[_jsPc$], "createOffer", args))));
+        return new rtc_session_description.RTCSessionDescription.new(T.StringN().as(core.Object.as(desc).sdp), T.StringN().as(core.Object.as(desc).type));
+      }).bind(this));
+    }
+    createAnswer(constraints = null) {
+      return async.async(rtc_session_description.RTCSessionDescription, (function* createAnswer() {
+        let args = constraints != null ? [js_util.jsify(constraints)] : [];
+        let desc = (yield js_util.promiseToFuture(dart.dynamic, core.Object.as(js_util.callMethod(this[_jsPc$], "createAnswer", args))));
+        return new rtc_session_description.RTCSessionDescription.new(T.StringN().as(core.Object.as(desc).sdp), T.StringN().as(core.Object.as(desc).type));
+      }).bind(this));
+    }
+    addStream(stream) {
+      let _native = media_stream_impl.MediaStreamWeb.as(stream);
+      this[_localStreams][$putIfAbsent](stream.id, dart.fn(() => new media_stream_impl.MediaStreamWeb.new(_native.jsStream, this[_peerConnectionId$]), T.VoidToMediaStreamWeb()));
+      this[_jsPc$][$addStream](_native.jsStream);
+      return T.FutureOfvoid().value();
+    }
+    removeStream(stream) {
+      return async.async(dart.void, (function* removeStream() {
+        let _native = media_stream_impl.MediaStreamWeb.as(stream);
+        this[_localStreams][$remove](stream.id);
+        this[_jsPc$].removeStream(_native.jsStream);
+        return T.FutureOfvoid().value();
+      }).bind(this));
+    }
+    setLocalDescription(description) {
+      return async.async(dart.void, (function* setLocalDescription() {
+        yield this[_jsPc$][$setLocalDescription](core.Map.as(description.toMap()));
+      }).bind(this));
+    }
+    setRemoteDescription(description) {
+      return async.async(dart.void, (function* setRemoteDescription() {
+        yield this[_jsPc$][$setRemoteDescription](core.Map.as(description.toMap()));
+      }).bind(this));
+    }
+    getLocalDescription() {
+      return async.async(T.RTCSessionDescriptionN(), (function* getLocalDescription() {
+        if (this[_jsPc$].localDescription == null) {
+          return null;
+        }
+        return this[_sessionFromJs](this[_jsPc$].localDescription);
+      }).bind(this));
+    }
+    getRemoteDescription() {
+      return async.async(T.RTCSessionDescriptionN(), (function* getRemoteDescription() {
+        if (this[_jsPc$].remoteDescription == null) {
+          return null;
+        }
+        return this[_sessionFromJs](this[_jsPc$].remoteDescription);
+      }).bind(this));
+    }
+    addCandidate(candidate) {
+      return async.async(dart.void, (function* addCandidate() {
+        try {
+          let completer = T.CompleterOfvoid().new();
+          let success = js.allowInterop(T.VoidTovoid(), dart.fn(() => completer.complete(), T.VoidTovoid()));
+          let failure = js.allowInterop(T.dynamicTovoid(), dart.fn(e => completer.completeError(core.Object.as(e)), T.dynamicTovoid()));
+          js_util.callMethod(this[_jsPc$], "addIceCandidate", T.JSArrayOfObjectN().of([this[_iceToJs](candidate), success, failure]));
+          return completer.future;
+        } catch (e$) {
+          let e = dart.getThrown(e$);
+          if (core.Object.is(e)) {
+            core.print(e[$toString]());
+          } else
+            throw e$;
+        }
+      }).bind(this));
+    }
+    getStats(track = null) {
+      return async.async(T.ListOfStatsReport(), (function* getStats() {
+        let stats = null;
+        if (track != null) {
+          let jsTrack = media_stream_track_impl.MediaStreamTrackWeb.as(track).jsTrack;
+          stats = (yield js_util.promiseToFuture(dart.dynamic, core.Object.as(js_util.callMethod(this[_jsPc$], "getStats", T.JSArrayOfObjectN().of([jsTrack])))));
+        } else {
+          stats = (yield this[_jsPc$][$getStats]());
+        }
+        let report = T.JSArrayOfStatsReport().of([]);
+        dart.dsend(stats, 'forEach', [dart.fn((key, value) => {
+            report[$add](new rtc_stats_report.StatsReport.new(core.String.as(dart.dsend(value, '_get', ["id"])), core.String.as(dart.dsend(value, '_get', ["type"])), core.double.as(dart.dsend(value, '_get', ["timestamp"])), core.Map.as(value)));
+          }, T.dynamicAnddynamicToNull())]);
+        return report;
+      }).bind(this));
+    }
+    getLocalStreams() {
+      return this[_jsPc$][$getLocalStreams]()[$map](media_stream.MediaStream, dart.fn(e => dart.nullCheck(this[_localStreams][$_get](e.id)), T.MediaStreamToMediaStream()))[$toList]();
+    }
+    getRemoteStreams() {
+      return this[_jsPc$][$getRemoteStreams]()[$map](media_stream.MediaStream, dart.fn(jsStream => dart.nullCheck(this[_remoteStreams][$_get](jsStream.id)), T.MediaStreamToMediaStream()))[$toList]();
+    }
+    createDataChannel(label, dataChannelDict) {
+      let map = dataChannelDict.toMap();
+      if (dataChannelDict.binaryType === "binary") {
+        map[$_set]("binaryType", "arraybuffer");
+      }
+      let jsDc = this[_jsPc$][$createDataChannel](label, map);
+      return T.FutureOfRTCDataChannel().value(new rtc_data_channel_impl.RTCDataChannelWeb.new(jsDc));
+    }
+    close() {
+      return async.async(dart.void, (function* close() {
+        this[_jsPc$].close();
+        return T.FutureOfvoid().value();
+      }).bind(this));
+    }
+    createDtmfSender(track) {
+      let _native = media_stream_track_impl.MediaStreamTrackWeb.as(track);
+      let jsDtmfSender = this[_jsPc$][$createDtmfSender](_native.jsTrack);
+      return new rtc_dtmf_sender_impl.RTCDTMFSenderWeb.new(jsDtmfSender);
+    }
+    [_iceFromJs](candidate) {
+      return new rtc_ice_candidate.RTCIceCandidate.new(candidate.candidate, candidate.sdpMid, candidate.sdpMLineIndex);
+    }
+    [_iceToJs](c) {
+      return html.RtcIceCandidate.new(core.Map.as(c.toMap()));
+    }
+    [_sessionFromJs](sd) {
+      let t2, t2$;
+      return new rtc_session_description.RTCSessionDescription.new((t2 = sd, t2 == null ? null : t2.sdp), (t2$ = sd, t2$ == null ? null : t2$.type));
+    }
+    addTrack(track, stream = null) {
+      return async.async(rtc_rtp_sender.RTCRtpSender, (function* addTrack() {
+        let jStream = media_stream_impl.MediaStreamWeb.as(stream).jsStream;
+        let jsTrack = media_stream_track_impl.MediaStreamTrackWeb.as(track).jsTrack;
+        let sender = this[_jsPc$][$addTrack](jsTrack, jStream);
+        return rtc_rtp_sender_impl.RTCRtpSenderWeb.fromJsSender(sender);
+      }).bind(this));
+    }
+    removeTrack(sender) {
+      return async.async(core.bool, (function* removeTrack() {
+        let nativeSender = rtc_rtp_sender_impl.RTCRtpSenderWeb.as(sender);
+        js_util.callMethod(this[_jsPc$], "removeTrack", T.JSArrayOfObjectN().of([nativeSender.jsRtpSender]));
+        return T.FutureOfbool().value(true);
+      }).bind(this));
+    }
+    getSenders() {
+      return async.async(T.ListOfRTCRtpSender(), (function* getSenders() {
+        let senders = js_util.callMethod(this[_jsPc$], "getSenders", T.JSArrayOfObjectN().of([]));
+        let list = T.JSArrayOfRTCRtpSender().of([]);
+        dart.dsend(senders, 'forEach', [dart.fn(e => {
+            list[$add](rtc_rtp_sender_impl.RTCRtpSenderWeb.fromJsSender(html.RtcRtpSender.as(e)));
+          }, T.dynamicToNull())]);
+        return list;
+      }).bind(this));
+    }
+    getReceivers() {
+      return async.async(T.ListOfRTCRtpReceiver(), (function* getReceivers() {
+        let receivers = js_util.callMethod(this[_jsPc$], "getReceivers", T.JSArrayOfObjectN().of([]));
+        let list = T.JSArrayOfRTCRtpReceiver().of([]);
+        dart.dsend(receivers, 'forEach', [dart.fn(e => {
+            list[$add](new rtc_rtp_receiver_impl.RTCRtpReceiverWeb.new(html.RtcRtpReceiver.as(e)));
+          }, T.dynamicToNull())]);
+        return list;
+      }).bind(this));
+    }
+    getTransceivers() {
+      return async.async(T.ListOfRTCRtpTransceiver(), (function* getTransceivers() {
+        let transceivers = js_util.callMethod(this[_jsPc$], "getTransceivers", T.JSArrayOfObjectN().of([]));
+        let list = T.JSArrayOfRTCRtpTransceiver().of([]);
+        dart.dsend(transceivers, 'forEach', [dart.fn(e => {
+            list[$add](rtc_rtp_transceiver_impl.RTCRtpTransceiverWeb.fromJsObject(core.Object.as(e)));
+          }, T.dynamicToNull())]);
+        return list;
+      }).bind(this));
+    }
+    addTransceiver(opts) {
+      let track = opts && 'track' in opts ? opts.track : null;
+      let kind = opts && 'kind' in opts ? opts.kind : null;
+      let init = opts && 'init' in opts ? opts.init : null;
+      return async.async(rtc_rtp_transceiver.RTCRtpTransceiver, (function* addTransceiver() {
+        let t2;
+        let jsTrack = media_stream_track_impl.MediaStreamTrackWeb.is(track) ? track.jsTrack : null;
+        let kindString = kind != null ? enums.typeRTCRtpMediaTypetoString[$_get](kind) : null;
+        let trackOrKind = (t2 = jsTrack, t2 == null ? kindString : t2);
+        if (!(trackOrKind != null)) dart.assertFailed("track or kind must not be null", I[0], 378, 12, "trackOrKind != null");
+        let transceiver = js_util.callMethod(this[_jsPc$], "addTransceiver", (() => {
+          let t2 = T.JSArrayOfObjectN().of([trackOrKind]);
+          if (init != null) t2[$add](rtc_rtp_transceiver_impl['RTCRtpTransceiverInitWebExt|toJsObject'](init));
+          return t2;
+        })());
+        return rtc_rtp_transceiver_impl.RTCRtpTransceiverWeb.fromJsObject(core.Object.as(transceiver), {peerConnectionId: this[_peerConnectionId$]});
+      }).bind(this));
+    }
+  };
+  (rtc_peerconnection_impl.RTCPeerConnectionWeb.new = function(_peerConnectionId, _jsPc) {
+    this[__RTCPeerConnectionWeb__jsPc] = null;
+    this[_localStreams] = new (T.IdentityMapOfString$MediaStream()).new();
+    this[_remoteStreams] = new (T.IdentityMapOfString$MediaStream()).new();
+    this[_configuration] = new (T.IdentityMapOfString$dynamic()).new();
+    this[_signalingState] = null;
+    this[_iceGatheringState] = null;
+    this[_iceConnectionState] = null;
+    this[_connectionState] = null;
+    this[_peerConnectionId$] = _peerConnectionId;
+    this[__RTCPeerConnectionWeb__jsPc] = _jsPc;
+    rtc_peerconnection_impl.RTCPeerConnectionWeb.__proto__.new.call(this);
+    this[_jsPc$][$onAddStream].listen(dart.fn(mediaStreamEvent => {
+      let t0;
+      let jsStream = mediaStreamEvent.stream;
+      if (jsStream == null) {
+        dart.throw(core.Exception.new("Unable to get the stream from the event"));
+      }
+      if (jsStream.id == null) {
+        dart.throw(core.Exception.new("The stream must have a valid identifier"));
+      }
+      let _remoteStream = this[_remoteStreams][$putIfAbsent](dart.nullCheck(jsStream.id), dart.fn(() => new media_stream_impl.MediaStreamWeb.new(jsStream, this[_peerConnectionId$]), T.VoidToMediaStreamWeb()));
+      t0 = this.onAddStream;
+      t0 == null ? null : t0(_remoteStream);
+      jsStream[$onAddTrack].listen(dart.fn(mediaStreamTrackEvent => {
+        let jsTrack = html.MediaStreamTrackEvent.as(mediaStreamTrackEvent).track;
+        if (jsTrack == null) {
+          dart.throw(core.Exception.new("The Media Stream track is null"));
+        }
+        let track = new media_stream_track_impl.MediaStreamTrackWeb.new(jsTrack);
+        _remoteStream.addTrack(track, {addToNative: false}).then(core.Null, dart.fn(_ => {
+          let t0;
+          t0 = this.onAddTrack;
+          t0 == null ? null : t0(_remoteStream, track);
+        }, T.voidToNull()));
+      }, T.EventTovoid()));
+      jsStream[$onRemoveTrack].listen(dart.fn(mediaStreamTrackEvent => {
+        let jsTrack = html.MediaStreamTrackEvent.as(mediaStreamTrackEvent).track;
+        if (jsTrack == null) {
+          dart.throw(core.Exception.new("The Media Stream track is null"));
+        }
+        let track = new media_stream_track_impl.MediaStreamTrackWeb.new(jsTrack);
+        _remoteStream.removeTrack(track, {removeFromNative: false}).then(core.Null, dart.fn(_ => {
+          let t0;
+          t0 = this.onRemoveTrack;
+          t0 == null ? null : t0(_remoteStream, track);
+        }, T.voidToNull()));
+      }, T.EventTovoid()));
+    }, T.MediaStreamEventTovoid()));
+    this[_jsPc$][$onDataChannel].listen(dart.fn(dataChannelEvent => {
+      let t0;
+      if (dataChannelEvent.channel != null) {
+        t0 = this.onDataChannel;
+        t0 == null ? null : t0(new rtc_data_channel_impl.RTCDataChannelWeb.new(dart.nullCheck(dataChannelEvent.channel)));
+      }
+    }, T.RtcDataChannelEventTovoid()));
+    this[_jsPc$][$onIceCandidate].listen(dart.fn(iceEvent => {
+      let t0;
+      if (iceEvent.candidate != null) {
+        t0 = this.onIceCandidate;
+        t0 == null ? null : t0(this[_iceFromJs](dart.nullCheck(iceEvent.candidate)));
+      }
+    }, T.RtcPeerConnectionIceEventTovoid()));
+    this[_jsPc$][$onIceConnectionStateChange].listen(dart.fn(_ => {
+      let t0;
+      this[_iceConnectionState] = enums.iceConnectionStateForString(this[_jsPc$].iceConnectionState);
+      t0 = this.onIceConnectionState;
+      t0 == null ? null : t0(dart.nullCheck(this[_iceConnectionState]));
+    }, T.EventTovoid()));
+    js_util.setProperty(this[_jsPc$], "onicegatheringstatechange", js.allowInterop(core.Function, dart.fn(_ => {
+      let t0;
+      this[_iceGatheringState] = enums.iceGatheringStateforString(this[_jsPc$].iceGatheringState);
+      t0 = this.onIceGatheringState;
+      t0 == null ? null : t0(dart.nullCheck(this[_iceGatheringState]));
+    }, T.dynamicToNull())));
+    this[_jsPc$][$onRemoveStream].listen(dart.fn(mediaStreamEvent => {
+      let t0, t0$;
+      if ((t0 = mediaStreamEvent.stream, t0 == null ? null : t0.id) != null) {
+        let _remoteStream = this[_remoteStreams][$remove](dart.nullCheck(mediaStreamEvent.stream).id);
+        if (_remoteStream != null) {
+          t0$ = this.onRemoveStream;
+          t0$ == null ? null : t0$(_remoteStream);
+        }
+      }
+    }, T.MediaStreamEventTovoid()));
+    this[_jsPc$][$onSignalingStateChange].listen(dart.fn(_ => {
+      let t0;
+      this[_signalingState] = enums.signalingStateForString(this[_jsPc$].signalingState);
+      t0 = this.onSignalingState;
+      t0 == null ? null : t0(dart.nullCheck(this[_signalingState]));
+    }, T.EventTovoid()));
+    this[_jsPc$][$onIceConnectionStateChange].listen(dart.fn(_ => {
+      let t0;
+      this[_connectionState] = enums.peerConnectionStateForString(this[_jsPc$].iceConnectionState);
+      t0 = this.onConnectionState;
+      t0 == null ? null : t0(dart.nullCheck(this[_connectionState]));
+    }, T.EventTovoid()));
+    this[_jsPc$][$onNegotiationNeeded].listen(dart.fn(_ => {
+      let t0;
+      t0 = this.onRenegotiationNeeded;
+      t0 == null ? null : t0();
+    }, T.EventTovoid()));
+    this[_jsPc$][$onTrack].listen(dart.fn(trackEvent => {
+      let t0;
+      if (trackEvent.track != null && trackEvent.receiver != null) {
+        t0 = this.onTrack;
+        t0 == null ? null : t0(new rtc_track_event.RTCTrackEvent.new({track: new media_stream_track_impl.MediaStreamTrackWeb.new(dart.nullCheck(trackEvent.track)), receiver: new rtc_rtp_receiver_impl.RTCRtpReceiverWeb.new(dart.nullCheck(trackEvent.receiver)), transceiver: rtc_rtp_transceiver_impl.RTCRtpTransceiverWeb.fromJsObject(core.Object.as(trackEvent.transceiver)), streams: trackEvent.streams != null ? dart.nullCheck(trackEvent.streams)[$map](media_stream_impl.MediaStreamWeb, dart.fn(stream => new media_stream_impl.MediaStreamWeb.new(html.MediaStream.as(stream), this[_peerConnectionId$]), T.dynamicToMediaStreamWeb()))[$toList]() : T.JSArrayOfMediaStream().of([])}));
+      }
+    }, T.RtcTrackEventTovoid()));
+  }).prototype = rtc_peerconnection_impl.RTCPeerConnectionWeb.prototype;
+  dart.addTypeTests(rtc_peerconnection_impl.RTCPeerConnectionWeb);
+  dart.addTypeCaches(rtc_peerconnection_impl.RTCPeerConnectionWeb);
+  dart.setMethodSignature(rtc_peerconnection_impl.RTCPeerConnectionWeb, () => ({
+    __proto__: dart.getMethods(rtc_peerconnection_impl.RTCPeerConnectionWeb.__proto__),
+    dispose: dart.fnType(async.Future$(dart.void), []),
+    setConfiguration: dart.fnType(async.Future$(dart.void), [core.Map$(core.String, dart.dynamic)]),
+    createOffer: dart.fnType(async.Future$(rtc_session_description.RTCSessionDescription), [], [dart.nullable(core.Map$(core.String, dart.dynamic))]),
+    createAnswer: dart.fnType(async.Future$(rtc_session_description.RTCSessionDescription), [], [dart.nullable(core.Map$(core.String, dart.dynamic))]),
+    addStream: dart.fnType(async.Future$(dart.void), [media_stream.MediaStream]),
+    removeStream: dart.fnType(async.Future$(dart.void), [media_stream.MediaStream]),
+    setLocalDescription: dart.fnType(async.Future$(dart.void), [rtc_session_description.RTCSessionDescription]),
+    setRemoteDescription: dart.fnType(async.Future$(dart.void), [rtc_session_description.RTCSessionDescription]),
+    getLocalDescription: dart.fnType(async.Future$(dart.nullable(rtc_session_description.RTCSessionDescription)), []),
+    getRemoteDescription: dart.fnType(async.Future$(dart.nullable(rtc_session_description.RTCSessionDescription)), []),
+    addCandidate: dart.fnType(async.Future$(dart.void), [rtc_ice_candidate.RTCIceCandidate]),
+    getStats: dart.fnType(async.Future$(core.List$(rtc_stats_report.StatsReport)), [], [dart.nullable(media_stream_track.MediaStreamTrack)]),
+    getLocalStreams: dart.fnType(core.List$(media_stream.MediaStream), []),
+    getRemoteStreams: dart.fnType(core.List$(media_stream.MediaStream), []),
+    createDataChannel: dart.fnType(async.Future$(rtc_data_channel.RTCDataChannel), [core.String, rtc_data_channel.RTCDataChannelInit]),
+    close: dart.fnType(async.Future$(dart.void), []),
+    createDtmfSender: dart.fnType(rtc_dtmf_sender.RTCDTMFSender, [media_stream_track.MediaStreamTrack]),
+    [_iceFromJs]: dart.fnType(rtc_ice_candidate.RTCIceCandidate, [html.RtcIceCandidate]),
+    [_iceToJs]: dart.fnType(html.RtcIceCandidate, [rtc_ice_candidate.RTCIceCandidate]),
+    [_sessionFromJs]: dart.fnType(rtc_session_description.RTCSessionDescription, [dart.nullable(html.RtcSessionDescription)]),
+    addTrack: dart.fnType(async.Future$(rtc_rtp_sender.RTCRtpSender), [media_stream_track.MediaStreamTrack], [dart.nullable(media_stream.MediaStream)]),
+    removeTrack: dart.fnType(async.Future$(core.bool), [rtc_rtp_sender.RTCRtpSender]),
+    getSenders: dart.fnType(async.Future$(core.List$(rtc_rtp_sender.RTCRtpSender)), []),
+    getReceivers: dart.fnType(async.Future$(core.List$(rtc_rtp_receiver.RTCRtpReceiver)), []),
+    getTransceivers: dart.fnType(async.Future$(core.List$(rtc_rtp_transceiver.RTCRtpTransceiver)), []),
+    addTransceiver: dart.fnType(async.Future$(rtc_rtp_transceiver.RTCRtpTransceiver), [], {init: dart.nullable(rtc_rtp_transceiver.RTCRtpTransceiverInit), kind: dart.nullable(enums.RTCRtpMediaType), track: dart.nullable(media_stream_track.MediaStreamTrack)}, {})
+  }));
+  dart.setGetterSignature(rtc_peerconnection_impl.RTCPeerConnectionWeb, () => ({
+    __proto__: dart.getGetters(rtc_peerconnection_impl.RTCPeerConnectionWeb.__proto__),
+    [_jsPc$]: html.RtcPeerConnection,
+    signalingState: dart.nullable(enums.RTCSignalingState),
+    iceGatheringState: dart.nullable(enums.RTCIceGatheringState),
+    iceConnectionState: dart.nullable(enums.RTCIceConnectionState),
+    connectionState: dart.nullable(enums.RTCPeerConnectionState),
+    getConfiguration: core.Map$(core.String, dart.dynamic)
+  }));
+  dart.setSetterSignature(rtc_peerconnection_impl.RTCPeerConnectionWeb, () => ({
+    __proto__: dart.getSetters(rtc_peerconnection_impl.RTCPeerConnectionWeb.__proto__),
+    [_jsPc$]: html.RtcPeerConnection
+  }));
+  dart.setLibraryUri(rtc_peerconnection_impl.RTCPeerConnectionWeb, I[1]);
+  dart.setFieldSignature(rtc_peerconnection_impl.RTCPeerConnectionWeb, () => ({
+    __proto__: dart.getFields(rtc_peerconnection_impl.RTCPeerConnectionWeb.__proto__),
+    [_peerConnectionId$]: dart.finalFieldType(core.String),
+    [__RTCPeerConnectionWeb__jsPc]: dart.fieldType(dart.nullable(html.RtcPeerConnection)),
+    [_localStreams]: dart.finalFieldType(core.Map$(core.String, media_stream.MediaStream)),
+    [_remoteStreams]: dart.finalFieldType(core.Map$(core.String, media_stream.MediaStream)),
+    [_configuration]: dart.finalFieldType(core.Map$(core.String, dart.dynamic)),
+    [_signalingState]: dart.fieldType(dart.nullable(enums.RTCSignalingState)),
+    [_iceGatheringState]: dart.fieldType(dart.nullable(enums.RTCIceGatheringState)),
+    [_iceConnectionState]: dart.fieldType(dart.nullable(enums.RTCIceConnectionState)),
+    [_connectionState]: dart.fieldType(dart.nullable(enums.RTCPeerConnectionState))
+  }));
+  dart.trackLibraries("packages/dart_webrtc/src/rtc_peerconnection_impl.dart", {
+    "package:dart_webrtc/src/rtc_peerconnection_impl.dart": rtc_peerconnection_impl
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["rtc_peerconnection_impl.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../../D:/packages/dart_webrtc/src/rtc_peerconnection_impl.dart.lib.js"}');
+  // Exports:
+  return {
+    src__rtc_peerconnection_impl: rtc_peerconnection_impl
+  };
+}));
+
+//# sourceMappingURL=rtc_peerconnection_impl.dart.lib.js.map

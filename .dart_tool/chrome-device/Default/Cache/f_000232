@@ -1,0 +1,779 @@
+define(['dart_sdk', 'packages/flutter/src/widgets/widget_span.dart', 'packages/webrtc_interface/src/rtc_ice_candidate.dart', 'packages/shared_preferences/shared_preferences.dart', 'packages/webrtc_interface/src/rtc_peerconnection.dart', 'packages/webrtc_interface/src/rtc_data_channel.dart', 'packages/flutter_webrtc/src/web/rtc_video_renderer_impl.dart', 'packages/socket_io_client/src/darty.dart', 'packages/dart_webrtc/src/factory_impl.dart', 'packages/sdp_transform/src/parser.dart', 'packages/webrtc_interface/src/media_stream.dart', 'packages/webrtc_interface/src/rtc_session_description.dart', 'packages/flutter_webrtc/src/web/rtc_video_view_impl.dart', 'packages/socket_io_client/src/manager.dart'], (function load__packages__web_socket__Call_dart(dart_sdk, packages__flutter__src__widgets__widget_span$46dart, packages__webrtc_interface__src__rtc_ice_candidate$46dart, packages__shared_preferences__shared_preferences$46dart, packages__webrtc_interface__src__rtc_peerconnection$46dart, packages__webrtc_interface__src__rtc_data_channel$46dart, packages__flutter_webrtc__src__web__rtc_video_renderer_impl$46dart, packages__socket_io_client__src__darty$46dart, packages__dart_webrtc__src__factory_impl$46dart, packages__sdp_transform__src__parser$46dart, packages__webrtc_interface__src__media_stream$46dart, packages__webrtc_interface__src__rtc_session_description$46dart, packages__flutter_webrtc__src__web__rtc_video_view_impl$46dart, packages__socket_io_client__src__manager$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _internal = dart_sdk._internal;
+  const _interceptors = dart_sdk._interceptors;
+  const convert = dart_sdk.convert;
+  const _js_helper = dart_sdk._js_helper;
+  const async = dart_sdk.async;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const editable_text = packages__flutter__src__widgets__widget_span$46dart.src__widgets__editable_text;
+  const container = packages__flutter__src__widgets__widget_span$46dart.src__widgets__container;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const media_query = packages__flutter__src__widgets__widget_span$46dart.src__widgets__media_query;
+  const rtc_ice_candidate = packages__webrtc_interface__src__rtc_ice_candidate$46dart.src__rtc_ice_candidate;
+  const shared_preferences = packages__shared_preferences__shared_preferences$46dart.shared_preferences;
+  const rtc_peerconnection = packages__webrtc_interface__src__rtc_peerconnection$46dart.src__rtc_peerconnection;
+  const rtc_data_channel = packages__webrtc_interface__src__rtc_data_channel$46dart.src__rtc_data_channel;
+  const rtc_video_renderer_impl = packages__flutter_webrtc__src__web__rtc_video_renderer_impl$46dart.src__web__rtc_video_renderer_impl;
+  const socket_io_client = packages__socket_io_client__src__darty$46dart.socket_io_client;
+  const darty = packages__socket_io_client__src__darty$46dart.src__darty;
+  const factory_impl = packages__dart_webrtc__src__factory_impl$46dart.src__factory_impl;
+  const parser = packages__sdp_transform__src__parser$46dart.src__parser;
+  const media_stream = packages__webrtc_interface__src__media_stream$46dart.src__media_stream;
+  const rtc_session_description = packages__webrtc_interface__src__rtc_session_description$46dart.src__rtc_session_description;
+  const rtc_video_view_impl = packages__flutter_webrtc__src__web__rtc_video_view_impl$46dart.src__web__rtc_video_view_impl;
+  const socket = packages__socket_io_client__src__manager$46dart.src__socket;
+  var Call = Object.create(dart.library);
+  var $toString = dartx.toString;
+  var $length = dartx.length;
+  var $_set = dartx._set;
+  var $entries = dartx.entries;
+  var $_get = dartx._get;
+  var $forEach = dartx.forEach;
+  var $clear = dartx.clear;
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    JSArrayOfRTCIceCandidate: () => (T.JSArrayOfRTCIceCandidate = dart.constFn(_interceptors.JSArray$(rtc_ice_candidate.RTCIceCandidate)))(),
+    IdentityMapOfString$Session: () => (T.IdentityMapOfString$Session = dart.constFn(_js_helper.IdentityMap$(core.String, Call.Session)))(),
+    IdentityMapOfString$String: () => (T.IdentityMapOfString$String = dart.constFn(_js_helper.IdentityMap$(core.String, core.String)))(),
+    MapOfString$String: () => (T.MapOfString$String = dart.constFn(core.Map$(core.String, core.String)))(),
+    JSArrayOfMapOfString$String: () => (T.JSArrayOfMapOfString$String = dart.constFn(_interceptors.JSArray$(T.MapOfString$String())))(),
+    IdentityMapOfString$dynamic: () => (T.IdentityMapOfString$dynamic = dart.constFn(_js_helper.IdentityMap$(core.String, dart.dynamic)))(),
+    IdentityMapOfString$bool: () => (T.IdentityMapOfString$bool = dart.constFn(_js_helper.IdentityMap$(core.String, core.bool)))(),
+    MapOfString$bool: () => (T.MapOfString$bool = dart.constFn(core.Map$(core.String, core.bool)))(),
+    JSArrayOfMapOfString$bool: () => (T.JSArrayOfMapOfString$bool = dart.constFn(_interceptors.JSArray$(T.MapOfString$bool())))(),
+    JSArrayOfString: () => (T.JSArrayOfString = dart.constFn(_interceptors.JSArray$(core.String)))(),
+    MapOfString$dynamic: () => (T.MapOfString$dynamic = dart.constFn(core.Map$(core.String, dart.dynamic)))(),
+    dynamicToNull: () => (T.dynamicToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic])))(),
+    StringN: () => (T.StringN = dart.constFn(dart.nullable(core.String)))(),
+    IdentityMapOfString$StringN: () => (T.IdentityMapOfString$StringN = dart.constFn(_js_helper.IdentityMap$(core.String, T.StringN())))(),
+    IdentityMapOfString$Object: () => (T.IdentityMapOfString$Object = dart.constFn(_js_helper.IdentityMap$(core.String, core.Object)))(),
+    ObjectN: () => (T.ObjectN = dart.constFn(dart.nullable(core.Object)))(),
+    IdentityMapOfString$ObjectN: () => (T.IdentityMapOfString$ObjectN = dart.constFn(_js_helper.IdentityMap$(core.String, T.ObjectN())))(),
+    RTCIceCandidateToNull: () => (T.RTCIceCandidateToNull = dart.constFn(dart.fnType(core.Null, [rtc_ice_candidate.RTCIceCandidate])))(),
+    FutureOfvoid: () => (T.FutureOfvoid = dart.constFn(async.Future$(dart.void)))(),
+    RTCIceCandidateToFutureOfvoid: () => (T.RTCIceCandidateToFutureOfvoid = dart.constFn(dart.fnType(T.FutureOfvoid(), [rtc_ice_candidate.RTCIceCandidate])))(),
+    JSArrayOfWidget: () => (T.JSArrayOfWidget = dart.constFn(_interceptors.JSArray$(framework.Widget)))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "_renderer",
+        [_Location_column]: 37,
+        [_Location_line]: 333,
+        [_Location_file]: null
+      });
+    },
+    get C1() {
+      return C[1] = dart.constList([C[2] || CT.C2], widget_inspector._Location);
+    },
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[1] || CT.C1,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 333,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/Call.dart"
+      });
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 333,
+        [_Location_file]: null
+      });
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 13,
+        [_Location_line]: 334,
+        [_Location_file]: null
+      });
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 13,
+        [_Location_line]: 335,
+        [_Location_file]: null
+      });
+    },
+    get C4() {
+      return C[4] = dart.constList([C[5] || CT.C5, C[6] || CT.C6, C[7] || CT.C7], widget_inspector._Location);
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[4] || CT.C4,
+        [_Location_name]: null,
+        [_Location_column]: 18,
+        [_Location_line]: 331,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/Call.dart"
+      });
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 11,
+        [_Location_line]: 331,
+        [_Location_file]: null
+      });
+    },
+    get C9() {
+      return C[9] = dart.constList([C[10] || CT.C10], widget_inspector._Location);
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[9] || CT.C9,
+        [_Location_name]: null,
+        [_Location_column]: 9,
+        [_Location_line]: 330,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/Call.dart"
+      });
+    },
+    get C13() {
+      return C[13] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "_renderer",
+        [_Location_column]: 37,
+        [_Location_line]: 342,
+        [_Location_file]: null
+      });
+    },
+    get C12() {
+      return C[12] = dart.constList([C[13] || CT.C13], widget_inspector._Location);
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[12] || CT.C12,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 342,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/Call.dart"
+      });
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 342,
+        [_Location_file]: null
+      });
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 13,
+        [_Location_line]: 344,
+        [_Location_file]: null
+      });
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 13,
+        [_Location_line]: 345,
+        [_Location_file]: null
+      });
+    },
+    get C15() {
+      return C[15] = dart.constList([C[16] || CT.C16, C[17] || CT.C17, C[18] || CT.C18], widget_inspector._Location);
+    },
+    get C14() {
+      return C[14] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[15] || CT.C15,
+        [_Location_name]: null,
+        [_Location_column]: 18,
+        [_Location_line]: 341,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/Call.dart"
+      });
+    },
+    get C21() {
+      return C[21] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "left",
+        [_Location_column]: 11,
+        [_Location_line]: 339,
+        [_Location_file]: null
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "top",
+        [_Location_column]: 11,
+        [_Location_line]: 340,
+        [_Location_file]: null
+      });
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 11,
+        [_Location_line]: 341,
+        [_Location_file]: null
+      });
+    },
+    get C20() {
+      return C[20] = dart.constList([C[21] || CT.C21, C[22] || CT.C22, C[23] || CT.C23], widget_inspector._Location);
+    },
+    get C19() {
+      return C[19] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[20] || CT.C20,
+        [_Location_name]: null,
+        [_Location_column]: 9,
+        [_Location_line]: 338,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/Call.dart"
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 20,
+        [_Location_line]: 329,
+        [_Location_file]: null
+      });
+    },
+    get C25() {
+      return C[25] = dart.constList([C[26] || CT.C26], widget_inspector._Location);
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[25] || CT.C25,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 329,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/Call.dart"
+      });
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 329,
+        [_Location_file]: null
+      });
+    },
+    get C28() {
+      return C[28] = dart.constList([C[29] || CT.C29], widget_inspector._Location);
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[28] || CT.C28,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 328,
+        [_Location_file]: "file:///D:/Flutter/WebRTC/WebSocket/lib/Call.dart"
+      });
+    }
+  }, false);
+  var C = Array(30).fill(void 0);
+  var I = ["package:web_socket/Call.dart"];
+  var __CallPage__selfId = dart.privateName(Call, "_#CallPage#_selfId");
+  var __CallPage_peerId = dart.privateName(Call, "_#CallPage#peerId");
+  var _selfId = dart.privateName(Call, "_selfId");
+  Call.CallPage = class CallPage extends framework.StatefulWidget {
+    get [_selfId]() {
+      let t0;
+      t0 = this[__CallPage__selfId];
+      return t0 == null ? dart.throw(new _internal.LateError.fieldNI("_selfId")) : t0;
+    }
+    set [_selfId](t0) {
+      this[__CallPage__selfId] = t0;
+    }
+    get peerId() {
+      let t1;
+      t1 = this[__CallPage_peerId];
+      return t1 == null ? dart.throw(new _internal.LateError.fieldNI("peerId")) : t1;
+    }
+    set peerId(t1) {
+      this[__CallPage_peerId] = t1;
+    }
+    createState() {
+      return new Call._CallPageState.new();
+    }
+  };
+  (Call.CallPage.new = function(_selfId, peerId, opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[__CallPage__selfId] = null;
+    this[__CallPage_peerId] = null;
+    this[__CallPage__selfId] = _selfId;
+    this[__CallPage_peerId] = peerId;
+    Call.CallPage.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = Call.CallPage.prototype;
+  dart.addTypeTests(Call.CallPage);
+  dart.addTypeCaches(Call.CallPage);
+  dart.setMethodSignature(Call.CallPage, () => ({
+    __proto__: dart.getMethods(Call.CallPage.__proto__),
+    createState: dart.fnType(Call._CallPageState, [])
+  }));
+  dart.setGetterSignature(Call.CallPage, () => ({
+    __proto__: dart.getGetters(Call.CallPage.__proto__),
+    [_selfId]: core.String,
+    peerId: core.String
+  }));
+  dart.setSetterSignature(Call.CallPage, () => ({
+    __proto__: dart.getSetters(Call.CallPage.__proto__),
+    [_selfId]: core.String,
+    peerId: core.String
+  }));
+  dart.setLibraryUri(Call.CallPage, I[0]);
+  dart.setFieldSignature(Call.CallPage, () => ({
+    __proto__: dart.getFields(Call.CallPage.__proto__),
+    [__CallPage__selfId]: dart.fieldType(dart.nullable(core.String)),
+    [__CallPage_peerId]: dart.fieldType(dart.nullable(core.String))
+  }));
+  var sid$ = dart.privateName(Call, "Session.sid");
+  var pid$ = dart.privateName(Call, "Session.pid");
+  var remoteCandidates = dart.privateName(Call, "Session.remoteCandidates");
+  var __Session_sharedPrefrences = dart.privateName(Call, "_#Session#sharedPrefrences");
+  var __Session_pc = dart.privateName(Call, "_#Session#pc");
+  var __Session_dc = dart.privateName(Call, "_#Session#dc");
+  var __Session__selfRenderer = dart.privateName(Call, "_#Session#_selfRenderer");
+  var __Session_fieldController = dart.privateName(Call, "_#Session#fieldController");
+  var _selfRenderer = dart.privateName(Call, "_selfRenderer");
+  Call.Session = class Session extends core.Object {
+    get sid() {
+      return this[sid$];
+    }
+    set sid(value) {
+      this[sid$] = value;
+    }
+    get pid() {
+      return this[pid$];
+    }
+    set pid(value) {
+      this[pid$] = value;
+    }
+    get remoteCandidates() {
+      return this[remoteCandidates];
+    }
+    set remoteCandidates(value) {
+      this[remoteCandidates] = value;
+    }
+    get sharedPrefrences() {
+      let t2;
+      t2 = this[__Session_sharedPrefrences];
+      return t2 == null ? dart.throw(new _internal.LateError.fieldNI("sharedPrefrences")) : t2;
+    }
+    set sharedPrefrences(t2) {
+      this[__Session_sharedPrefrences] = t2;
+    }
+    get pc() {
+      let t3;
+      t3 = this[__Session_pc];
+      return t3 == null ? dart.throw(new _internal.LateError.fieldNI("pc")) : t3;
+    }
+    set pc(t3) {
+      this[__Session_pc] = t3;
+    }
+    get dc() {
+      let t4;
+      t4 = this[__Session_dc];
+      return t4 == null ? dart.throw(new _internal.LateError.fieldNI("dc")) : t4;
+    }
+    set dc(t4) {
+      this[__Session_dc] = t4;
+    }
+    get [_selfRenderer]() {
+      let t5;
+      t5 = this[__Session__selfRenderer];
+      return t5 == null ? dart.throw(new _internal.LateError.fieldNI("_selfRenderer")) : t5;
+    }
+    set [_selfRenderer](t5) {
+      this[__Session__selfRenderer] = t5;
+    }
+    get fieldController() {
+      let t6;
+      t6 = this[__Session_fieldController];
+      return t6 == null ? dart.throw(new _internal.LateError.fieldNI("fieldController")) : t6;
+    }
+    set fieldController(t6) {
+      this[__Session_fieldController] = t6;
+    }
+  };
+  (Call.Session.new = function(opts) {
+    let sid = opts && 'sid' in opts ? opts.sid : null;
+    let pid = opts && 'pid' in opts ? opts.pid : null;
+    this[__Session_sharedPrefrences] = null;
+    this[__Session_pc] = null;
+    this[__Session_dc] = null;
+    this[__Session__selfRenderer] = null;
+    this[__Session_fieldController] = null;
+    this[remoteCandidates] = T.JSArrayOfRTCIceCandidate().of([]);
+    this[sid$] = sid;
+    this[pid$] = pid;
+    ;
+  }).prototype = Call.Session.prototype;
+  dart.addTypeTests(Call.Session);
+  dart.addTypeCaches(Call.Session);
+  dart.setGetterSignature(Call.Session, () => ({
+    __proto__: dart.getGetters(Call.Session.__proto__),
+    sharedPrefrences: shared_preferences.SharedPreferences,
+    pc: rtc_peerconnection.RTCPeerConnection,
+    dc: rtc_data_channel.RTCDataChannel,
+    [_selfRenderer]: rtc_video_renderer_impl.RTCVideoRenderer,
+    fieldController: editable_text.TextEditingController
+  }));
+  dart.setSetterSignature(Call.Session, () => ({
+    __proto__: dart.getSetters(Call.Session.__proto__),
+    sharedPrefrences: shared_preferences.SharedPreferences,
+    pc: rtc_peerconnection.RTCPeerConnection,
+    dc: rtc_data_channel.RTCDataChannel,
+    [_selfRenderer]: rtc_video_renderer_impl.RTCVideoRenderer,
+    fieldController: editable_text.TextEditingController
+  }));
+  dart.setLibraryUri(Call.Session, I[0]);
+  dart.setFieldSignature(Call.Session, () => ({
+    __proto__: dart.getFields(Call.Session.__proto__),
+    sid: dart.fieldType(core.String),
+    pid: dart.fieldType(core.String),
+    [__Session_sharedPrefrences]: dart.fieldType(dart.nullable(shared_preferences.SharedPreferences)),
+    [__Session_pc]: dart.fieldType(dart.nullable(rtc_peerconnection.RTCPeerConnection)),
+    [__Session_dc]: dart.fieldType(dart.nullable(rtc_data_channel.RTCDataChannel)),
+    [__Session__selfRenderer]: dart.fieldType(dart.nullable(rtc_video_renderer_impl.RTCVideoRenderer)),
+    [__Session_fieldController]: dart.fieldType(dart.nullable(editable_text.TextEditingController)),
+    remoteCandidates: dart.fieldType(core.List$(rtc_ice_candidate.RTCIceCandidate))
+  }));
+  var ___CallPageState_session = dart.privateName(Call, "_#_CallPageState#session");
+  var ___CallPageState_description = dart.privateName(Call, "_#_CallPageState#description");
+  var _guestRenderer = dart.privateName(Call, "_guestRenderer");
+  var _decoder = dart.privateName(Call, "_decoder");
+  var _encoder = dart.privateName(Call, "_encoder");
+  var _fieldController = dart.privateName(Call, "_fieldController");
+  var ___CallPageState_socket = dart.privateName(Call, "_#_CallPageState#socket");
+  var ___CallPageState__localStream = dart.privateName(Call, "_#_CallPageState#_localStream");
+  var _localRenderer = dart.privateName(Call, "_localRenderer");
+  var _session = dart.privateName(Call, "_session");
+  var _iceServers = dart.privateName(Call, "_iceServers");
+  var _config = dart.privateName(Call, "_config");
+  var _dcConstraints = dart.privateName(Call, "_dcConstraints");
+  var _localStream = dart.privateName(Call, "_localStream");
+  var _getUserMedia = dart.privateName(Call, "_getUserMedia");
+  var _createSession = dart.privateName(Call, "_createSession");
+  var _createOffer = dart.privateName(Call, "_createOffer");
+  var _send = dart.privateName(Call, "_send");
+  var _createAnswer = dart.privateName(Call, "_createAnswer");
+  var _reply = dart.privateName(Call, "_reply");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  Call._CallPageState = class _CallPageState extends framework.State$(Call.CallPage) {
+    get session() {
+      let t7;
+      t7 = this[___CallPageState_session];
+      return t7 == null ? dart.throw(new _internal.LateError.fieldNI("session")) : t7;
+    }
+    set session(t7) {
+      this[___CallPageState_session] = t7;
+    }
+    get description() {
+      let t8;
+      t8 = this[___CallPageState_description];
+      return t8 == null ? dart.throw(new _internal.LateError.fieldNI("description")) : t8;
+    }
+    set description(t8) {
+      this[___CallPageState_description] = t8;
+    }
+    get socket() {
+      let t9;
+      t9 = this[___CallPageState_socket];
+      return t9 == null ? dart.throw(new _internal.LateError.fieldNI("socket")) : t9;
+    }
+    set socket(t9) {
+      this[___CallPageState_socket] = t9;
+    }
+    get [_localStream]() {
+      let t10;
+      t10 = this[___CallPageState__localStream];
+      return t10 == null ? dart.throw(new _internal.LateError.fieldNI("_localStream")) : t10;
+    }
+    set [_localStream](t10) {
+      this[___CallPageState__localStream] = t10;
+    }
+    connect() {
+      this.socket = socket_io_client.io("http://b85f-2405-201-600c-d806-d8e5-abae-eec2-f431.ngrok.io", new darty.OptionBuilder.new().setTransports(T.JSArrayOfString().of(["websocket"])).disableAutoConnect().build());
+      this.socket.connect();
+      if (this.socket.connected) {
+        core.print("Connected in call page " + dart.toString(this.socket.id));
+      } else {
+        core.print("Not connected");
+      }
+      this.socket.on("answer", dart.fn(desc => {
+        this.description = T.MapOfString$dynamic().as(desc);
+        core.print("This is answer " + this.description[$length][$toString]());
+      }, T.dynamicToNull()));
+    }
+    answer() {
+    }
+    [_getUserMedia]() {
+      return async.async(dart.dynamic, (function* _getUserMedia() {
+        let mediaConstraints = new (T.IdentityMapOfString$dynamic()).from(["audio", false, "video", new (T.IdentityMapOfString$String()).from(["facingMode", "user"])]);
+        let stream = (yield factory_impl.navigator.mediaDevices.getUserMedia(mediaConstraints));
+        this[_selfRenderer].srcObject = stream;
+        return stream;
+      }).bind(this));
+    }
+    initState() {
+      core.print("Iside init");
+      super.initState();
+      this.connect();
+      this.initRenders();
+      if (this.widget.peerId === "nothing") {
+        this.reply();
+      } else {
+        this.invite(this.widget.peerId, "video", false);
+      }
+    }
+    dispose() {
+      super.dispose();
+      this.socket.dispose();
+      this[_selfRenderer].dispose();
+      this[_localRenderer].dispose();
+    }
+    reply() {
+      core.print("This is reply section");
+      this.socket.emit("reply");
+    }
+    initRenders() {
+      return async.async(dart.dynamic, (function* initRenders() {
+        yield this[_selfRenderer].initialize();
+        yield this[_guestRenderer].initialize();
+      }).bind(this));
+    }
+    invite(peerId, media, useScreen) {
+      return async.async(dart.dynamic, (function* invite() {
+        let sessionId = this.widget[_selfId] + "-" + peerId;
+        let session = (yield this[_createSession]({sessionId: sessionId, peerId: peerId, media: media, screenSharing: core.bool.as(useScreen)}));
+        this[_session][$_set](sessionId, session);
+        core.print("This is sessionId" + sessionId[$toString]());
+        this[_createOffer](session, media);
+      }).bind(this));
+    }
+    [_createOffer](session, media) {
+      return async.async(dart.void, (function* _createOffer() {
+        try {
+          core.print("Inside of create offer");
+          let s = (yield session.pc.createOffer(new (T.IdentityMapOfString$dynamic()).from(["offerToReceiveVideo ", 1])));
+          core.print(s[$toString]());
+          let sessionn = parser.parse(dart.toString(s.sdp));
+          core.print(convert.jsonEncode(sessionn));
+          yield session.pc.setLocalDescription(s);
+          this[_send]("offer", new (T.IdentityMapOfString$Object()).from(["to", session.pid, "from", this.widget[_selfId], "description", new (T.IdentityMapOfString$StringN()).from(["sdp", s.sdp, "type", s.type]), "session_id", session.sid, "media", media]));
+        } catch (e$) {
+          let e = dart.getThrown(e$);
+          if (core.Object.is(e)) {
+            core.print(e[$toString]());
+          } else
+            throw e$;
+        }
+      }).bind(this));
+    }
+    [_createSession](opts) {
+      let sessionId = opts && 'sessionId' in opts ? opts.sessionId : null;
+      let peerId = opts && 'peerId' in opts ? opts.peerId : null;
+      let media = opts && 'media' in opts ? opts.media : null;
+      let screenSharing = opts && 'screenSharing' in opts ? opts.screenSharing : null;
+      return async.async(Call.Session, (function* _createSession() {
+        let newSession = new Call.Session.new({sid: sessionId, pid: peerId});
+        this[_localStream] = media_stream.MediaStream.as(yield this[_getUserMedia]());
+        core.print(this[_iceServers]);
+        let pc = (yield factory_impl.createPeerConnection((() => {
+          let t12 = new (T.IdentityMapOfString$dynamic()).new();
+          for (let t13 of this[_iceServers][$entries])
+            t12[$_set](t13.key, t13.value);
+          return t12;
+        })(), this[_config]));
+        pc.addStream(this[_localStream]);
+        this.socket.emit("check", "add Stream ");
+        pc.onIceCandidate = dart.fn(e => {
+          if (e.candidate != null) {
+            core.print(dart.toString(e.candidate) + dart.toString(e.sdpMid) + dart.toString(e.sdpMlineIndex));
+            core.print("This is selfId " + this.widget[_selfId] + " " + this.socket.connected[$toString]());
+            core.print("This is peerId" + peerId);
+          }
+          this[_send]("candidate", new (T.IdentityMapOfString$Object()).from(["to", peerId, "from", this.widget[_selfId], "candidate", new (T.IdentityMapOfString$ObjectN()).from(["sdpMLineIndex", e.sdpMlineIndex, "sdpMid", e.sdpMid, "candidate", e.candidate]), "session_id", sessionId]));
+        }, T.RTCIceCandidateToNull());
+        newSession.pc = pc;
+        return newSession;
+      }).bind(this));
+    }
+    [_send](event, data) {
+      let request = new _js_helper.LinkedMap.new();
+      request[$_set]("type", event);
+      request[$_set]("data", data);
+      this.socket.emit("offer", request[$toString]());
+      core.print("This is the request form user -> " + request[$toString]());
+    }
+    [_reply](media, value) {
+      return async.async(dart.void, (function* _reply() {
+        let message = (yield this[_decoder].convert(core.String.as(value)));
+        core.print("This is dynamic message->> " + dart.toString(message));
+        let mapData = T.MapOfString$dynamic().as(message);
+        let data = mapData[$_get]("data");
+        try {
+          let peerId = dart.dsend(data, '_get', ["from"]);
+          let description = dart.dsend(data, '_get', ["description"]);
+          let media = data = dart.dsend(data, '_get', ["media"]);
+          let sessionId = dart.dsend(data, '_get', ["session_id"]);
+          let session = this[_session][$_get](sessionId);
+          let newSession = (yield this[_createSession]({sessionId: core.String.as(sessionId), peerId: core.String.as(peerId), media: core.String.as(media), screenSharing: false}));
+          this[_session][$_set](core.String.as(sessionId), newSession);
+          yield newSession.pc.setRemoteDescription(new rtc_session_description.RTCSessionDescription.new(T.StringN().as(dart.dsend(description, '_get', ["sdp"])), T.StringN().as(dart.dsend(description, '_get', ["type"]))));
+          this[_createAnswer](newSession, core.String.as(media));
+          if (newSession.remoteCandidates[$length] > 0) {
+            newSession.remoteCandidates[$forEach](dart.fn(candidate => async.async(dart.void, function*() {
+              yield newSession.pc.addCandidate(candidate);
+            }), T.RTCIceCandidateToFutureOfvoid()));
+            newSession.remoteCandidates[$clear]();
+          }
+        } catch (e$) {
+          let e = dart.getThrown(e$);
+          if (core.Object.is(e)) {
+          } else
+            throw e$;
+        }
+      }).bind(this));
+    }
+    [_createAnswer](session, media) {
+      return async.async(dart.void, (function* _createAnswer() {
+        try {
+          let s = (yield session.pc.createAnswer(media === "media" ? this[_dcConstraints] : new (T.IdentityMapOfString$dynamic()).new()));
+          yield session.pc.setRemoteDescription(s);
+        } catch (e$) {
+          let e = dart.getThrown(e$);
+          if (core.Object.is(e)) {
+          } else
+            throw e$;
+        }
+      }).bind(this));
+    }
+    build(context) {
+      return new container.Container.new({child: new basic.Stack.new({children: T.JSArrayOfWidget().of([new basic.Positioned.new({child: new container.Container.new({child: new rtc_video_view_impl.RTCVideoView.new(this[_guestRenderer], {$creationLocationd_0dea112b090073317d4: C[0] || CT.C0}), width: media_query.MediaQuery.of(context).size.width, height: media_query.MediaQuery.of(context).size.height, $creationLocationd_0dea112b090073317d4: C[3] || CT.C3}), $creationLocationd_0dea112b090073317d4: C[8] || CT.C8}), new basic.Positioned.new({left: 20.0, top: media_query.MediaQuery.of(context).size.height * 0.1, child: new container.Container.new({child: new rtc_video_view_impl.RTCVideoView.new(this[_selfRenderer], {$creationLocationd_0dea112b090073317d4: C[11] || CT.C11}), height: media_query.MediaQuery.of(context).size.height * 0.17, width: media_query.MediaQuery.of(context).size.width * 0.25, $creationLocationd_0dea112b090073317d4: C[14] || CT.C14}), $creationLocationd_0dea112b090073317d4: C[19] || CT.C19})]), $creationLocationd_0dea112b090073317d4: C[24] || CT.C24}), $creationLocationd_0dea112b090073317d4: C[27] || CT.C27});
+    }
+  };
+  (Call._CallPageState.new = function() {
+    this[___CallPageState_session] = null;
+    this[___CallPageState_description] = null;
+    this[_selfRenderer] = new rtc_video_renderer_impl.RTCVideoRenderer.new();
+    this[_guestRenderer] = new rtc_video_renderer_impl.RTCVideoRenderer.new();
+    this[_decoder] = new convert.JsonDecoder.new();
+    this[_encoder] = new convert.JsonEncoder.new();
+    this[_fieldController] = new editable_text.TextEditingController.new();
+    this.useScreen = false;
+    this[___CallPageState_socket] = null;
+    this[___CallPageState__localStream] = null;
+    this[_localRenderer] = new rtc_video_renderer_impl.RTCVideoRenderer.new();
+    this[_session] = new (T.IdentityMapOfString$Session()).new();
+    this[_iceServers] = new (T.IdentityMapOfString$dynamic()).from(["iceServers", T.JSArrayOfMapOfString$String().of([new (T.IdentityMapOfString$String()).from(["url", "stun:stun.l.google.com:19302"])])]);
+    this[_config] = new (T.IdentityMapOfString$dynamic()).from(["mandatory", new _js_helper.LinkedMap.new(), "optional", T.JSArrayOfMapOfString$bool().of([new (T.IdentityMapOfString$bool()).from(["DtlsSrtpKeyAgreement", true])])]);
+    this[_dcConstraints] = new (T.IdentityMapOfString$dynamic()).from(["mandatory", new (T.IdentityMapOfString$bool()).from(["OfferToReceiveAudio", false, "OfferToReceiveVideo", false]), "optional", []]);
+    Call._CallPageState.__proto__.new.call(this);
+    ;
+  }).prototype = Call._CallPageState.prototype;
+  dart.addTypeTests(Call._CallPageState);
+  dart.addTypeCaches(Call._CallPageState);
+  dart.setMethodSignature(Call._CallPageState, () => ({
+    __proto__: dart.getMethods(Call._CallPageState.__proto__),
+    connect: dart.fnType(dart.void, []),
+    answer: dart.fnType(dart.dynamic, []),
+    [_getUserMedia]: dart.fnType(dart.dynamic, []),
+    reply: dart.fnType(dart.void, []),
+    initRenders: dart.fnType(dart.dynamic, []),
+    invite: dart.fnType(dart.dynamic, [core.String, core.String, dart.dynamic]),
+    [_createOffer]: dart.fnType(async.Future$(dart.void), [Call.Session, core.String]),
+    [_createSession]: dart.fnType(async.Future$(Call.Session), [], {}, {media: core.String, peerId: core.String, screenSharing: core.bool, sessionId: core.String}),
+    [_send]: dart.fnType(dart.dynamic, [dart.dynamic, dart.dynamic]),
+    [_reply]: dart.fnType(async.Future$(dart.void), [core.String, dart.dynamic]),
+    [_createAnswer]: dart.fnType(async.Future$(dart.void), [Call.Session, core.String]),
+    build: dart.fnType(framework.Widget, [framework.BuildContext])
+  }));
+  dart.setGetterSignature(Call._CallPageState, () => ({
+    __proto__: dart.getGetters(Call._CallPageState.__proto__),
+    session: Call.Session,
+    description: core.Map$(core.String, dart.dynamic),
+    socket: socket.Socket,
+    [_localStream]: media_stream.MediaStream
+  }));
+  dart.setSetterSignature(Call._CallPageState, () => ({
+    __proto__: dart.getSetters(Call._CallPageState.__proto__),
+    session: Call.Session,
+    description: core.Map$(core.String, dart.dynamic),
+    socket: socket.Socket,
+    [_localStream]: media_stream.MediaStream
+  }));
+  dart.setLibraryUri(Call._CallPageState, I[0]);
+  dart.setFieldSignature(Call._CallPageState, () => ({
+    __proto__: dart.getFields(Call._CallPageState.__proto__),
+    [___CallPageState_session]: dart.fieldType(dart.nullable(Call.Session)),
+    [___CallPageState_description]: dart.fieldType(dart.nullable(core.Map$(core.String, dart.dynamic))),
+    [_selfRenderer]: dart.fieldType(rtc_video_renderer_impl.RTCVideoRenderer),
+    [_guestRenderer]: dart.fieldType(rtc_video_renderer_impl.RTCVideoRenderer),
+    [_decoder]: dart.fieldType(convert.JsonDecoder),
+    [_encoder]: dart.fieldType(convert.JsonEncoder),
+    [_fieldController]: dart.fieldType(editable_text.TextEditingController),
+    useScreen: dart.fieldType(core.bool),
+    [___CallPageState_socket]: dart.fieldType(dart.nullable(socket.Socket)),
+    [___CallPageState__localStream]: dart.fieldType(dart.nullable(media_stream.MediaStream)),
+    [_localRenderer]: dart.fieldType(rtc_video_renderer_impl.RTCVideoRenderer),
+    [_session]: dart.fieldType(core.Map$(core.String, Call.Session)),
+    [_iceServers]: dart.fieldType(core.Map$(core.String, dart.dynamic)),
+    [_config]: dart.finalFieldType(core.Map$(core.String, dart.dynamic)),
+    [_dcConstraints]: dart.finalFieldType(core.Map$(core.String, dart.dynamic))
+  }));
+  dart.trackLibraries("packages/web_socket/Call.dart", {
+    "package:web_socket/Call.dart": Call
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["Call.dart"],"names":[],"mappings":"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","file":"../../../../packages/web_socket/Call.dart.lib.js"}');
+  // Exports:
+  return {
+    Call: Call
+  };
+}));
+
+//# sourceMappingURL=Call.dart.lib.js.map

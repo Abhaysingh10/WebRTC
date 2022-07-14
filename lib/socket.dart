@@ -10,7 +10,7 @@ class SocketNode with ChangeNotifier {
   connect(String _selfId) async {
     print("This is SelfId => " + _selfId);
     socket = IO.io(
-        "tp://b85f-2405-201-600c-d806-d8e5-abae-eec2-f431.ngrok.io",
+        "https://75a7-2405-201-600c-dd42-a8e1-c6c3-df9a-b4.in.ngrok.io",
         <String, dynamic>{
           "transports": ["websocket"],
           "autoConnect": false

@@ -1,0 +1,400 @@
+define(['dart_sdk', 'packages/webrtc_interface/src/rtc_rtcp_parameters.dart'], (function load__packages__webrtc_interface__src__rtc_rtp_parameters_dart(dart_sdk, packages__webrtc_interface__src__rtc_rtcp_parameters$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _js_helper = dart_sdk._js_helper;
+  const _interceptors = dart_sdk._interceptors;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const rtc_rtcp_parameters = packages__webrtc_interface__src__rtc_rtcp_parameters$46dart.src__rtc_rtcp_parameters;
+  var rtc_rtp_parameters = Object.create(dart.library);
+  var $_get = dartx._get;
+  var $_set = dartx._set;
+  var $add = dartx.add;
+  var $forEach = dartx.forEach;
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    intN: () => (T.intN = dart.constFn(dart.nullable(core.int)))(),
+    StringN: () => (T.StringN = dart.constFn(dart.nullable(core.String)))(),
+    MapN: () => (T.MapN = dart.constFn(dart.nullable(core.Map)))(),
+    IdentityMapOfString$dynamic: () => (T.IdentityMapOfString$dynamic = dart.constFn(_js_helper.IdentityMap$(core.String, dart.dynamic)))(),
+    doubleN: () => (T.doubleN = dart.constFn(dart.nullable(core.double)))(),
+    boolN: () => (T.boolN = dart.constFn(dart.nullable(core.bool)))(),
+    JSArrayOfRTCRtpEncoding: () => (T.JSArrayOfRTCRtpEncoding = dart.constFn(_interceptors.JSArray$(rtc_rtp_parameters.RTCRtpEncoding)))(),
+    dynamicToNull: () => (T.dynamicToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic])))(),
+    JSArrayOfRTCHeaderExtension: () => (T.JSArrayOfRTCHeaderExtension = dart.constFn(_interceptors.JSArray$(rtc_rtp_parameters.RTCHeaderExtension)))(),
+    JSArrayOfRTCRTPCodec: () => (T.JSArrayOfRTCRTPCodec = dart.constFn(_interceptors.JSArray$(rtc_rtp_parameters.RTCRTPCodec)))(),
+    RTCHeaderExtensionTovoid: () => (T.RTCHeaderExtensionTovoid = dart.constFn(dart.fnType(dart.void, [rtc_rtp_parameters.RTCHeaderExtension])))(),
+    RTCRtpEncodingTovoid: () => (T.RTCRtpEncodingTovoid = dart.constFn(dart.fnType(dart.void, [rtc_rtp_parameters.RTCRtpEncoding])))(),
+    RTCRTPCodecTovoid: () => (T.RTCRTPCodecTovoid = dart.constFn(dart.fnType(dart.void, [rtc_rtp_parameters.RTCRTPCodec])))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  var I = ["package:webrtc_interface/src/rtc_rtp_parameters.dart"];
+  var payloadType$ = dart.privateName(rtc_rtp_parameters, "RTCRTPCodec.payloadType");
+  var name$ = dart.privateName(rtc_rtp_parameters, "RTCRTPCodec.name");
+  var kind$ = dart.privateName(rtc_rtp_parameters, "RTCRTPCodec.kind");
+  var clockRate$ = dart.privateName(rtc_rtp_parameters, "RTCRTPCodec.clockRate");
+  var numChannels$ = dart.privateName(rtc_rtp_parameters, "RTCRTPCodec.numChannels");
+  var parameters$ = dart.privateName(rtc_rtp_parameters, "RTCRTPCodec.parameters");
+  rtc_rtp_parameters.RTCRTPCodec = class RTCRTPCodec extends core.Object {
+    get payloadType() {
+      return this[payloadType$];
+    }
+    set payloadType(value) {
+      this[payloadType$] = value;
+    }
+    get name() {
+      return this[name$];
+    }
+    set name(value) {
+      this[name$] = value;
+    }
+    get kind() {
+      return this[kind$];
+    }
+    set kind(value) {
+      this[kind$] = value;
+    }
+    get clockRate() {
+      return this[clockRate$];
+    }
+    set clockRate(value) {
+      this[clockRate$] = value;
+    }
+    get numChannels() {
+      return this[numChannels$];
+    }
+    set numChannels(value) {
+      this[numChannels$] = value;
+    }
+    get parameters() {
+      return this[parameters$];
+    }
+    set parameters(value) {
+      this[parameters$] = value;
+    }
+    static fromMap(map) {
+      let t0;
+      return new rtc_rtp_parameters.RTCRTPCodec.new({payloadType: T.intN().as(map[$_get]("payloadType")), name: T.StringN().as(map[$_get]("name")), kind: T.StringN().as(map[$_get]("kind")), clockRate: T.intN().as(map[$_get]("clockRate")), numChannels: T.intN().as((t0 = map[$_get]("numChannels"), t0 == null ? 1 : t0)), parameters: T.MapN().as(map[$_get]("parameters"))});
+    }
+    toMap() {
+      return new (T.IdentityMapOfString$dynamic()).from(["payloadType", this.payloadType, "name", this.name, "kind", this.kind, "clockRate", this.clockRate, "numChannels", this.numChannels, "parameters", this.parameters]);
+    }
+  };
+  (rtc_rtp_parameters.RTCRTPCodec.new = function(opts) {
+    let payloadType = opts && 'payloadType' in opts ? opts.payloadType : null;
+    let name = opts && 'name' in opts ? opts.name : null;
+    let kind = opts && 'kind' in opts ? opts.kind : null;
+    let clockRate = opts && 'clockRate' in opts ? opts.clockRate : null;
+    let numChannels = opts && 'numChannels' in opts ? opts.numChannels : null;
+    let parameters = opts && 'parameters' in opts ? opts.parameters : null;
+    this[payloadType$] = payloadType;
+    this[name$] = name;
+    this[kind$] = kind;
+    this[clockRate$] = clockRate;
+    this[numChannels$] = numChannels;
+    this[parameters$] = parameters;
+    ;
+  }).prototype = rtc_rtp_parameters.RTCRTPCodec.prototype;
+  dart.addTypeTests(rtc_rtp_parameters.RTCRTPCodec);
+  dart.addTypeCaches(rtc_rtp_parameters.RTCRTPCodec);
+  dart.setMethodSignature(rtc_rtp_parameters.RTCRTPCodec, () => ({
+    __proto__: dart.getMethods(rtc_rtp_parameters.RTCRTPCodec.__proto__),
+    toMap: dart.fnType(core.Map$(core.String, dart.dynamic), [])
+  }));
+  dart.setLibraryUri(rtc_rtp_parameters.RTCRTPCodec, I[0]);
+  dart.setFieldSignature(rtc_rtp_parameters.RTCRTPCodec, () => ({
+    __proto__: dart.getFields(rtc_rtp_parameters.RTCRTPCodec.__proto__),
+    payloadType: dart.fieldType(dart.nullable(core.int)),
+    name: dart.fieldType(dart.nullable(core.String)),
+    kind: dart.fieldType(dart.nullable(core.String)),
+    clockRate: dart.fieldType(dart.nullable(core.int)),
+    numChannels: dart.fieldType(dart.nullable(core.int)),
+    parameters: dart.fieldType(dart.nullable(core.Map))
+  }));
+  var rid$ = dart.privateName(rtc_rtp_parameters, "RTCRtpEncoding.rid");
+  var active$ = dart.privateName(rtc_rtp_parameters, "RTCRtpEncoding.active");
+  var maxBitrate$ = dart.privateName(rtc_rtp_parameters, "RTCRtpEncoding.maxBitrate");
+  var minBitrate$ = dart.privateName(rtc_rtp_parameters, "RTCRtpEncoding.minBitrate");
+  var maxFramerate$ = dart.privateName(rtc_rtp_parameters, "RTCRtpEncoding.maxFramerate");
+  var numTemporalLayers$ = dart.privateName(rtc_rtp_parameters, "RTCRtpEncoding.numTemporalLayers");
+  var scaleResolutionDownBy$ = dart.privateName(rtc_rtp_parameters, "RTCRtpEncoding.scaleResolutionDownBy");
+  var ssrc$ = dart.privateName(rtc_rtp_parameters, "RTCRtpEncoding.ssrc");
+  rtc_rtp_parameters.RTCRtpEncoding = class RTCRtpEncoding extends core.Object {
+    get rid() {
+      return this[rid$];
+    }
+    set rid(value) {
+      this[rid$] = value;
+    }
+    get active() {
+      return this[active$];
+    }
+    set active(value) {
+      this[active$] = value;
+    }
+    get maxBitrate() {
+      return this[maxBitrate$];
+    }
+    set maxBitrate(value) {
+      this[maxBitrate$] = value;
+    }
+    get minBitrate() {
+      return this[minBitrate$];
+    }
+    set minBitrate(value) {
+      this[minBitrate$] = value;
+    }
+    get maxFramerate() {
+      return this[maxFramerate$];
+    }
+    set maxFramerate(value) {
+      this[maxFramerate$] = value;
+    }
+    get numTemporalLayers() {
+      return this[numTemporalLayers$];
+    }
+    set numTemporalLayers(value) {
+      this[numTemporalLayers$] = value;
+    }
+    get scaleResolutionDownBy() {
+      return this[scaleResolutionDownBy$];
+    }
+    set scaleResolutionDownBy(value) {
+      this[scaleResolutionDownBy$] = value;
+    }
+    get ssrc() {
+      return this[ssrc$];
+    }
+    set ssrc(value) {
+      this[ssrc$] = value;
+    }
+    static fromMap(map) {
+      return new rtc_rtp_parameters.RTCRtpEncoding.new({rid: T.StringN().as(map[$_get]("rid")), active: core.bool.as(map[$_get]("active")), maxBitrate: T.intN().as(map[$_get]("maxBitrate")), maxFramerate: T.intN().as(map[$_get]("maxFramerate")), minBitrate: T.intN().as(map[$_get]("minBitrate")), numTemporalLayers: T.intN().as(map[$_get]("numTemporalLayers")), scaleResolutionDownBy: T.doubleN().as(map[$_get]("scaleResolutionDownBy")), ssrc: T.intN().as(map[$_get]("ssrc"))});
+    }
+    toMap() {
+      return (() => {
+        let t0 = new (T.IdentityMapOfString$dynamic()).new();
+        t0[$_set]("active", this.active);
+        if (this.rid != null) t0[$_set]("rid", this.rid);
+        if (this.maxBitrate != null) t0[$_set]("maxBitrate", this.maxBitrate);
+        if (this.maxFramerate != null) t0[$_set]("maxFramerate", this.maxFramerate);
+        if (this.minBitrate != null) t0[$_set]("minBitrate", this.minBitrate);
+        if (this.numTemporalLayers != null) t0[$_set]("numTemporalLayers", this.numTemporalLayers);
+        if (this.scaleResolutionDownBy != null) t0[$_set]("scaleResolutionDownBy", this.scaleResolutionDownBy);
+        if (this.ssrc != null) t0[$_set]("ssrc", this.ssrc);
+        return t0;
+      })();
+    }
+  };
+  (rtc_rtp_parameters.RTCRtpEncoding.new = function(opts) {
+    let rid = opts && 'rid' in opts ? opts.rid : null;
+    let active = opts && 'active' in opts ? opts.active : true;
+    let maxBitrate = opts && 'maxBitrate' in opts ? opts.maxBitrate : null;
+    let maxFramerate = opts && 'maxFramerate' in opts ? opts.maxFramerate : null;
+    let minBitrate = opts && 'minBitrate' in opts ? opts.minBitrate : null;
+    let numTemporalLayers = opts && 'numTemporalLayers' in opts ? opts.numTemporalLayers : 1;
+    let scaleResolutionDownBy = opts && 'scaleResolutionDownBy' in opts ? opts.scaleResolutionDownBy : 1;
+    let ssrc = opts && 'ssrc' in opts ? opts.ssrc : null;
+    this[rid$] = rid;
+    this[active$] = active;
+    this[maxBitrate$] = maxBitrate;
+    this[maxFramerate$] = maxFramerate;
+    this[minBitrate$] = minBitrate;
+    this[numTemporalLayers$] = numTemporalLayers;
+    this[scaleResolutionDownBy$] = scaleResolutionDownBy;
+    this[ssrc$] = ssrc;
+    ;
+  }).prototype = rtc_rtp_parameters.RTCRtpEncoding.prototype;
+  dart.addTypeTests(rtc_rtp_parameters.RTCRtpEncoding);
+  dart.addTypeCaches(rtc_rtp_parameters.RTCRtpEncoding);
+  dart.setMethodSignature(rtc_rtp_parameters.RTCRtpEncoding, () => ({
+    __proto__: dart.getMethods(rtc_rtp_parameters.RTCRtpEncoding.__proto__),
+    toMap: dart.fnType(core.Map$(core.String, dart.dynamic), [])
+  }));
+  dart.setLibraryUri(rtc_rtp_parameters.RTCRtpEncoding, I[0]);
+  dart.setFieldSignature(rtc_rtp_parameters.RTCRtpEncoding, () => ({
+    __proto__: dart.getFields(rtc_rtp_parameters.RTCRtpEncoding.__proto__),
+    rid: dart.fieldType(dart.nullable(core.String)),
+    active: dart.fieldType(core.bool),
+    maxBitrate: dart.fieldType(dart.nullable(core.int)),
+    minBitrate: dart.fieldType(dart.nullable(core.int)),
+    maxFramerate: dart.fieldType(dart.nullable(core.int)),
+    numTemporalLayers: dart.fieldType(dart.nullable(core.int)),
+    scaleResolutionDownBy: dart.fieldType(dart.nullable(core.double)),
+    ssrc: dart.fieldType(dart.nullable(core.int))
+  }));
+  var uri$ = dart.privateName(rtc_rtp_parameters, "RTCHeaderExtension.uri");
+  var id$ = dart.privateName(rtc_rtp_parameters, "RTCHeaderExtension.id");
+  var encrypted$ = dart.privateName(rtc_rtp_parameters, "RTCHeaderExtension.encrypted");
+  rtc_rtp_parameters.RTCHeaderExtension = class RTCHeaderExtension extends core.Object {
+    get uri() {
+      return this[uri$];
+    }
+    set uri(value) {
+      this[uri$] = value;
+    }
+    get id() {
+      return this[id$];
+    }
+    set id(value) {
+      this[id$] = value;
+    }
+    get encrypted() {
+      return this[encrypted$];
+    }
+    set encrypted(value) {
+      this[encrypted$] = value;
+    }
+    static fromMap(map) {
+      return new rtc_rtp_parameters.RTCHeaderExtension.new({uri: T.StringN().as(map[$_get]("uri")), id: T.intN().as(map[$_get]("id")), encrypted: T.boolN().as(map[$_get]("encrypted"))});
+    }
+    toMap() {
+      return new (T.IdentityMapOfString$dynamic()).from(["uri", this.uri, "id", this.id, "encrypted", this.encrypted]);
+    }
+  };
+  (rtc_rtp_parameters.RTCHeaderExtension.new = function(opts) {
+    let uri = opts && 'uri' in opts ? opts.uri : null;
+    let id = opts && 'id' in opts ? opts.id : null;
+    let encrypted = opts && 'encrypted' in opts ? opts.encrypted : null;
+    this[uri$] = uri;
+    this[id$] = id;
+    this[encrypted$] = encrypted;
+    ;
+  }).prototype = rtc_rtp_parameters.RTCHeaderExtension.prototype;
+  dart.addTypeTests(rtc_rtp_parameters.RTCHeaderExtension);
+  dart.addTypeCaches(rtc_rtp_parameters.RTCHeaderExtension);
+  dart.setMethodSignature(rtc_rtp_parameters.RTCHeaderExtension, () => ({
+    __proto__: dart.getMethods(rtc_rtp_parameters.RTCHeaderExtension.__proto__),
+    toMap: dart.fnType(core.Map$(core.String, dart.dynamic), [])
+  }));
+  dart.setLibraryUri(rtc_rtp_parameters.RTCHeaderExtension, I[0]);
+  dart.setFieldSignature(rtc_rtp_parameters.RTCHeaderExtension, () => ({
+    __proto__: dart.getFields(rtc_rtp_parameters.RTCHeaderExtension.__proto__),
+    uri: dart.fieldType(dart.nullable(core.String)),
+    id: dart.fieldType(dart.nullable(core.int)),
+    encrypted: dart.fieldType(dart.nullable(core.bool))
+  }));
+  var transactionId$ = dart.privateName(rtc_rtp_parameters, "RTCRtpParameters.transactionId");
+  var rtcp$ = dart.privateName(rtc_rtp_parameters, "RTCRtpParameters.rtcp");
+  var headerExtensions$ = dart.privateName(rtc_rtp_parameters, "RTCRtpParameters.headerExtensions");
+  var encodings$ = dart.privateName(rtc_rtp_parameters, "RTCRtpParameters.encodings");
+  var codecs$ = dart.privateName(rtc_rtp_parameters, "RTCRtpParameters.codecs");
+  rtc_rtp_parameters.RTCRtpParameters = class RTCRtpParameters extends core.Object {
+    get transactionId() {
+      return this[transactionId$];
+    }
+    set transactionId(value) {
+      this[transactionId$] = value;
+    }
+    get rtcp() {
+      return this[rtcp$];
+    }
+    set rtcp(value) {
+      this[rtcp$] = value;
+    }
+    get headerExtensions() {
+      return this[headerExtensions$];
+    }
+    set headerExtensions(value) {
+      this[headerExtensions$] = value;
+    }
+    get encodings() {
+      return this[encodings$];
+    }
+    set encodings(value) {
+      this[encodings$] = value;
+    }
+    get codecs() {
+      return this[codecs$];
+    }
+    set codecs(value) {
+      this[codecs$] = value;
+    }
+    static fromMap(map) {
+      let encodings = T.JSArrayOfRTCRtpEncoding().of([]);
+      let encodingsMap = map[$_get]("encodings");
+      dart.dsend(encodingsMap, 'forEach', [dart.fn(params => {
+          encodings[$add](rtc_rtp_parameters.RTCRtpEncoding.fromMap(core.Map.as(params)));
+        }, T.dynamicToNull())]);
+      let headerExtensions = T.JSArrayOfRTCHeaderExtension().of([]);
+      let headerExtensionsMap = map[$_get]("headerExtensions");
+      dart.dsend(headerExtensionsMap, 'forEach', [dart.fn(params => {
+          headerExtensions[$add](rtc_rtp_parameters.RTCHeaderExtension.fromMap(core.Map.as(params)));
+        }, T.dynamicToNull())]);
+      let codecs = T.JSArrayOfRTCRTPCodec().of([]);
+      let codecsMap = map[$_get]("codecs");
+      dart.dsend(codecsMap, 'forEach', [dart.fn(params => {
+          codecs[$add](rtc_rtp_parameters.RTCRTPCodec.fromMap(core.Map.as(params)));
+        }, T.dynamicToNull())]);
+      let rtcp = rtc_rtcp_parameters.RTCRTCPParameters.fromMap(core.Map.as(map[$_get]("rtcp")));
+      return new rtc_rtp_parameters.RTCRtpParameters.new({transactionId: T.StringN().as(map[$_get]("transactionId")), rtcp: rtcp, headerExtensions: headerExtensions, encodings: encodings, codecs: codecs});
+    }
+    toMap() {
+      let t1, t1$, t1$0;
+      let headerExtensionsList = [];
+      t1 = this.headerExtensions;
+      t1 == null ? null : t1[$forEach](dart.fn(params => {
+        headerExtensionsList[$add](params.toMap());
+      }, T.RTCHeaderExtensionTovoid()));
+      let encodingList = [];
+      t1$ = this.encodings;
+      t1$ == null ? null : t1$[$forEach](dart.fn(params => {
+        encodingList[$add](params.toMap());
+      }, T.RTCRtpEncodingTovoid()));
+      let codecsList = [];
+      t1$0 = this.codecs;
+      t1$0 == null ? null : t1$0[$forEach](dart.fn(params => {
+        codecsList[$add](params.toMap());
+      }, T.RTCRTPCodecTovoid()));
+      return (() => {
+        let t1 = new (T.IdentityMapOfString$dynamic()).new();
+        t1[$_set]("transactionId", this.transactionId);
+        if (this.rtcp != null) t1[$_set]("rtcp", dart.nullCheck(this.rtcp).toMap());
+        t1[$_set]("headerExtensions", headerExtensionsList);
+        t1[$_set]("encodings", encodingList);
+        t1[$_set]("codecs", codecsList);
+        return t1;
+      })();
+    }
+  };
+  (rtc_rtp_parameters.RTCRtpParameters.new = function(opts) {
+    let transactionId = opts && 'transactionId' in opts ? opts.transactionId : null;
+    let rtcp = opts && 'rtcp' in opts ? opts.rtcp : null;
+    let headerExtensions = opts && 'headerExtensions' in opts ? opts.headerExtensions : null;
+    let encodings = opts && 'encodings' in opts ? opts.encodings : null;
+    let codecs = opts && 'codecs' in opts ? opts.codecs : null;
+    this[transactionId$] = transactionId;
+    this[rtcp$] = rtcp;
+    this[headerExtensions$] = headerExtensions;
+    this[encodings$] = encodings;
+    this[codecs$] = codecs;
+    ;
+  }).prototype = rtc_rtp_parameters.RTCRtpParameters.prototype;
+  dart.addTypeTests(rtc_rtp_parameters.RTCRtpParameters);
+  dart.addTypeCaches(rtc_rtp_parameters.RTCRtpParameters);
+  dart.setMethodSignature(rtc_rtp_parameters.RTCRtpParameters, () => ({
+    __proto__: dart.getMethods(rtc_rtp_parameters.RTCRtpParameters.__proto__),
+    toMap: dart.fnType(core.Map$(core.String, dart.dynamic), [])
+  }));
+  dart.setLibraryUri(rtc_rtp_parameters.RTCRtpParameters, I[0]);
+  dart.setFieldSignature(rtc_rtp_parameters.RTCRtpParameters, () => ({
+    __proto__: dart.getFields(rtc_rtp_parameters.RTCRtpParameters.__proto__),
+    transactionId: dart.fieldType(dart.nullable(core.String)),
+    rtcp: dart.fieldType(dart.nullable(rtc_rtcp_parameters.RTCRTCPParameters)),
+    headerExtensions: dart.fieldType(dart.nullable(core.List$(rtc_rtp_parameters.RTCHeaderExtension))),
+    encodings: dart.fieldType(dart.nullable(core.List$(rtc_rtp_parameters.RTCRtpEncoding))),
+    codecs: dart.fieldType(dart.nullable(core.List$(rtc_rtp_parameters.RTCRTPCodec)))
+  }));
+  dart.trackLibraries("packages/webrtc_interface/src/rtc_rtp_parameters.dart", {
+    "package:webrtc_interface/src/rtc_rtp_parameters.dart": rtc_rtp_parameters
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["rtc_rtp_parameters.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../../D:/packages/webrtc_interface/src/rtc_rtp_parameters.dart.lib.js"}');
+  // Exports:
+  return {
+    src__rtc_rtp_parameters: rtc_rtp_parameters
+  };
+}));
+
+//# sourceMappingURL=rtc_rtp_parameters.dart.lib.js.map

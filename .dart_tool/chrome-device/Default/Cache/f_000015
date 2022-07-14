@@ -1,0 +1,1076 @@
+define(['dart_sdk', 'packages/socket_io_common/socket_io_common.dart', 'packages/socket_io_client/src/engine/transport/xhr_transport.dart', 'packages/socket_io_client/src/on.dart', 'packages/socket_io_common/src/util/event_emitter.dart', 'packages/logging/src/logger.dart'], (function load__packages__socket_io_client__src__manager_dart(dart_sdk, packages__socket_io_common__socket_io_common$46dart, packages__socket_io_client__src__engine__transport__xhr_transport$46dart, packages__socket_io_client__src__on$46dart, packages__socket_io_common__src__util__event_emitter$46dart, packages__logging__src__logger$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _js_helper = dart_sdk._js_helper;
+  const _internal = dart_sdk._internal;
+  const async = dart_sdk.async;
+  const math = dart_sdk.math;
+  const typed_data = dart_sdk.typed_data;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const parser = packages__socket_io_common__socket_io_common$46dart.src__parser__parser;
+  const socket$ = packages__socket_io_client__src__engine__transport__xhr_transport$46dart.src__engine__socket;
+  const on = packages__socket_io_client__src__on$46dart.src__on;
+  const event_emitter = packages__socket_io_common__src__util__event_emitter$46dart.src__util__event_emitter;
+  const logger = packages__logging__src__logger$46dart.src__logger;
+  var manager = Object.create(dart.library);
+  var socket$0 = Object.create(dart.library);
+  var $_get = dartx._get;
+  var $_set = dartx._set;
+  var $keys = dartx.keys;
+  var $startsWith = dartx.startsWith;
+  var $substring = dartx.substring;
+  var $isEmpty = dartx.isEmpty;
+  var $contains = dartx.contains;
+  var $toInt = dartx.toInt;
+  var $add = dartx.add;
+  var $remove = dartx.remove;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $containsKey = dartx.containsKey;
+  var $removeAt = dartx.removeAt;
+  var $length = dartx.length;
+  var $floor = dartx.floor;
+  var $addAll = dartx.addAll;
+  var $first = dartx.first;
+  var $sublist = dartx.sublist;
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    IdentityMapOfString$Socket: () => (T.IdentityMapOfString$Socket = dart.constFn(_js_helper.IdentityMap$(core.String, socket$0.Socket)))(),
+    numN: () => (T.numN = dart.constFn(dart.nullable(core.num)))(),
+    dynamicToNull: () => (T.dynamicToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic])))(),
+    IdentityMapOfString$dynamic: () => (T.IdentityMapOfString$dynamic = dart.constFn(_js_helper.IdentityMap$(core.String, dart.dynamic)))(),
+    VoidTovoid: () => (T.VoidTovoid = dart.constFn(dart.fnType(dart.void, [])))(),
+    dynamicToNull$1: () => (T.dynamicToNull$1 = dart.constFn(dart.fnType(core.Null, [], [dart.dynamic])))(),
+    StringN: () => (T.StringN = dart.constFn(dart.nullable(core.String)))(),
+    ListOfint: () => (T.ListOfint = dart.constFn(core.List$(core.int)))(),
+    IdentityMapOfString$bool: () => (T.IdentityMapOfString$bool = dart.constFn(_js_helper.IdentityMap$(core.String, core.bool)))(),
+    IdentityMapOfString$Object: () => (T.IdentityMapOfString$Object = dart.constFn(_js_helper.IdentityMap$(core.String, core.Object)))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.constList(["connect", "connect_error", "connect_timeout", "connecting", "disconnect", "error", "reconnect", "reconnect_attempt", "reconnect_failed", "reconnect_error", "reconnecting", "ping", "pong"], dart.dynamic);
+    }
+  }, false);
+  var C = [void 0];
+  var I = [
+    "package:socket_io_client/src/manager.dart",
+    "package:socket_io_client/src/socket.dart"
+  ];
+  var nsps = dart.privateName(manager, "Manager.nsps");
+  var subs = dart.privateName(manager, "Manager.subs");
+  var reconnection = dart.privateName(manager, "Manager.reconnection");
+  var reconnectionAttempts = dart.privateName(manager, "Manager.reconnectionAttempts");
+  var reconnectionDelay = dart.privateName(manager, "Manager.reconnectionDelay");
+  var timeout = dart.privateName(manager, "Manager.timeout");
+  var backoff = dart.privateName(manager, "Manager.backoff");
+  var readyState = dart.privateName(manager, "Manager.readyState");
+  var connecting = dart.privateName(manager, "Manager.connecting");
+  var lastPing = dart.privateName(manager, "Manager.lastPing");
+  var encoding = dart.privateName(manager, "Manager.encoding");
+  var packetBuffer = dart.privateName(manager, "Manager.packetBuffer");
+  var reconnecting = dart.privateName(manager, "Manager.reconnecting");
+  var encoder = dart.privateName(manager, "Manager.encoder");
+  var decoder = dart.privateName(manager, "Manager.decoder");
+  var skipReconnect = dart.privateName(manager, "Manager.skipReconnect");
+  var __Manager_options = dart.privateName(manager, "_#Manager#options");
+  var _randomizationFactor = dart.privateName(manager, "_randomizationFactor");
+  var _reconnectionDelayMax = dart.privateName(manager, "_reconnectionDelayMax");
+  var __Manager_uri = dart.privateName(manager, "_#Manager#uri");
+  var __Manager_engine = dart.privateName(manager, "_#Manager#engine");
+  var __Manager_autoConnect = dart.privateName(manager, "_#Manager#autoConnect");
+  manager.Manager = class Manager extends event_emitter.EventEmitter {
+    get nsps() {
+      return this[nsps];
+    }
+    set nsps(value) {
+      this[nsps] = value;
+    }
+    get subs() {
+      return this[subs];
+    }
+    set subs(value) {
+      this[subs] = value;
+    }
+    get reconnection() {
+      return this[reconnection];
+    }
+    set reconnection(value) {
+      this[reconnection] = value;
+    }
+    get reconnectionAttempts() {
+      return this[reconnectionAttempts];
+    }
+    set reconnectionAttempts(value) {
+      this[reconnectionAttempts] = value;
+    }
+    get reconnectionDelay() {
+      return this[reconnectionDelay];
+    }
+    set reconnectionDelay(value) {
+      this[reconnectionDelay] = value;
+    }
+    get timeout() {
+      return this[timeout];
+    }
+    set timeout(value) {
+      this[timeout] = value;
+    }
+    get backoff() {
+      return this[backoff];
+    }
+    set backoff(value) {
+      this[backoff] = value;
+    }
+    get readyState() {
+      return this[readyState];
+    }
+    set readyState(value) {
+      this[readyState] = value;
+    }
+    get connecting() {
+      return this[connecting];
+    }
+    set connecting(value) {
+      this[connecting] = value;
+    }
+    get lastPing() {
+      return this[lastPing];
+    }
+    set lastPing(value) {
+      this[lastPing] = value;
+    }
+    get encoding() {
+      return this[encoding];
+    }
+    set encoding(value) {
+      this[encoding] = value;
+    }
+    get packetBuffer() {
+      return this[packetBuffer];
+    }
+    set packetBuffer(value) {
+      this[packetBuffer] = value;
+    }
+    get reconnecting() {
+      return this[reconnecting];
+    }
+    set reconnecting(value) {
+      this[reconnecting] = value;
+    }
+    get encoder() {
+      return this[encoder];
+    }
+    set encoder(value) {
+      this[encoder] = value;
+    }
+    get decoder() {
+      return this[decoder];
+    }
+    set decoder(value) {
+      this[decoder] = value;
+    }
+    get skipReconnect() {
+      return this[skipReconnect];
+    }
+    set skipReconnect(value) {
+      this[skipReconnect] = value;
+    }
+    get options() {
+      let t0;
+      t0 = this[__Manager_options];
+      return t0 == null ? dart.throw(new _internal.LateError.fieldNI("options")) : t0;
+    }
+    set options(t0) {
+      this[__Manager_options] = t0;
+    }
+    get uri() {
+      let t1;
+      t1 = this[__Manager_uri];
+      return t1 == null ? dart.throw(new _internal.LateError.fieldNI("uri")) : t1;
+    }
+    set uri(t1) {
+      this[__Manager_uri] = t1;
+    }
+    get engine() {
+      let t2;
+      t2 = this[__Manager_engine];
+      return t2 == null ? dart.throw(new _internal.LateError.fieldNI("engine")) : t2;
+    }
+    set engine(t2) {
+      this[__Manager_engine] = t2;
+    }
+    get autoConnect() {
+      let t3;
+      t3 = this[__Manager_autoConnect];
+      return t3 == null ? dart.throw(new _internal.LateError.fieldNI("autoConnect")) : t3;
+    }
+    set autoConnect(t3) {
+      this[__Manager_autoConnect] = t3;
+    }
+    emitAll(event, data = null) {
+      this.emit(event, data);
+      for (let nsp of this.nsps[$keys]) {
+        dart.nullCheck(this.nsps[$_get](nsp)).emit(event, data);
+      }
+    }
+    updateSocketIds() {
+      for (let nsp of this.nsps[$keys]) {
+        dart.nullCheck(this.nsps[$_get](nsp)).id = this.generateId(nsp);
+      }
+    }
+    generateId(nsp) {
+      let t4;
+      if (nsp[$startsWith]("/")) nsp = nsp[$substring](1);
+      return (nsp[$isEmpty] ? "" : nsp + "#") + dart.notNull((t4 = this.engine.id, t4 == null ? "" : t4));
+    }
+    get randomizationFactor() {
+      return this[_randomizationFactor];
+    }
+    set randomizationFactor(v) {
+      let t4;
+      this[_randomizationFactor] = v;
+      t4 = this.backoff;
+      t4 == null ? null : t4.jitter = v;
+    }
+    get reconnectionDelayMax() {
+      return this[_reconnectionDelayMax];
+    }
+    set reconnectionDelayMax(v) {
+      let t4;
+      this[_reconnectionDelayMax] = v;
+      t4 = this.backoff;
+      t4 == null ? null : t4.max = v;
+    }
+    maybeReconnectOnOpen() {
+      if (!this.reconnecting && this.reconnection === true && dart.nullCheck(this.backoff).attempts === 0) {
+        this.reconnect();
+      }
+    }
+    open(opts$) {
+      let callback = opts$ && 'callback' in opts$ ? opts$.callback : null;
+      let opts = opts$ && 'opts' in opts$ ? opts$.opts : null;
+      return this.connect({callback: callback, opts: opts});
+    }
+    connect(opts$) {
+      let callback = opts$ && 'callback' in opts$ ? opts$.callback : null;
+      let opts = opts$ && 'opts' in opts$ ? opts$.opts : null;
+      manager._logger.fine("readyState " + this.readyState);
+      if (this.readyState[$contains]("open")) return this;
+      manager._logger.fine("opening " + this.uri);
+      this.engine = new socket$.Socket.new(this.uri, this.options);
+      let socket = this.engine;
+      this.readyState = "opening";
+      this.skipReconnect = false;
+      let openSub = on.on(socket, "open", dart.fn(_ => {
+        this.onopen();
+        if (callback != null) dart.dcall(callback, []);
+      }, T.dynamicToNull()));
+      let errorSub = on.on(socket, "error", dart.fn(data => {
+        manager._logger.fine("connect_error");
+        this.cleanup();
+        this.readyState = "closed";
+        this.emitAll("connect_error", data);
+        if (callback != null) {
+          dart.dcall(callback, [new (T.IdentityMapOfString$dynamic()).from(["error", "Connection error", "data", data])]);
+        } else {
+          this.maybeReconnectOnOpen();
+        }
+      }, T.dynamicToNull()));
+      let timeout = this.timeout;
+      if (timeout != null) {
+        manager._logger.fine("connect attempt will timeout after " + dart.str(timeout));
+        let timer = async.Timer.new(new core.Duration.new({milliseconds: timeout[$toInt]()}), dart.fn(() => {
+          manager._logger.fine("connect attempt timed out after " + dart.str(timeout));
+          openSub.destroy();
+          socket.close();
+          socket.emit("error", "timeout");
+          this.emitAll("connect_timeout", timeout);
+        }, T.VoidTovoid()));
+        this.subs[$add](new on.Destroyable.new(dart.fn(() => timer.cancel(), T.VoidTovoid())));
+      }
+      this.subs[$add](openSub);
+      this.subs[$add](errorSub);
+      return this;
+    }
+    onopen(_ = null) {
+      manager._logger.fine("open");
+      this.cleanup();
+      this.readyState = "open";
+      this.emit("open");
+      let socket = this.engine;
+      this.subs[$add](on.on(socket, "data", dart.bind(this, 'ondata')));
+      this.subs[$add](on.on(socket, "ping", dart.bind(this, 'onping')));
+      this.subs[$add](on.on(socket, "pong", dart.bind(this, 'onpong')));
+      this.subs[$add](on.on(socket, "error", dart.bind(this, 'onerror')));
+      this.subs[$add](on.on(socket, "close", dart.bind(this, 'onclose')));
+      this.subs[$add](on.on(this.decoder, "decoded", dart.bind(this, 'ondecoded')));
+    }
+    onping(_ = null) {
+      this.lastPing = new core.DateTime.now().millisecondsSinceEpoch;
+      this.emitAll("ping");
+    }
+    onpong(_ = null) {
+      this.emitAll("pong", new core.DateTime.now().millisecondsSinceEpoch - dart.nullCheck(this.lastPing));
+    }
+    ondata(data) {
+      this.decoder.add(data);
+    }
+    ondecoded(packet) {
+      this.emit("packet", packet);
+    }
+    onerror(err) {
+      manager._logger.fine("error " + dart.str(err));
+      this.emitAll("error", err);
+    }
+    socket(nsp, opts) {
+      let socket = this.nsps[$_get](nsp);
+      let onConnecting = dart.fn((_ = null) => {
+        if (!this.connecting[$contains](socket)) {
+          this.connecting[$add](socket);
+        }
+      }, T.dynamicToNull$1());
+      if (socket == null) {
+        socket = new socket$0.Socket.new(this, nsp, opts);
+        this.nsps[$_set](nsp, socket);
+        socket.on("connecting", onConnecting);
+        socket.on("connect", dart.fn(_ => {
+          dart.nullCheck(socket).id = this.generateId(nsp);
+        }, T.dynamicToNull()));
+        if (this.autoConnect) {
+          onConnecting();
+        }
+      }
+      return socket;
+    }
+    destroy(socket) {
+      this.connecting[$remove](socket);
+      if (this.connecting[$isNotEmpty]) return;
+      this.close();
+    }
+    packet(packet) {
+      let t5, t4;
+      manager._logger.fine("writing packet " + dart.str(packet));
+      if (packet[$containsKey]("query") && dart.equals(packet[$_get]("type"), 0)) {
+        t4 = packet;
+        t5 = "nsp";
+        t4[$_set](t5, dart.dsend(t4[$_get](t5), '+', ["?" + dart.str(packet[$_get]("query"))]));
+      }
+      if (this.encoding !== true) {
+        this.encoding = true;
+        this.encoder.encode(packet, dart.fn(encodedPackets => {
+          for (let i = 0; i < core.num.as(dart.dload(encodedPackets, 'length')); i = i + 1) {
+            this.engine.write(dart.dsend(encodedPackets, '_get', [i]), packet[$_get]("options"));
+          }
+          this.encoding = false;
+          this.processPacketQueue();
+        }, T.dynamicToNull()));
+      } else {
+        this.packetBuffer[$add](packet);
+      }
+    }
+    processPacketQueue() {
+      if (this.packetBuffer[$isNotEmpty] && this.encoding !== true) {
+        let pack = this.packetBuffer[$removeAt](0);
+        this.packet(core.Map.as(pack));
+      }
+    }
+    cleanup() {
+      manager._logger.fine("cleanup");
+      let subsLength = this.subs[$length];
+      for (let i = 0; i < subsLength; i = i + 1) {
+        let sub = this.subs[$removeAt](0);
+        dart.dsend(sub, 'destroy', []);
+      }
+      this.packetBuffer = [];
+      this.encoding = false;
+      this.lastPing = null;
+      this.decoder.destroy();
+    }
+    close() {
+      return this.disconnect();
+    }
+    disconnect() {
+      manager._logger.fine("disconnect");
+      this.skipReconnect = true;
+      this.reconnecting = false;
+      if ("opening" === this.readyState) {
+        this.cleanup();
+      }
+      dart.nullCheck(this.backoff).reset();
+      this.readyState = "closed";
+      this.engine.close();
+    }
+    onclose(error) {
+      manager._logger.fine("onclose");
+      this.cleanup();
+      dart.nullCheck(this.backoff).reset();
+      this.readyState = "closed";
+      this.emit("close", dart.dsend(error, '_get', ["reason"]));
+      if (this.reconnection === true && !dart.nullCheck(this.skipReconnect)) {
+        this.reconnect();
+      }
+    }
+    reconnect() {
+      if (this.reconnecting || dart.nullCheck(this.skipReconnect)) return this;
+      if (dart.nullCheck(this.backoff).attempts >= dart.nullCheck(this.reconnectionAttempts)) {
+        manager._logger.fine("reconnect failed");
+        dart.nullCheck(this.backoff).reset();
+        this.emitAll("reconnect_failed");
+        this.reconnecting = false;
+      } else {
+        let delay = dart.nullCheck(this.backoff).duration;
+        manager._logger.fine("will wait %dms before reconnect attempt", delay);
+        this.reconnecting = true;
+        let timer = async.Timer.new(new core.Duration.new({milliseconds: delay[$toInt]()}), dart.fn(() => {
+          if (dart.nullCheck(this.skipReconnect)) return;
+          manager._logger.fine("attempting reconnect");
+          this.emitAll("reconnect_attempt", dart.nullCheck(this.backoff).attempts);
+          this.emitAll("reconnecting", dart.nullCheck(this.backoff).attempts);
+          if (dart.nullCheck(this.skipReconnect)) return;
+          this.open({callback: dart.fn((err = null) => {
+              if (err != null) {
+                manager._logger.fine("reconnect attempt error");
+                this.reconnecting = false;
+                this.reconnect();
+                this.emitAll("reconnect_error", dart.dsend(err, '_get', ["data"]));
+              } else {
+                manager._logger.fine("reconnect success");
+                this.onreconnect();
+              }
+            }, T.dynamicToNull$1())});
+        }, T.VoidTovoid()));
+        this.subs[$add](new on.Destroyable.new(dart.fn(() => timer.cancel(), T.VoidTovoid())));
+      }
+      return this;
+    }
+    onreconnect() {
+      let attempt = dart.nullCheck(this.backoff).attempts;
+      this.reconnecting = false;
+      dart.nullCheck(this.backoff).reset();
+      this.updateSocketIds();
+      this.emitAll("reconnect", attempt);
+    }
+  };
+  (manager.Manager.new = function(opts$) {
+    let t0, t1, t0$, t0$0, t0$1, t0$2, t0$3, t0$4;
+    let uri = opts$ && 'uri' in opts$ ? opts$.uri : null;
+    let options = opts$ && 'options' in opts$ ? opts$.options : null;
+    this[nsps] = new (T.IdentityMapOfString$Socket()).new();
+    this[subs] = [];
+    this[__Manager_options] = null;
+    this[reconnection] = null;
+    this[reconnectionAttempts] = null;
+    this[reconnectionDelay] = null;
+    this[_randomizationFactor] = null;
+    this[_reconnectionDelayMax] = null;
+    this[timeout] = null;
+    this[backoff] = null;
+    this[readyState] = "closed";
+    this[__Manager_uri] = null;
+    this[connecting] = [];
+    this[lastPing] = null;
+    this[encoding] = false;
+    this[packetBuffer] = [];
+    this[reconnecting] = false;
+    this[__Manager_engine] = null;
+    this[encoder] = new parser.Encoder.new();
+    this[decoder] = new parser.Decoder.new();
+    this[__Manager_autoConnect] = null;
+    this[skipReconnect] = null;
+    manager.Manager.__proto__.new.call(this);
+    options = (t0 = options, t0 == null ? new _js_helper.LinkedMap.new() : t0);
+    t0$ = options;
+    t1 = "path";
+    t0$[$_get](t1) == null ? t0$[$_set](t1, "/socket.io") : null;
+    this.options = options;
+    this.reconnection = !dart.equals(options[$_get]("reconnection"), false);
+    this.reconnectionAttempts = T.numN().as((t0$0 = options[$_get]("reconnectionAttempts"), t0$0 == null ? 1 / 0 : t0$0));
+    this.reconnectionDelay = T.numN().as((t0$1 = options[$_get]("reconnectionDelay"), t0$1 == null ? 1000 : t0$1));
+    this.reconnectionDelayMax = T.numN().as((t0$2 = options[$_get]("reconnectionDelayMax"), t0$2 == null ? 5000 : t0$2));
+    this.randomizationFactor = T.numN().as((t0$3 = options[$_get]("randomizationFactor"), t0$3 == null ? 0.5 : t0$3));
+    this.backoff = new manager._Backoff.new({min: this.reconnectionDelay, max: this.reconnectionDelayMax, jitter: this.randomizationFactor});
+    this.timeout = T.numN().as((t0$4 = options[$_get]("timeout"), t0$4 == null ? 20000 : t0$4));
+    this.uri = core.String.as(uri);
+    this.autoConnect = !dart.equals(options[$_get]("autoConnect"), false);
+    if (this.autoConnect) this.open();
+  }).prototype = manager.Manager.prototype;
+  dart.addTypeTests(manager.Manager);
+  dart.addTypeCaches(manager.Manager);
+  dart.setMethodSignature(manager.Manager, () => ({
+    __proto__: dart.getMethods(manager.Manager.__proto__),
+    emitAll: dart.fnType(dart.void, [core.String], [dart.dynamic]),
+    updateSocketIds: dart.fnType(dart.void, []),
+    generateId: dart.fnType(core.String, [core.String]),
+    maybeReconnectOnOpen: dart.fnType(dart.void, []),
+    open: dart.fnType(manager.Manager, [], {callback: dart.dynamic, opts: dart.nullable(core.Map)}, {}),
+    connect: dart.fnType(manager.Manager, [], {callback: dart.dynamic, opts: dart.nullable(core.Map)}, {}),
+    onopen: dart.fnType(dart.void, [], [dart.dynamic]),
+    onping: dart.fnType(dart.void, [], [dart.dynamic]),
+    onpong: dart.fnType(dart.void, [], [dart.dynamic]),
+    ondata: dart.fnType(dart.void, [dart.dynamic]),
+    ondecoded: dart.fnType(dart.void, [dart.dynamic]),
+    onerror: dart.fnType(dart.void, [dart.dynamic]),
+    socket: dart.fnType(socket$0.Socket, [core.String, core.Map]),
+    destroy: dart.fnType(dart.void, [dart.dynamic]),
+    packet: dart.fnType(dart.void, [core.Map]),
+    processPacketQueue: dart.fnType(dart.void, []),
+    cleanup: dart.fnType(dart.void, []),
+    close: dart.fnType(dart.void, []),
+    disconnect: dart.fnType(dart.void, []),
+    onclose: dart.fnType(dart.void, [dart.dynamic]),
+    reconnect: dart.fnType(manager.Manager, []),
+    onreconnect: dart.fnType(dart.void, [])
+  }));
+  dart.setGetterSignature(manager.Manager, () => ({
+    __proto__: dart.getGetters(manager.Manager.__proto__),
+    options: core.Map,
+    uri: core.String,
+    engine: socket$.Socket,
+    autoConnect: core.bool,
+    randomizationFactor: dart.nullable(core.num),
+    reconnectionDelayMax: dart.nullable(core.num)
+  }));
+  dart.setSetterSignature(manager.Manager, () => ({
+    __proto__: dart.getSetters(manager.Manager.__proto__),
+    options: core.Map,
+    uri: core.String,
+    engine: socket$.Socket,
+    autoConnect: core.bool,
+    randomizationFactor: dart.nullable(core.num),
+    reconnectionDelayMax: dart.nullable(core.num)
+  }));
+  dart.setLibraryUri(manager.Manager, I[0]);
+  dart.setFieldSignature(manager.Manager, () => ({
+    __proto__: dart.getFields(manager.Manager.__proto__),
+    nsps: dart.fieldType(core.Map$(core.String, socket$0.Socket)),
+    subs: dart.fieldType(core.List),
+    [__Manager_options]: dart.fieldType(dart.nullable(core.Map)),
+    reconnection: dart.fieldType(dart.nullable(core.bool)),
+    reconnectionAttempts: dart.fieldType(dart.nullable(core.num)),
+    reconnectionDelay: dart.fieldType(dart.nullable(core.num)),
+    [_randomizationFactor]: dart.fieldType(dart.nullable(core.num)),
+    [_reconnectionDelayMax]: dart.fieldType(dart.nullable(core.num)),
+    timeout: dart.fieldType(dart.nullable(core.num)),
+    backoff: dart.fieldType(dart.nullable(manager._Backoff)),
+    readyState: dart.fieldType(core.String),
+    [__Manager_uri]: dart.fieldType(dart.nullable(core.String)),
+    connecting: dart.fieldType(core.List),
+    lastPing: dart.fieldType(dart.nullable(core.num)),
+    encoding: dart.fieldType(core.bool),
+    packetBuffer: dart.fieldType(core.List),
+    reconnecting: dart.fieldType(core.bool),
+    [__Manager_engine]: dart.fieldType(dart.nullable(socket$.Socket)),
+    encoder: dart.fieldType(parser.Encoder),
+    decoder: dart.fieldType(parser.Decoder),
+    [__Manager_autoConnect]: dart.fieldType(dart.nullable(core.bool)),
+    skipReconnect: dart.fieldType(dart.nullable(core.bool))
+  }));
+  var ___Backoff__jitter = dart.privateName(manager, "_#_Backoff#_jitter");
+  var _ms = dart.privateName(manager, "_ms");
+  var _max = dart.privateName(manager, "_max");
+  var _factor = dart.privateName(manager, "_factor");
+  var _jitter = dart.privateName(manager, "_jitter");
+  manager._Backoff = class _Backoff extends core.Object {
+    get [_jitter]() {
+      let t4;
+      t4 = this[___Backoff__jitter];
+      return t4 == null ? dart.throw(new _internal.LateError.fieldNI("_jitter")) : t4;
+    }
+    set [_jitter](t4) {
+      this[___Backoff__jitter] = t4;
+    }
+    get duration() {
+      let t5;
+      let ms = math.min(core.num, this[_ms] * math.pow(this[_factor], (t5 = this.attempts, this.attempts = t5 + 1, t5)), 1e+100);
+      if (this[_jitter] > 0) {
+        let rand = math.Random.new().nextDouble();
+        let deviation = (rand * this[_jitter] * ms)[$floor]();
+        ms = ((rand * 10)[$floor]() & 1) === 0 ? ms - deviation : ms + deviation;
+      }
+      ms = math.min(core.num, ms, this[_max]);
+      return ms <= 0 ? this[_max] : ms;
+    }
+    reset() {
+      this.attempts = 0;
+    }
+    set min(min) {
+      return this[_ms] = core.num.as(min);
+    }
+    set max(max) {
+      return this[_max] = core.num.as(max);
+    }
+    set jitter(jitter) {
+      return this[_jitter] = core.num.as(jitter);
+    }
+  };
+  (manager._Backoff.new = function(opts$) {
+    let min = opts$ && 'min' in opts$ ? opts$.min : 100;
+    let max = opts$ && 'max' in opts$ ? opts$.max : 10000;
+    let jitter = opts$ && 'jitter' in opts$ ? opts$.jitter : 0;
+    let factor = opts$ && 'factor' in opts$ ? opts$.factor : 2;
+    this[___Backoff__jitter] = null;
+    this.attempts = 0;
+    this[_ms] = core.num.as(min);
+    this[_max] = core.num.as(max);
+    this[_factor] = core.num.as(factor);
+    this[_jitter] = core.num.as(dart.dtest(dart.dsend(jitter, '>', [0])) && dart.dtest(dart.dsend(jitter, '<=', [1])) ? jitter : 0);
+  }).prototype = manager._Backoff.prototype;
+  dart.addTypeTests(manager._Backoff);
+  dart.addTypeCaches(manager._Backoff);
+  dart.setMethodSignature(manager._Backoff, () => ({
+    __proto__: dart.getMethods(manager._Backoff.__proto__),
+    reset: dart.fnType(dart.void, [])
+  }));
+  dart.setGetterSignature(manager._Backoff, () => ({
+    __proto__: dart.getGetters(manager._Backoff.__proto__),
+    [_jitter]: core.num,
+    duration: core.num
+  }));
+  dart.setSetterSignature(manager._Backoff, () => ({
+    __proto__: dart.getSetters(manager._Backoff.__proto__),
+    [_jitter]: core.num,
+    min: dart.dynamic,
+    max: dart.dynamic,
+    jitter: dart.dynamic
+  }));
+  dart.setLibraryUri(manager._Backoff, I[0]);
+  dart.setFieldSignature(manager._Backoff, () => ({
+    __proto__: dart.getFields(manager._Backoff.__proto__),
+    [_ms]: dart.fieldType(core.num),
+    [_max]: dart.fieldType(core.num),
+    [_factor]: dart.finalFieldType(core.num),
+    [___Backoff__jitter]: dart.fieldType(dart.nullable(core.num)),
+    attempts: dart.fieldType(core.num)
+  }));
+  dart.defineLazy(manager, {
+    /*manager._logger*/get _logger() {
+      return logger.Logger.new("socket_io_client:Manager");
+    }
+  }, false);
+  var nsp$ = dart.privateName(socket$0, "Socket.nsp");
+  var opts$ = dart.privateName(socket$0, "Socket.opts");
+  var io$ = dart.privateName(socket$0, "Socket.io");
+  var ids = dart.privateName(socket$0, "Socket.ids");
+  var acks = dart.privateName(socket$0, "Socket.acks");
+  var connected = dart.privateName(socket$0, "Socket.connected");
+  var disconnected = dart.privateName(socket$0, "Socket.disconnected");
+  var sendBuffer = dart.privateName(socket$0, "Socket.sendBuffer");
+  var receiveBuffer = dart.privateName(socket$0, "Socket.receiveBuffer");
+  var query = dart.privateName(socket$0, "Socket.query");
+  var subs$ = dart.privateName(socket$0, "Socket.subs");
+  var flags = dart.privateName(socket$0, "Socket.flags");
+  var id = dart.privateName(socket$0, "Socket.id");
+  var __Socket_json = dart.privateName(socket$0, "_#Socket#json");
+  socket$0.Socket = class Socket extends event_emitter.EventEmitter {
+    get nsp() {
+      return this[nsp$];
+    }
+    set nsp(value) {
+      this[nsp$] = value;
+    }
+    get opts() {
+      return this[opts$];
+    }
+    set opts(value) {
+      this[opts$] = value;
+    }
+    get io() {
+      return this[io$];
+    }
+    set io(value) {
+      this[io$] = value;
+    }
+    get ids() {
+      return this[ids];
+    }
+    set ids(value) {
+      this[ids] = value;
+    }
+    get acks() {
+      return this[acks];
+    }
+    set acks(value) {
+      this[acks] = value;
+    }
+    get connected() {
+      return this[connected];
+    }
+    set connected(value) {
+      this[connected] = value;
+    }
+    get disconnected() {
+      return this[disconnected];
+    }
+    set disconnected(value) {
+      this[disconnected] = value;
+    }
+    get sendBuffer() {
+      return this[sendBuffer];
+    }
+    set sendBuffer(value) {
+      this[sendBuffer] = value;
+    }
+    get receiveBuffer() {
+      return this[receiveBuffer];
+    }
+    set receiveBuffer(value) {
+      this[receiveBuffer] = value;
+    }
+    get query() {
+      return this[query];
+    }
+    set query(value) {
+      this[query] = value;
+    }
+    get subs() {
+      return this[subs$];
+    }
+    set subs(value) {
+      this[subs$] = value;
+    }
+    get flags() {
+      return this[flags];
+    }
+    set flags(value) {
+      this[flags] = value;
+    }
+    get id() {
+      return this[id];
+    }
+    set id(value) {
+      this[id] = value;
+    }
+    get json() {
+      let t5;
+      t5 = this[__Socket_json];
+      return t5 == null ? dart.throw(new _internal.LateError.fieldNI("json")) : t5;
+    }
+    set json(t5) {
+      this[__Socket_json] = t5;
+    }
+    subEvents() {
+      let t6;
+      if ((t6 = this.subs, t6 == null ? null : t6[$isNotEmpty]) === true) return;
+      let io = this.io;
+      this.subs = [on.on(io, "open", dart.bind(this, 'onopen')), on.on(io, "packet", dart.bind(this, 'onpacket')), on.on(io, "close", dart.bind(this, 'onclose'))];
+    }
+    open() {
+      return this.connect();
+    }
+    connect() {
+      if (this.connected === true) return this;
+      this.subEvents();
+      this.io.open();
+      if ("open" === this.io.readyState) this.onopen();
+      this.emit("connecting");
+      return this;
+    }
+    send(args) {
+      this.emit("message", args);
+      return this;
+    }
+    emit(event, data = null) {
+      this.emitWithAck(event, data);
+    }
+    emitWithBinary(event, data = null) {
+      this.emitWithAck(event, data, {binary: true});
+    }
+    emitWithAck(event, data, opts$) {
+      let t6, t6$;
+      let ack = opts$ && 'ack' in opts$ ? opts$.ack : null;
+      let binary = opts$ && 'binary' in opts$ ? opts$.binary : false;
+      if (socket$0.EVENTS[$contains](event)) {
+        super.emit(event, data);
+      } else {
+        let sendData = [event];
+        if (typed_data.ByteBuffer.is(data) || T.ListOfint().is(data)) {
+          sendData[$add](data);
+        } else if (core.Iterable.is(data)) {
+          sendData[$addAll](data);
+        } else if (data != null) {
+          sendData[$add](data);
+        }
+        let packet = new (T.IdentityMapOfString$Object()).from(["type", binary ? 5 : 2, "data", sendData, "options", new (T.IdentityMapOfString$bool()).from(["compress", (t6 = this.flags, t6 == null ? null : t6[$isNotEmpty]) === true && dart.dtest(dart.nullCheck(this.flags)[$_get]("compress"))])]);
+        if (ack != null) {
+          socket$0._logger.fine("emitting packet with ack id " + dart.str(this.ids));
+          this.acks[$_set](dart.str(this.ids), ack);
+          packet[$_set]("id", dart.str((t6$ = this.ids, this.ids = t6$ + 1, t6$)));
+        }
+        if (this.connected === true) {
+          this.packet(packet);
+        } else {
+          this.sendBuffer[$add](packet);
+        }
+        this.flags = null;
+      }
+    }
+    packet(packet) {
+      packet[$_set]("nsp", this.nsp);
+      this.io.packet(packet);
+    }
+    onopen(_ = null) {
+      let t6;
+      socket$0._logger.fine("transport is open - connecting");
+      if ("/" !== this.nsp) {
+        if ((t6 = this.query, t6 == null ? null : t6[$isNotEmpty]) === true) {
+          this.packet(new _js_helper.LinkedMap.from(["type", 0, "query", this.query]));
+        } else {
+          this.packet(new _js_helper.LinkedMap.from(["type", 0]));
+        }
+      }
+    }
+    onclose(reason) {
+      socket$0._logger.fine("close (" + dart.str(reason) + ")");
+      this.emit("disconnecting", reason);
+      this.connected = false;
+      this.disconnected = true;
+      this.id = null;
+      this.emit("disconnect", reason);
+    }
+    onpacket(packet) {
+      if (!dart.equals(dart.dsend(packet, '_get', ["nsp"]), this.nsp)) return;
+      switch (dart.dsend(packet, '_get', ["type"])) {
+        case 0:
+        {
+          this.onconnect();
+          break;
+        }
+        case 2:
+        {
+          this.onevent(core.Map.as(packet));
+          break;
+        }
+        case 5:
+        {
+          this.onevent(core.Map.as(packet));
+          break;
+        }
+        case 3:
+        {
+          this.onack(core.Map.as(packet));
+          break;
+        }
+        case 6:
+        {
+          this.onack(core.Map.as(packet));
+          break;
+        }
+        case 1:
+        {
+          this.ondisconnect();
+          break;
+        }
+        case 4:
+        {
+          this.emit("error", dart.dsend(packet, '_get', ["data"]));
+          break;
+        }
+      }
+    }
+    onevent(packet) {
+      let t6;
+      let args = core.List.as((t6 = packet[$_get]("data"), t6 == null ? [] : t6));
+      if (packet[$_get]("id") != null) {
+        args[$add](this.ack(packet[$_get]("id")));
+      }
+      if (this.connected === true) {
+        if (args[$length] > 2) {
+          core.Function.apply(dart.bind(this, 'emit', super.emit), [args[$first], args[$sublist](1)]);
+        } else {
+          core.Function.apply(dart.bind(this, 'emit', super.emit), args);
+        }
+      } else {
+        this.receiveBuffer[$add](args);
+      }
+    }
+    ack(id) {
+      let sent = false;
+      return dart.fn(data => {
+        if (sent) return;
+        sent = true;
+        socket$0._logger.fine("sending ack " + dart.str(data));
+        let sendData = [];
+        if (typed_data.ByteBuffer.is(data) || T.ListOfint().is(data)) {
+          sendData[$add](data);
+        } else if (core.Iterable.is(data)) {
+          sendData[$addAll](data);
+        } else if (data != null) {
+          sendData[$add](data);
+        }
+        this.packet(new _js_helper.LinkedMap.from(["type", 3, "id", id, "data", sendData]));
+      }, T.dynamicToNull());
+    }
+    onack(packet) {
+      let ack = this.acks[$remove](packet[$_get]("id"));
+      if (core.Function.is(ack)) {
+        socket$0._logger.fine("calling ack " + dart.str(packet[$_get]("id")) + " with " + dart.str(packet[$_get]("data")));
+        let args = core.List.as(packet[$_get]("data"));
+        if (args[$length] > 1) {
+          core.Function.apply(ack, [args]);
+        } else {
+          core.Function.apply(ack, args);
+        }
+      } else {
+        socket$0._logger.fine("bad ack " + dart.str(packet[$_get]("id")));
+      }
+    }
+    onconnect() {
+      this.connected = true;
+      this.disconnected = false;
+      this.emit("connect");
+      this.emitBuffered();
+    }
+    emitBuffered() {
+      let i = null;
+      for (let t6 = i = 0; dart.dtest(dart.dsend(i, '<', [this.receiveBuffer[$length]])); i = dart.dsend(i, '+', [1])) {
+        let args = core.List.as(this.receiveBuffer[$_get](core.int.as(i)));
+        if (args[$length] > 2) {
+          core.Function.apply(dart.bind(this, 'emit', super.emit), [args[$first], args[$sublist](1)]);
+        } else {
+          core.Function.apply(dart.bind(this, 'emit', super.emit), args);
+        }
+      }
+      this.receiveBuffer = [];
+      for (let t7 = i = 0; dart.dtest(dart.dsend(i, '<', [this.sendBuffer[$length]])); i = dart.dsend(i, '+', [1])) {
+        this.packet(core.Map.as(this.sendBuffer[$_get](core.int.as(i))));
+      }
+      this.sendBuffer = [];
+    }
+    ondisconnect() {
+      socket$0._logger.fine("server disconnect (" + this.nsp + ")");
+      this.destroy();
+      this.onclose("io server disconnect");
+    }
+    destroy() {
+      let t8;
+      if ((t8 = this.subs, t8 == null ? null : t8[$isNotEmpty]) === true) {
+        for (let i = 0; i < dart.nullCheck(this.subs)[$length]; i = i + 1) {
+          dart.dsend(dart.nullCheck(this.subs)[$_get](i), 'destroy', []);
+        }
+        this.subs = null;
+      }
+      this.io.destroy(this);
+    }
+    close() {
+      return this.disconnect();
+    }
+    disconnect() {
+      if (this.connected === true) {
+        socket$0._logger.fine("performing disconnect (" + this.nsp + ")");
+        this.packet(new _js_helper.LinkedMap.from(["type", 1]));
+      }
+      this.destroy();
+      if (this.connected === true) {
+        this.onclose("io client disconnect");
+      }
+      return this;
+    }
+    dispose() {
+      this.disconnect();
+      this.clearListeners();
+    }
+    compress(compress) {
+      let t8;
+      this.flags = (t8 = this.flags, t8 == null ? this.flags = new _js_helper.LinkedMap.new() : t8);
+      dart.nullCheck(this.flags)[$_set]("compress", compress);
+      return this;
+    }
+  };
+  (socket$0.Socket.new = function(io, nsp, opts) {
+    this[__Socket_json] = null;
+    this[ids] = 0;
+    this[acks] = new _js_helper.LinkedMap.new();
+    this[connected] = false;
+    this[disconnected] = true;
+    this[sendBuffer] = [];
+    this[receiveBuffer] = [];
+    this[query] = null;
+    this[subs$] = null;
+    this[flags] = null;
+    this[id] = null;
+    this[io$] = io;
+    this[nsp$] = nsp;
+    this[opts$] = opts;
+    socket$0.Socket.__proto__.new.call(this);
+    this.json = this;
+    if (this.opts != null) {
+      this.query = T.StringN().as(dart.nullCheck(this.opts)[$_get]("query"));
+    }
+    if (this.io.autoConnect) this.open();
+  }).prototype = socket$0.Socket.prototype;
+  dart.addTypeTests(socket$0.Socket);
+  dart.addTypeCaches(socket$0.Socket);
+  dart.setMethodSignature(socket$0.Socket, () => ({
+    __proto__: dart.getMethods(socket$0.Socket.__proto__),
+    subEvents: dart.fnType(dart.void, []),
+    open: dart.fnType(socket$0.Socket, []),
+    connect: dart.fnType(socket$0.Socket, []),
+    send: dart.fnType(socket$0.Socket, [core.List]),
+    emitWithBinary: dart.fnType(dart.void, [core.String], [dart.dynamic]),
+    emitWithAck: dart.fnType(dart.void, [core.String, dart.dynamic], {ack: dart.nullable(core.Function), binary: core.bool}, {}),
+    packet: dart.fnType(dart.void, [core.Map]),
+    onopen: dart.fnType(dart.void, [], [dart.dynamic]),
+    onclose: dart.fnType(dart.void, [dart.dynamic]),
+    onpacket: dart.fnType(dart.void, [dart.dynamic]),
+    onevent: dart.fnType(dart.void, [core.Map]),
+    ack: dart.fnType(core.Function, [dart.dynamic]),
+    onack: dart.fnType(dart.void, [core.Map]),
+    onconnect: dart.fnType(dart.void, []),
+    emitBuffered: dart.fnType(dart.void, []),
+    ondisconnect: dart.fnType(dart.void, []),
+    destroy: dart.fnType(dart.void, []),
+    close: dart.fnType(socket$0.Socket, []),
+    disconnect: dart.fnType(socket$0.Socket, []),
+    dispose: dart.fnType(dart.void, []),
+    compress: dart.fnType(socket$0.Socket, [dart.dynamic])
+  }));
+  dart.setGetterSignature(socket$0.Socket, () => ({
+    __proto__: dart.getGetters(socket$0.Socket.__proto__),
+    json: socket$0.Socket
+  }));
+  dart.setSetterSignature(socket$0.Socket, () => ({
+    __proto__: dart.getSetters(socket$0.Socket.__proto__),
+    json: socket$0.Socket
+  }));
+  dart.setLibraryUri(socket$0.Socket, I[1]);
+  dart.setFieldSignature(socket$0.Socket, () => ({
+    __proto__: dart.getFields(socket$0.Socket.__proto__),
+    nsp: dart.fieldType(core.String),
+    opts: dart.fieldType(dart.nullable(core.Map)),
+    io: dart.fieldType(manager.Manager),
+    [__Socket_json]: dart.fieldType(dart.nullable(socket$0.Socket)),
+    ids: dart.fieldType(core.num),
+    acks: dart.fieldType(core.Map),
+    connected: dart.fieldType(core.bool),
+    disconnected: dart.fieldType(core.bool),
+    sendBuffer: dart.fieldType(core.List),
+    receiveBuffer: dart.fieldType(core.List),
+    query: dart.fieldType(dart.nullable(core.String)),
+    subs: dart.fieldType(dart.nullable(core.List)),
+    flags: dart.fieldType(dart.nullable(core.Map)),
+    id: dart.fieldType(dart.nullable(core.String))
+  }));
+  dart.defineLazy(socket$0, {
+    /*socket$0.EVENTS*/get EVENTS() {
+      return C[0] || CT.C0;
+    },
+    /*socket$0._logger*/get _logger() {
+      return logger.Logger.new("socket_io_client:Socket");
+    }
+  }, false);
+  dart.trackLibraries("packages/socket_io_client/src/manager.dart", {
+    "package:socket_io_client/src/manager.dart": manager,
+    "package:socket_io_client/src/socket.dart": socket$0
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["manager.dart","socket.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../../D:/packages/socket_io_client/src/manager.dart.lib.js"}');
+  // Exports:
+  return {
+    src__manager: manager,
+    src__socket: socket$0
+  };
+}));
+
+//# sourceMappingURL=manager.dart.lib.js.map

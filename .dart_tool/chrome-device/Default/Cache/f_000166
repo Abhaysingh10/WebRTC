@@ -1,0 +1,730 @@
+define(['dart_sdk'], (function load__packages__webrtc_interface__src__enums_dart(dart_sdk) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _js_helper = dart_sdk._js_helper;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  var enums = Object.create(dart.library);
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    LinkedMapOfRTCRtpMediaType$String: () => (T.LinkedMapOfRTCRtpMediaType$String = dart.constFn(_js_helper.LinkedMap$(enums.RTCRtpMediaType, core.String)))(),
+    IdentityMapOfString$RTCRtpMediaType: () => (T.IdentityMapOfString$RTCRtpMediaType = dart.constFn(_js_helper.IdentityMap$(core.String, enums.RTCRtpMediaType)))(),
+    IdentityMapOfString$TransceiverDirection: () => (T.IdentityMapOfString$TransceiverDirection = dart.constFn(_js_helper.IdentityMap$(core.String, enums.TransceiverDirection)))(),
+    LinkedMapOfTransceiverDirection$String: () => (T.LinkedMapOfTransceiverDirection$String = dart.constFn(_js_helper.LinkedMap$(enums.TransceiverDirection, core.String)))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: enums.RecorderAudioChannel.prototype,
+        [_name$]: "RecorderAudioChannel.INPUT",
+        index: 0
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: enums.RecorderAudioChannel.prototype,
+        [_name$]: "RecorderAudioChannel.OUTPUT",
+        index: 1
+      });
+    },
+    get C2() {
+      return C[2] = dart.constList([C[0] || CT.C0, C[1] || CT.C1], enums.RecorderAudioChannel);
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: enums.MessageType.prototype,
+        [_name$]: "MessageType.text",
+        index: 0
+      });
+    },
+    get C4() {
+      return C[4] = dart.const({
+        __proto__: enums.MessageType.prototype,
+        [_name$]: "MessageType.binary",
+        index: 1
+      });
+    },
+    get C5() {
+      return C[5] = dart.constList([C[3] || CT.C3, C[4] || CT.C4], enums.MessageType);
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: enums.RTCDataChannelState.prototype,
+        [_name$]: "RTCDataChannelState.RTCDataChannelConnecting",
+        index: 0
+      });
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: enums.RTCDataChannelState.prototype,
+        [_name$]: "RTCDataChannelState.RTCDataChannelOpen",
+        index: 1
+      });
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: enums.RTCDataChannelState.prototype,
+        [_name$]: "RTCDataChannelState.RTCDataChannelClosing",
+        index: 2
+      });
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: enums.RTCDataChannelState.prototype,
+        [_name$]: "RTCDataChannelState.RTCDataChannelClosed",
+        index: 3
+      });
+    },
+    get C10() {
+      return C[10] = dart.constList([C[6] || CT.C6, C[7] || CT.C7, C[8] || CT.C8, C[9] || CT.C9], enums.RTCDataChannelState);
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: enums.RTCSignalingState.prototype,
+        [_name$]: "RTCSignalingState.RTCSignalingStateStable",
+        index: 0
+      });
+    },
+    get C12() {
+      return C[12] = dart.const({
+        __proto__: enums.RTCSignalingState.prototype,
+        [_name$]: "RTCSignalingState.RTCSignalingStateHaveLocalOffer",
+        index: 1
+      });
+    },
+    get C13() {
+      return C[13] = dart.const({
+        __proto__: enums.RTCSignalingState.prototype,
+        [_name$]: "RTCSignalingState.RTCSignalingStateHaveRemoteOffer",
+        index: 2
+      });
+    },
+    get C14() {
+      return C[14] = dart.const({
+        __proto__: enums.RTCSignalingState.prototype,
+        [_name$]: "RTCSignalingState.RTCSignalingStateHaveLocalPrAnswer",
+        index: 3
+      });
+    },
+    get C15() {
+      return C[15] = dart.const({
+        __proto__: enums.RTCSignalingState.prototype,
+        [_name$]: "RTCSignalingState.RTCSignalingStateHaveRemotePrAnswer",
+        index: 4
+      });
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: enums.RTCSignalingState.prototype,
+        [_name$]: "RTCSignalingState.RTCSignalingStateClosed",
+        index: 5
+      });
+    },
+    get C17() {
+      return C[17] = dart.constList([C[11] || CT.C11, C[12] || CT.C12, C[13] || CT.C13, C[14] || CT.C14, C[15] || CT.C15, C[16] || CT.C16], enums.RTCSignalingState);
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: enums.RTCIceGatheringState.prototype,
+        [_name$]: "RTCIceGatheringState.RTCIceGatheringStateNew",
+        index: 0
+      });
+    },
+    get C19() {
+      return C[19] = dart.const({
+        __proto__: enums.RTCIceGatheringState.prototype,
+        [_name$]: "RTCIceGatheringState.RTCIceGatheringStateGathering",
+        index: 1
+      });
+    },
+    get C20() {
+      return C[20] = dart.const({
+        __proto__: enums.RTCIceGatheringState.prototype,
+        [_name$]: "RTCIceGatheringState.RTCIceGatheringStateComplete",
+        index: 2
+      });
+    },
+    get C21() {
+      return C[21] = dart.constList([C[18] || CT.C18, C[19] || CT.C19, C[20] || CT.C20], enums.RTCIceGatheringState);
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: enums.RTCPeerConnectionState.prototype,
+        [_name$]: "RTCPeerConnectionState.RTCPeerConnectionStateClosed",
+        index: 0
+      });
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: enums.RTCPeerConnectionState.prototype,
+        [_name$]: "RTCPeerConnectionState.RTCPeerConnectionStateFailed",
+        index: 1
+      });
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: enums.RTCPeerConnectionState.prototype,
+        [_name$]: "RTCPeerConnectionState.RTCPeerConnectionStateDisconnected",
+        index: 2
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: enums.RTCPeerConnectionState.prototype,
+        [_name$]: "RTCPeerConnectionState.RTCPeerConnectionStateNew",
+        index: 3
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: enums.RTCPeerConnectionState.prototype,
+        [_name$]: "RTCPeerConnectionState.RTCPeerConnectionStateConnecting",
+        index: 4
+      });
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: enums.RTCPeerConnectionState.prototype,
+        [_name$]: "RTCPeerConnectionState.RTCPeerConnectionStateConnected",
+        index: 5
+      });
+    },
+    get C28() {
+      return C[28] = dart.constList([C[22] || CT.C22, C[23] || CT.C23, C[24] || CT.C24, C[25] || CT.C25, C[26] || CT.C26, C[27] || CT.C27], enums.RTCPeerConnectionState);
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: enums.RTCIceConnectionState.prototype,
+        [_name$]: "RTCIceConnectionState.RTCIceConnectionStateNew",
+        index: 0
+      });
+    },
+    get C30() {
+      return C[30] = dart.const({
+        __proto__: enums.RTCIceConnectionState.prototype,
+        [_name$]: "RTCIceConnectionState.RTCIceConnectionStateChecking",
+        index: 1
+      });
+    },
+    get C31() {
+      return C[31] = dart.const({
+        __proto__: enums.RTCIceConnectionState.prototype,
+        [_name$]: "RTCIceConnectionState.RTCIceConnectionStateCompleted",
+        index: 2
+      });
+    },
+    get C32() {
+      return C[32] = dart.const({
+        __proto__: enums.RTCIceConnectionState.prototype,
+        [_name$]: "RTCIceConnectionState.RTCIceConnectionStateConnected",
+        index: 3
+      });
+    },
+    get C33() {
+      return C[33] = dart.const({
+        __proto__: enums.RTCIceConnectionState.prototype,
+        [_name$]: "RTCIceConnectionState.RTCIceConnectionStateCount",
+        index: 4
+      });
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: enums.RTCIceConnectionState.prototype,
+        [_name$]: "RTCIceConnectionState.RTCIceConnectionStateFailed",
+        index: 5
+      });
+    },
+    get C35() {
+      return C[35] = dart.const({
+        __proto__: enums.RTCIceConnectionState.prototype,
+        [_name$]: "RTCIceConnectionState.RTCIceConnectionStateDisconnected",
+        index: 6
+      });
+    },
+    get C36() {
+      return C[36] = dart.const({
+        __proto__: enums.RTCIceConnectionState.prototype,
+        [_name$]: "RTCIceConnectionState.RTCIceConnectionStateClosed",
+        index: 7
+      });
+    },
+    get C37() {
+      return C[37] = dart.constList([C[29] || CT.C29, C[30] || CT.C30, C[31] || CT.C31, C[32] || CT.C32, C[33] || CT.C33, C[34] || CT.C34, C[35] || CT.C35, C[36] || CT.C36], enums.RTCIceConnectionState);
+    },
+    get C38() {
+      return C[38] = dart.const({
+        __proto__: enums.RTCVideoViewObjectFit.prototype,
+        [_name$]: "RTCVideoViewObjectFit.RTCVideoViewObjectFitContain",
+        index: 0
+      });
+    },
+    get C39() {
+      return C[39] = dart.const({
+        __proto__: enums.RTCVideoViewObjectFit.prototype,
+        [_name$]: "RTCVideoViewObjectFit.RTCVideoViewObjectFitCover",
+        index: 1
+      });
+    },
+    get C40() {
+      return C[40] = dart.constList([C[38] || CT.C38, C[39] || CT.C39], enums.RTCVideoViewObjectFit);
+    },
+    get C41() {
+      return C[41] = dart.const({
+        __proto__: enums.RTCRtpMediaType.prototype,
+        [_name$]: "RTCRtpMediaType.RTCRtpMediaTypeAudio",
+        index: 0
+      });
+    },
+    get C42() {
+      return C[42] = dart.const({
+        __proto__: enums.RTCRtpMediaType.prototype,
+        [_name$]: "RTCRtpMediaType.RTCRtpMediaTypeVideo",
+        index: 1
+      });
+    },
+    get C43() {
+      return C[43] = dart.const({
+        __proto__: enums.RTCRtpMediaType.prototype,
+        [_name$]: "RTCRtpMediaType.RTCRtpMediaTypeData",
+        index: 2
+      });
+    },
+    get C44() {
+      return C[44] = dart.constList([C[41] || CT.C41, C[42] || CT.C42, C[43] || CT.C43], enums.RTCRtpMediaType);
+    },
+    get C45() {
+      return C[45] = dart.const({
+        __proto__: enums.TransceiverDirection.prototype,
+        [_name$]: "TransceiverDirection.SendRecv",
+        index: 0
+      });
+    },
+    get C46() {
+      return C[46] = dart.const({
+        __proto__: enums.TransceiverDirection.prototype,
+        [_name$]: "TransceiverDirection.SendOnly",
+        index: 1
+      });
+    },
+    get C47() {
+      return C[47] = dart.const({
+        __proto__: enums.TransceiverDirection.prototype,
+        [_name$]: "TransceiverDirection.RecvOnly",
+        index: 2
+      });
+    },
+    get C48() {
+      return C[48] = dart.const({
+        __proto__: enums.TransceiverDirection.prototype,
+        [_name$]: "TransceiverDirection.Inactive",
+        index: 3
+      });
+    },
+    get C49() {
+      return C[49] = dart.constList([C[45] || CT.C45, C[46] || CT.C46, C[47] || CT.C47, C[48] || CT.C48], enums.TransceiverDirection);
+    }
+  }, false);
+  var C = Array(50).fill(void 0);
+  var I = ["package:webrtc_interface/src/enums.dart"];
+  var _name$ = dart.privateName(enums, "_name");
+  enums.RecorderAudioChannel = class RecorderAudioChannel extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (enums.RecorderAudioChannel.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = enums.RecorderAudioChannel.prototype;
+  dart.addTypeTests(enums.RecorderAudioChannel);
+  dart.addTypeCaches(enums.RecorderAudioChannel);
+  dart.setLibraryUri(enums.RecorderAudioChannel, I[0]);
+  dart.setFieldSignature(enums.RecorderAudioChannel, () => ({
+    __proto__: dart.getFields(enums.RecorderAudioChannel.__proto__),
+    index: dart.finalFieldType(core.int),
+    [_name$]: dart.finalFieldType(core.String)
+  }));
+  dart.defineExtensionMethods(enums.RecorderAudioChannel, ['toString']);
+  enums.RecorderAudioChannel.INPUT = C[0] || CT.C0;
+  enums.RecorderAudioChannel.OUTPUT = C[1] || CT.C1;
+  enums.RecorderAudioChannel.values = C[2] || CT.C2;
+  enums.MessageType = class MessageType extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (enums.MessageType.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = enums.MessageType.prototype;
+  dart.addTypeTests(enums.MessageType);
+  dart.addTypeCaches(enums.MessageType);
+  dart.setLibraryUri(enums.MessageType, I[0]);
+  dart.setFieldSignature(enums.MessageType, () => ({
+    __proto__: dart.getFields(enums.MessageType.__proto__),
+    index: dart.finalFieldType(core.int),
+    [_name$]: dart.finalFieldType(core.String)
+  }));
+  dart.defineExtensionMethods(enums.MessageType, ['toString']);
+  enums.MessageType.text = C[3] || CT.C3;
+  enums.MessageType.binary = C[4] || CT.C4;
+  enums.MessageType.values = C[5] || CT.C5;
+  enums.RTCDataChannelState = class RTCDataChannelState extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (enums.RTCDataChannelState.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = enums.RTCDataChannelState.prototype;
+  dart.addTypeTests(enums.RTCDataChannelState);
+  dart.addTypeCaches(enums.RTCDataChannelState);
+  dart.setLibraryUri(enums.RTCDataChannelState, I[0]);
+  dart.setFieldSignature(enums.RTCDataChannelState, () => ({
+    __proto__: dart.getFields(enums.RTCDataChannelState.__proto__),
+    index: dart.finalFieldType(core.int),
+    [_name$]: dart.finalFieldType(core.String)
+  }));
+  dart.defineExtensionMethods(enums.RTCDataChannelState, ['toString']);
+  enums.RTCDataChannelState.RTCDataChannelConnecting = C[6] || CT.C6;
+  enums.RTCDataChannelState.RTCDataChannelOpen = C[7] || CT.C7;
+  enums.RTCDataChannelState.RTCDataChannelClosing = C[8] || CT.C8;
+  enums.RTCDataChannelState.RTCDataChannelClosed = C[9] || CT.C9;
+  enums.RTCDataChannelState.values = C[10] || CT.C10;
+  enums.RTCSignalingState = class RTCSignalingState extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (enums.RTCSignalingState.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = enums.RTCSignalingState.prototype;
+  dart.addTypeTests(enums.RTCSignalingState);
+  dart.addTypeCaches(enums.RTCSignalingState);
+  dart.setLibraryUri(enums.RTCSignalingState, I[0]);
+  dart.setFieldSignature(enums.RTCSignalingState, () => ({
+    __proto__: dart.getFields(enums.RTCSignalingState.__proto__),
+    index: dart.finalFieldType(core.int),
+    [_name$]: dart.finalFieldType(core.String)
+  }));
+  dart.defineExtensionMethods(enums.RTCSignalingState, ['toString']);
+  enums.RTCSignalingState.RTCSignalingStateStable = C[11] || CT.C11;
+  enums.RTCSignalingState.RTCSignalingStateHaveLocalOffer = C[12] || CT.C12;
+  enums.RTCSignalingState.RTCSignalingStateHaveRemoteOffer = C[13] || CT.C13;
+  enums.RTCSignalingState.RTCSignalingStateHaveLocalPrAnswer = C[14] || CT.C14;
+  enums.RTCSignalingState.RTCSignalingStateHaveRemotePrAnswer = C[15] || CT.C15;
+  enums.RTCSignalingState.RTCSignalingStateClosed = C[16] || CT.C16;
+  enums.RTCSignalingState.values = C[17] || CT.C17;
+  enums.RTCIceGatheringState = class RTCIceGatheringState extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (enums.RTCIceGatheringState.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = enums.RTCIceGatheringState.prototype;
+  dart.addTypeTests(enums.RTCIceGatheringState);
+  dart.addTypeCaches(enums.RTCIceGatheringState);
+  dart.setLibraryUri(enums.RTCIceGatheringState, I[0]);
+  dart.setFieldSignature(enums.RTCIceGatheringState, () => ({
+    __proto__: dart.getFields(enums.RTCIceGatheringState.__proto__),
+    index: dart.finalFieldType(core.int),
+    [_name$]: dart.finalFieldType(core.String)
+  }));
+  dart.defineExtensionMethods(enums.RTCIceGatheringState, ['toString']);
+  enums.RTCIceGatheringState.RTCIceGatheringStateNew = C[18] || CT.C18;
+  enums.RTCIceGatheringState.RTCIceGatheringStateGathering = C[19] || CT.C19;
+  enums.RTCIceGatheringState.RTCIceGatheringStateComplete = C[20] || CT.C20;
+  enums.RTCIceGatheringState.values = C[21] || CT.C21;
+  enums.RTCPeerConnectionState = class RTCPeerConnectionState extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (enums.RTCPeerConnectionState.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = enums.RTCPeerConnectionState.prototype;
+  dart.addTypeTests(enums.RTCPeerConnectionState);
+  dart.addTypeCaches(enums.RTCPeerConnectionState);
+  dart.setLibraryUri(enums.RTCPeerConnectionState, I[0]);
+  dart.setFieldSignature(enums.RTCPeerConnectionState, () => ({
+    __proto__: dart.getFields(enums.RTCPeerConnectionState.__proto__),
+    index: dart.finalFieldType(core.int),
+    [_name$]: dart.finalFieldType(core.String)
+  }));
+  dart.defineExtensionMethods(enums.RTCPeerConnectionState, ['toString']);
+  enums.RTCPeerConnectionState.RTCPeerConnectionStateClosed = C[22] || CT.C22;
+  enums.RTCPeerConnectionState.RTCPeerConnectionStateFailed = C[23] || CT.C23;
+  enums.RTCPeerConnectionState.RTCPeerConnectionStateDisconnected = C[24] || CT.C24;
+  enums.RTCPeerConnectionState.RTCPeerConnectionStateNew = C[25] || CT.C25;
+  enums.RTCPeerConnectionState.RTCPeerConnectionStateConnecting = C[26] || CT.C26;
+  enums.RTCPeerConnectionState.RTCPeerConnectionStateConnected = C[27] || CT.C27;
+  enums.RTCPeerConnectionState.values = C[28] || CT.C28;
+  enums.RTCIceConnectionState = class RTCIceConnectionState extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (enums.RTCIceConnectionState.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = enums.RTCIceConnectionState.prototype;
+  dart.addTypeTests(enums.RTCIceConnectionState);
+  dart.addTypeCaches(enums.RTCIceConnectionState);
+  dart.setLibraryUri(enums.RTCIceConnectionState, I[0]);
+  dart.setFieldSignature(enums.RTCIceConnectionState, () => ({
+    __proto__: dart.getFields(enums.RTCIceConnectionState.__proto__),
+    index: dart.finalFieldType(core.int),
+    [_name$]: dart.finalFieldType(core.String)
+  }));
+  dart.defineExtensionMethods(enums.RTCIceConnectionState, ['toString']);
+  enums.RTCIceConnectionState.RTCIceConnectionStateNew = C[29] || CT.C29;
+  enums.RTCIceConnectionState.RTCIceConnectionStateChecking = C[30] || CT.C30;
+  enums.RTCIceConnectionState.RTCIceConnectionStateCompleted = C[31] || CT.C31;
+  enums.RTCIceConnectionState.RTCIceConnectionStateConnected = C[32] || CT.C32;
+  enums.RTCIceConnectionState.RTCIceConnectionStateCount = C[33] || CT.C33;
+  enums.RTCIceConnectionState.RTCIceConnectionStateFailed = C[34] || CT.C34;
+  enums.RTCIceConnectionState.RTCIceConnectionStateDisconnected = C[35] || CT.C35;
+  enums.RTCIceConnectionState.RTCIceConnectionStateClosed = C[36] || CT.C36;
+  enums.RTCIceConnectionState.values = C[37] || CT.C37;
+  enums.RTCVideoViewObjectFit = class RTCVideoViewObjectFit extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (enums.RTCVideoViewObjectFit.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = enums.RTCVideoViewObjectFit.prototype;
+  dart.addTypeTests(enums.RTCVideoViewObjectFit);
+  dart.addTypeCaches(enums.RTCVideoViewObjectFit);
+  dart.setLibraryUri(enums.RTCVideoViewObjectFit, I[0]);
+  dart.setFieldSignature(enums.RTCVideoViewObjectFit, () => ({
+    __proto__: dart.getFields(enums.RTCVideoViewObjectFit.__proto__),
+    index: dart.finalFieldType(core.int),
+    [_name$]: dart.finalFieldType(core.String)
+  }));
+  dart.defineExtensionMethods(enums.RTCVideoViewObjectFit, ['toString']);
+  enums.RTCVideoViewObjectFit.RTCVideoViewObjectFitContain = C[38] || CT.C38;
+  enums.RTCVideoViewObjectFit.RTCVideoViewObjectFitCover = C[39] || CT.C39;
+  enums.RTCVideoViewObjectFit.values = C[40] || CT.C40;
+  enums.RTCRtpMediaType = class RTCRtpMediaType extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (enums.RTCRtpMediaType.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = enums.RTCRtpMediaType.prototype;
+  dart.addTypeTests(enums.RTCRtpMediaType);
+  dart.addTypeCaches(enums.RTCRtpMediaType);
+  dart.setLibraryUri(enums.RTCRtpMediaType, I[0]);
+  dart.setFieldSignature(enums.RTCRtpMediaType, () => ({
+    __proto__: dart.getFields(enums.RTCRtpMediaType.__proto__),
+    index: dart.finalFieldType(core.int),
+    [_name$]: dart.finalFieldType(core.String)
+  }));
+  dart.defineExtensionMethods(enums.RTCRtpMediaType, ['toString']);
+  enums.RTCRtpMediaType.RTCRtpMediaTypeAudio = C[41] || CT.C41;
+  enums.RTCRtpMediaType.RTCRtpMediaTypeVideo = C[42] || CT.C42;
+  enums.RTCRtpMediaType.RTCRtpMediaTypeData = C[43] || CT.C43;
+  enums.RTCRtpMediaType.values = C[44] || CT.C44;
+  enums.TransceiverDirection = class TransceiverDirection extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (enums.TransceiverDirection.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = enums.TransceiverDirection.prototype;
+  dart.addTypeTests(enums.TransceiverDirection);
+  dart.addTypeCaches(enums.TransceiverDirection);
+  dart.setLibraryUri(enums.TransceiverDirection, I[0]);
+  dart.setFieldSignature(enums.TransceiverDirection, () => ({
+    __proto__: dart.getFields(enums.TransceiverDirection.__proto__),
+    index: dart.finalFieldType(core.int),
+    [_name$]: dart.finalFieldType(core.String)
+  }));
+  dart.defineExtensionMethods(enums.TransceiverDirection, ['toString']);
+  enums.TransceiverDirection.SendRecv = C[45] || CT.C45;
+  enums.TransceiverDirection.SendOnly = C[46] || CT.C46;
+  enums.TransceiverDirection.RecvOnly = C[47] || CT.C47;
+  enums.TransceiverDirection.Inactive = C[48] || CT.C48;
+  enums.TransceiverDirection.values = C[49] || CT.C49;
+  enums.iceConnectionStateForString = function iceConnectionStateForString(state) {
+    switch (state) {
+      case "new":
+      {
+        return enums.RTCIceConnectionState.RTCIceConnectionStateNew;
+      }
+      case "checking":
+      {
+        return enums.RTCIceConnectionState.RTCIceConnectionStateChecking;
+      }
+      case "connected":
+      {
+        return enums.RTCIceConnectionState.RTCIceConnectionStateConnected;
+      }
+      case "completed":
+      {
+        return enums.RTCIceConnectionState.RTCIceConnectionStateCompleted;
+      }
+      case "failed":
+      {
+        return enums.RTCIceConnectionState.RTCIceConnectionStateFailed;
+      }
+      case "disconnected":
+      {
+        return enums.RTCIceConnectionState.RTCIceConnectionStateDisconnected;
+      }
+      case "closed":
+      {
+        return enums.RTCIceConnectionState.RTCIceConnectionStateClosed;
+      }
+      case "count":
+      {
+        return enums.RTCIceConnectionState.RTCIceConnectionStateCount;
+      }
+    }
+    return enums.RTCIceConnectionState.RTCIceConnectionStateClosed;
+  };
+  enums.iceGatheringStateforString = function iceGatheringStateforString(state) {
+    switch (state) {
+      case "new":
+      {
+        return enums.RTCIceGatheringState.RTCIceGatheringStateNew;
+      }
+      case "gathering":
+      {
+        return enums.RTCIceGatheringState.RTCIceGatheringStateGathering;
+      }
+      case "complete":
+      {
+        return enums.RTCIceGatheringState.RTCIceGatheringStateComplete;
+      }
+    }
+    return enums.RTCIceGatheringState.RTCIceGatheringStateNew;
+  };
+  enums.signalingStateForString = function signalingStateForString(state) {
+    switch (state) {
+      case "stable":
+      {
+        return enums.RTCSignalingState.RTCSignalingStateStable;
+      }
+      case "have-local-offer":
+      {
+        return enums.RTCSignalingState.RTCSignalingStateHaveLocalOffer;
+      }
+      case "have-local-pranswer":
+      {
+        return enums.RTCSignalingState.RTCSignalingStateHaveLocalPrAnswer;
+      }
+      case "have-remote-offer":
+      {
+        return enums.RTCSignalingState.RTCSignalingStateHaveRemoteOffer;
+      }
+      case "have-remote-pranswer":
+      {
+        return enums.RTCSignalingState.RTCSignalingStateHaveRemotePrAnswer;
+      }
+      case "closed":
+      {
+        return enums.RTCSignalingState.RTCSignalingStateClosed;
+      }
+    }
+    return enums.RTCSignalingState.RTCSignalingStateClosed;
+  };
+  enums.rtcDataChannelStateForString = function rtcDataChannelStateForString(state) {
+    switch (state) {
+      case "connecting":
+      {
+        return enums.RTCDataChannelState.RTCDataChannelConnecting;
+      }
+      case "open":
+      {
+        return enums.RTCDataChannelState.RTCDataChannelOpen;
+      }
+      case "closing":
+      {
+        return enums.RTCDataChannelState.RTCDataChannelClosing;
+      }
+      case "closed":
+      {
+        return enums.RTCDataChannelState.RTCDataChannelClosed;
+      }
+    }
+    return enums.RTCDataChannelState.RTCDataChannelClosed;
+  };
+  enums.peerConnectionStateForString = function peerConnectionStateForString(state) {
+    switch (state) {
+      case "new":
+      {
+        return enums.RTCPeerConnectionState.RTCPeerConnectionStateNew;
+      }
+      case "connecting":
+      {
+        return enums.RTCPeerConnectionState.RTCPeerConnectionStateConnecting;
+      }
+      case "connected":
+      {
+        return enums.RTCPeerConnectionState.RTCPeerConnectionStateConnected;
+      }
+      case "closed":
+      {
+        return enums.RTCPeerConnectionState.RTCPeerConnectionStateClosed;
+      }
+      case "disconnected":
+      {
+        return enums.RTCPeerConnectionState.RTCPeerConnectionStateDisconnected;
+      }
+      case "failed":
+      {
+        return enums.RTCPeerConnectionState.RTCPeerConnectionStateFailed;
+      }
+    }
+    return enums.RTCPeerConnectionState.RTCPeerConnectionStateClosed;
+  };
+  dart.defineLazy(enums, {
+    /*enums.typeRTCRtpMediaTypetoString*/get typeRTCRtpMediaTypetoString() {
+      return new (T.LinkedMapOfRTCRtpMediaType$String()).from([enums.RTCRtpMediaType.RTCRtpMediaTypeAudio, "audio", enums.RTCRtpMediaType.RTCRtpMediaTypeVideo, "video", enums.RTCRtpMediaType.RTCRtpMediaTypeData, "data"]);
+    },
+    /*enums.typeStringToRTCRtpMediaType*/get typeStringToRTCRtpMediaType() {
+      return new (T.IdentityMapOfString$RTCRtpMediaType()).from(["audio", enums.RTCRtpMediaType.RTCRtpMediaTypeAudio, "video", enums.RTCRtpMediaType.RTCRtpMediaTypeVideo, "data", enums.RTCRtpMediaType.RTCRtpMediaTypeData]);
+    },
+    /*enums.typeStringToRtpTransceiverDirection*/get typeStringToRtpTransceiverDirection() {
+      return new (T.IdentityMapOfString$TransceiverDirection()).from(["sendrecv", enums.TransceiverDirection.SendRecv, "sendonly", enums.TransceiverDirection.SendOnly, "recvonly", enums.TransceiverDirection.RecvOnly, "inactive", enums.TransceiverDirection.Inactive]);
+    },
+    /*enums.typeRtpTransceiverDirectionToString*/get typeRtpTransceiverDirectionToString() {
+      return new (T.LinkedMapOfTransceiverDirection$String()).from([enums.TransceiverDirection.SendRecv, "sendrecv", enums.TransceiverDirection.SendOnly, "sendonly", enums.TransceiverDirection.RecvOnly, "recvonly", enums.TransceiverDirection.Inactive, "inactive"]);
+    }
+  }, false);
+  dart.trackLibraries("packages/webrtc_interface/src/enums.dart", {
+    "package:webrtc_interface/src/enums.dart": enums
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["enums.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAA0C;;oDAArC;;;;EAAqC;;;;;;;;;;;;;;;;IAGV;;2CAA3B;;;;EAA2B;;;;;;;;;;;;;;;;IAOhC;;mDALK;;;;EAKL;;;;;;;;;;;;;;;;;;IASA;;iDAPK;;;;EAOL;;;;;;;;;;;;;;;;;;;;IAMA;;oDAJK;;;;EAIL;;;;;;;;;;;;;;;;;IASA;;sDAPK;;;;EAOL;;;;;;;;;;;;;;;;;;;;IAWA;;qDATK;;;;EASL;;;;;;;;;;;;;;;;;;;;;;IAKA;;qDAHK;;;;EAGL;;;;;;;;;;;;;;;;IAKA;;+CAJK;;;;EAIL;;;;;;;;;;;;;;;;;IAmBA;;oDALK;;;;EAKL;;;;;;;;;;;;;;;2EAgB0D;AACxD,YAAQ,KAAK;;;AAET,cAA6B;;;;AAE7B,cAA6B;;;;AAE7B,cAA6B;;;;AAE7B,cAA6B;;;;AAE7B,cAA6B;;;;AAE7B,cAA6B;;;;AAE7B,cAA6B;;;;AAE7B,cAA6B;;;AAEjC,UAA6B;EAC/B;yEAEwD;AACtD,YAAQ,KAAK;;;AAET,cAA4B;;;;AAE5B,cAA4B;;;;AAE5B,cAA4B;;;AAEhC,UAA4B;EAC9B;mEAEkD;AAChD,YAAQ,KAAK;;;AAET,cAAyB;;;;AAEzB,cAAyB;;;;AAEzB,cAAyB;;;;AAEzB,cAAyB;;;;AAEzB,cAAyB;;;;AAEzB,cAAyB;;;AAE7B,UAAyB;EAC3B;6EAEwD;AACtD,YAAQ,KAAK;;;AAET,cAA2B;;;;AAE3B,cAA2B;;;;AAE3B,cAA2B;;;;AAE3B,cAA2B;;;AAE/B,UAA2B;EAC7B;6EAE4D;AAC1D,YAAQ,KAAK;;;AAET,cAA8B;;;;AAE9B,cAA8B;;;;AAE9B,cAA8B;;;;AAE9B,cAA8B;;;;AAE9B,cAA8B;;;;AAE9B,cAA8B;;;AAGlC,UAA8B;EAChC;;MApHM,iCAA2B;YAA4B,mDAC3C,4CAAsB,SACtB,4CAAsB,SACtB,2CAAqB;;MAGjC,iCAA2B;YAA4B,qDAC3D,SAAyB,4CACzB,SAAyB,4CACzB,QAAwB;;MAUpB,yCAAmC;YAAiC,0DACxE,YAAiC,qCACjC,YAAiC,qCACjC,YAAiC,qCACjC,YAAiC;;MAG7B,yCAAmC;YAAiC,wDACnD,qCAAU,YACV,qCAAU,YACV,qCAAU,YACV,qCAAU","file":"../../../../../../../../../../../../D:/packages/webrtc_interface/src/enums.dart.lib.js"}');
+  // Exports:
+  return {
+    src__enums: enums
+  };
+}));
+
+//# sourceMappingURL=enums.dart.lib.js.map

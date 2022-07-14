@@ -1,0 +1,4 @@
+#Thu Jul 14 17:03:16 IST 2022
+base.0=E\:\\Flutter\\WebRTC\\WebSocket\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

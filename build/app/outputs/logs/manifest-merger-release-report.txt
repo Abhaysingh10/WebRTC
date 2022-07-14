@@ -1,0 +1,210 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:1:1-54:12
+MERGED from [:flutter_webrtc] E:\Flutter\WebRTC\WebSocket\build\flutter_webrtc\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:shared_preferences] E:\Flutter\WebRTC\WebSocket\build\shared_preferences\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:path_provider] E:\Flutter\WebRTC\WebSocket\build\path_provider\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\30aa6605f58cacf3efbd052db5b792d9\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\7e3eccaff1db578fa5774cb44e89ee18\jetified-window-1.0.0-beta04\AndroidManifest.xml:17:1-33:12
+MERGED from [com.github.webrtc-sdk:android:92.4515.03] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\06328759e63923eb55ddd402220f3d0f\jetified-android-92.4515.03\AndroidManifest.xml:11:1-14:12
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\92d2fbcc02d373e107b7cad8f2c38fc4\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\1352e94ea999fc28f2d639c47b9f3edd\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\2940a5e589d9b4700d53790d7ad32d0b\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\dd84842a94dab60e5b43753843887798\jetified-activity-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\300f2b819c9c39b176d7e013491210b4\customview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.6.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\8ea4cb97a77cb0487022c16fd2fc35cb\core-1.6.0\AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\cef93ade6daebd183ad93be0518f7788\lifecycle-runtime-2.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\9167e508271f6e87eadf123d3752b3c9\jetified-savedstate-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\cb6f238ab322c1ccdf4a70c9d969bd4a\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\6ad1b44b94c0a96598208e5f0ea21173\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\610e81298d2424f92041f08b2807a3df\jetified-tracing-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\285b74e123b994ddee5972c751152cbe\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\8b6353859313d1a458a7c863f77141bc\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\6539f852b4f8bed57800c6979c4e6c62\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\90b86bacf077649a65d97cfd41fbe32a\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:17:1-24:12
+INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:1:1-54:12
+	package
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:2:5-37
+		INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+		INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:1:1-54:12
+		INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:1:1-54:12
+		INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:4:5-66
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:4:22-64
+uses-feature#android.hardware.camera
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:5:5-60
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:5:19-57
+uses-feature#android.hardware.camera.autofocus
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:6:5-70
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:6:19-67
+uses-permission#android.permission.CAMERA
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:7:5-65
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:7:22-62
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:8:5-71
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:8:22-68
+uses-permission#android.permission.WAKE_LOCK
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:9:5-68
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:9:22-65
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:10:5-79
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:10:22-76
+uses-permission#android.permission.BLUETOOTH
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:11:5-68
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:11:22-65
+uses-permission#android.permission.CHANGE_NETWORK_STATE
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:12:5-79
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:12:22-76
+uses-permission#android.permission.MODIFY_AUDIO_SETTINGS
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:13:5-80
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:13:22-77
+application
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:15:4-53:19
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\7e3eccaff1db578fa5774cb44e89ee18\jetified-window-1.0.0-beta04\AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\7e3eccaff1db578fa5774cb44e89ee18\jetified-window-1.0.0-beta04\AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.core:core:1.6.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\8ea4cb97a77cb0487022c16fd2fc35cb\core-1.6.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.6.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\8ea4cb97a77cb0487022c16fd2fc35cb\core-1.6.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\8b6353859313d1a458a7c863f77141bc\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\8b6353859313d1a458a7c863f77141bc\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.6.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\8ea4cb97a77cb0487022c16fd2fc35cb\core-1.6.0\AndroidManifest.xml:24:18-86
+	android:label
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:16:9-35
+	android:icon
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:17:9-43
+	android:usesCleartextTraffic
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:18:9-46
+activity#com.example.web_socket.MainActivity
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:19:9-47:20
+	android:launchMode
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:21:13-43
+	android:hardwareAccelerated
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:24:13-47
+	android:windowSoftInputMode
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:25:13-55
+	android:configChanges
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:23:13-163
+	android:theme
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:22:13-47
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:20:13-41
+meta-data#io.flutter.embedding.android.NormalTheme
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:30:13-33:17
+	android:resource
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:32:15-52
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:31:15-70
+meta-data#io.flutter.embedding.android.SplashScreenDrawable
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:39:13-42:17
+	android:resource
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:41:15-61
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:40:15-79
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:43:13-46:29
+action#android.intent.action.MAIN
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:44:17-68
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:44:25-66
+category#android.intent.category.LAUNCHER
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:45:17-76
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:45:27-74
+meta-data#flutterEmbedding
+ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:50:9-52:33
+	android:value
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:52:13-30
+	android:name
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml:51:13-44
+uses-sdk
+INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+MERGED from [:flutter_webrtc] E:\Flutter\WebRTC\WebSocket\build\flutter_webrtc\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_webrtc] E:\Flutter\WebRTC\WebSocket\build\flutter_webrtc\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] E:\Flutter\WebRTC\WebSocket\build\shared_preferences\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] E:\Flutter\WebRTC\WebSocket\build\shared_preferences\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] E:\Flutter\WebRTC\WebSocket\build\path_provider\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] E:\Flutter\WebRTC\WebSocket\build\path_provider\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\30aa6605f58cacf3efbd052db5b792d9\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\30aa6605f58cacf3efbd052db5b792d9\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\7e3eccaff1db578fa5774cb44e89ee18\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\7e3eccaff1db578fa5774cb44e89ee18\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
+MERGED from [com.github.webrtc-sdk:android:92.4515.03] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\06328759e63923eb55ddd402220f3d0f\jetified-android-92.4515.03\AndroidManifest.xml:13:3-72
+MERGED from [com.github.webrtc-sdk:android:92.4515.03] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\06328759e63923eb55ddd402220f3d0f\jetified-android-92.4515.03\AndroidManifest.xml:13:3-72
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\92d2fbcc02d373e107b7cad8f2c38fc4\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\92d2fbcc02d373e107b7cad8f2c38fc4\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\1352e94ea999fc28f2d639c47b9f3edd\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\1352e94ea999fc28f2d639c47b9f3edd\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\2940a5e589d9b4700d53790d7ad32d0b\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\2940a5e589d9b4700d53790d7ad32d0b\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\dd84842a94dab60e5b43753843887798\jetified-activity-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\dd84842a94dab60e5b43753843887798\jetified-activity-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\300f2b819c9c39b176d7e013491210b4\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\300f2b819c9c39b176d7e013491210b4\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.6.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\8ea4cb97a77cb0487022c16fd2fc35cb\core-1.6.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.6.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\8ea4cb97a77cb0487022c16fd2fc35cb\core-1.6.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\cef93ade6daebd183ad93be0518f7788\lifecycle-runtime-2.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\cef93ade6daebd183ad93be0518f7788\lifecycle-runtime-2.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\9167e508271f6e87eadf123d3752b3c9\jetified-savedstate-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\9167e508271f6e87eadf123d3752b3c9\jetified-savedstate-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\cb6f238ab322c1ccdf4a70c9d969bd4a\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\cb6f238ab322c1ccdf4a70c9d969bd4a\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\6ad1b44b94c0a96598208e5f0ea21173\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\6ad1b44b94c0a96598208e5f0ea21173\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\610e81298d2424f92041f08b2807a3df\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\610e81298d2424f92041f08b2807a3df\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\285b74e123b994ddee5972c751152cbe\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\285b74e123b994ddee5972c751152cbe\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\8b6353859313d1a458a7c863f77141bc\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\8b6353859313d1a458a7c863f77141bc\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\6539f852b4f8bed57800c6979c4e6c62\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\6539f852b4f8bed57800c6979c4e6c62\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\90b86bacf077649a65d97cfd41fbe32a\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\90b86bacf077649a65d97cfd41fbe32a\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:20:5-22:41
+INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+		INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+		ADDED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+		INJECTED from E:\Flutter\WebRTC\WebSocket\android\app\src\main\AndroidManifest.xml
+uses-library#androidx.window.extensions
+ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\7e3eccaff1db578fa5774cb44e89ee18\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\7e3eccaff1db578fa5774cb44e89ee18\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\7e3eccaff1db578fa5774cb44e89ee18\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+uses-library#androidx.window.sidecar
+ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\7e3eccaff1db578fa5774cb44e89ee18\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\7e3eccaff1db578fa5774cb44e89ee18\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\Abhay\.gradle\caches\transforms-2\files-2.1\7e3eccaff1db578fa5774cb44e89ee18\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51

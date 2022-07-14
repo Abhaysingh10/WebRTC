@@ -1,0 +1,2209 @@
+define(['dart_sdk', 'packages/socket_io_common/src/engine/parser/parser.dart', 'packages/socket_io_client/src/engine/parseqs.dart', 'packages/socket_io_common/src/util/event_emitter.dart', 'packages/logging/src/logger.dart'], (function load__packages__socket_io_client__src__engine__transport__xhr_transport_dart(dart_sdk, packages__socket_io_common__src__engine__parser__parser$46dart, packages__socket_io_client__src__engine__parseqs$46dart, packages__socket_io_common__src__util__event_emitter$46dart, packages__logging__src__logger$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _js_helper = dart_sdk._js_helper;
+  const html = dart_sdk.html;
+  const _internal = dart_sdk._internal;
+  const async = dart_sdk.async;
+  const typed_data = dart_sdk.typed_data;
+  const js_util = dart_sdk.js_util;
+  const js = dart_sdk.js;
+  const _interceptors = dart_sdk._interceptors;
+  const collection = dart_sdk.collection;
+  const convert = dart_sdk.convert;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const parser = packages__socket_io_common__src__engine__parser__parser$46dart.src__engine__parser__parser;
+  const parseqs = packages__socket_io_client__src__engine__parseqs$46dart.src__engine__parseqs;
+  const event_emitter = packages__socket_io_common__src__util__event_emitter$46dart.src__util__event_emitter;
+  const logger = packages__logging__src__logger$46dart.src__logger;
+  var xhr_transport = Object.create(dart.library);
+  var websocket_transport = Object.create(dart.library);
+  var jsonp_transport = Object.create(dart.library);
+  var transports = Object.create(dart.library);
+  var transport = Object.create(dart.library);
+  var polling_transport = Object.create(dart.library);
+  var socket = Object.create(dart.library);
+  var $_get = dartx._get;
+  var $protocol = dartx.protocol;
+  var $location = dartx.location;
+  var $port = dartx.port;
+  var $isEmpty = dartx.isEmpty;
+  var $_set = dartx._set;
+  var $toRadixString = dartx.toRadixString;
+  var $containsKey = dartx.containsKey;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $contains = dartx.contains;
+  var $forEach = dartx.forEach;
+  var $onReadyStateChange = dartx.onReadyStateChange;
+  var $readyState = dartx.readyState;
+  var $responseType = dartx.responseType;
+  var $response = dartx.response;
+  var $asUint8List = dartx.asUint8List;
+  var $onOpen = dartx.onOpen;
+  var $onClose = dartx.onClose;
+  var $onMessage = dartx.onMessage;
+  var $data = dartx.data;
+  var $onError = dartx.onError;
+  var $length = dartx.length;
+  var $remove = dartx.remove;
+  var $createElement = dartx.createElement;
+  var $src = dartx.src;
+  var $getElementsByTagName = dartx.getElementsByTagName;
+  var $first = dartx.first;
+  var $insertBefore = dartx.insertBefore;
+  var $head = dartx.head;
+  var $append = dartx.append;
+  var $userAgent = dartx.userAgent;
+  var $navigator = dartx.navigator;
+  var $className = dartx.className;
+  var $position = dartx.position;
+  var $style = dartx.style;
+  var $top = dartx.top;
+  var $left = dartx.left;
+  var $setAttribute = dartx.setAttribute;
+  var $name = dartx.name;
+  var $id = dartx.id;
+  var $onLoad = dartx.onLoad;
+  var $toString = dartx.toString;
+  var $replaceFirst = dartx.replaceFirst;
+  var $removeAt = dartx.removeAt;
+  var $removeRange = dartx.removeRange;
+  var $add = dartx.add;
+  var $where = dartx.where;
+  var $toList = dartx.toList;
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    IdentityMapOfString$dynamic: () => (T.IdentityMapOfString$dynamic = dart.constFn(_js_helper.IdentityMap$(core.String, dart.dynamic)))(),
+    MapOfString$dynamic: () => (T.MapOfString$dynamic = dart.constFn(core.Map$(core.String, dart.dynamic)))(),
+    dynamicTodynamic: () => (T.dynamicTodynamic = dart.constFn(dart.fnType(dart.dynamic, [dart.dynamic])))(),
+    dynamicToNull: () => (T.dynamicToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic])))(),
+    VoidToNull: () => (T.VoidToNull = dart.constFn(dart.fnType(core.Null, [])))(),
+    boolN: () => (T.boolN = dart.constFn(dart.nullable(core.bool)))(),
+    dynamicAnddynamicAnddynamicToboolN: () => (T.dynamicAnddynamicAnddynamicToboolN = dart.constFn(dart.fnType(T.boolN(), [dart.dynamic], [dart.dynamic, dart.dynamic])))(),
+    IdentityMapOfString$String: () => (T.IdentityMapOfString$String = dart.constFn(_js_helper.IdentityMap$(core.String, core.String)))(),
+    dynamicToNull$1: () => (T.dynamicToNull$1 = dart.constFn(dart.fnType(core.Null, [], [dart.dynamic])))(),
+    intN: () => (T.intN = dart.constFn(dart.nullable(core.int)))(),
+    MapN: () => (T.MapN = dart.constFn(dart.nullable(core.Map)))(),
+    StringN: () => (T.StringN = dart.constFn(dart.nullable(core.String)))(),
+    SocketN: () => (T.SocketN = dart.constFn(dart.nullable(socket.Socket)))(),
+    MapNOfString$dynamic: () => (T.MapNOfString$dynamic = dart.constFn(dart.nullable(T.MapOfString$dynamic())))(),
+    StringAnddynamicTovoid: () => (T.StringAnddynamicTovoid = dart.constFn(dart.fnType(dart.void, [core.String, dart.dynamic])))(),
+    VoidTovoid: () => (T.VoidTovoid = dart.constFn(dart.fnType(dart.void, [])))(),
+    EventTovoid: () => (T.EventTovoid = dart.constFn(dart.fnType(dart.void, [html.Event])))(),
+    CloseEventTovoid: () => (T.CloseEventTovoid = dart.constFn(dart.fnType(dart.void, [html.CloseEvent])))(),
+    MessageEventTovoid: () => (T.MessageEventTovoid = dart.constFn(dart.fnType(dart.void, [html.MessageEvent])))(),
+    dynamicTovoid: () => (T.dynamicTovoid = dart.constFn(dart.fnType(dart.void, [dart.dynamic])))(),
+    ObjectN: () => (T.ObjectN = dart.constFn(dart.nullable(core.Object)))(),
+    JSArrayOfObjectN: () => (T.JSArrayOfObjectN = dart.constFn(_interceptors.JSArray$(T.ObjectN())))(),
+    JSArrayOfString: () => (T.JSArrayOfString = dart.constFn(_interceptors.JSArray$(core.String)))(),
+    ListOfString: () => (T.ListOfString = dart.constFn(core.List$(core.String)))(),
+    TransportN: () => (T.TransportN = dart.constFn(dart.nullable(transport.Transport)))(),
+    IdentityMapOfString$bool: () => (T.IdentityMapOfString$bool = dart.constFn(_js_helper.IdentityMap$(core.String, core.bool)))(),
+    IdentityMapOfString$StringN: () => (T.IdentityMapOfString$StringN = dart.constFn(_js_helper.IdentityMap$(core.String, T.StringN())))(),
+    dynamicToNdynamic: () => (T.dynamicToNdynamic = dart.constFn(dart.nullable(T.dynamicTodynamic())))(),
+    StringTobool: () => (T.StringTobool = dart.constFn(dart.fnType(core.bool, [core.String])))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  var I = [
+    "package:socket_io_client/src/engine/transport/transport.dart",
+    "package:socket_io_client/src/engine/transport/polling_transport.dart",
+    "package:socket_io_client/src/engine/transport/xhr_transport.dart",
+    "package:socket_io_client/src/engine/transport/websocket_transport.dart",
+    "package:socket_io_client/src/engine/transport/jsonp_transport.dart",
+    "package:socket_io_client/src/engine/transport/transports.dart",
+    "package:socket_io_client/src/engine/socket.dart"
+  ];
+  var sendXhr = dart.privateName(xhr_transport, "XHRTransport.sendXhr");
+  var pollXhr = dart.privateName(xhr_transport, "XHRTransport.pollXhr");
+  var supportsBinary = dart.privateName(xhr_transport, "XHRTransport.supportsBinary");
+  var __XHRTransport_xd = dart.privateName(xhr_transport, "_#XHRTransport#xd");
+  var __XHRTransport_xs = dart.privateName(xhr_transport, "_#XHRTransport#xs");
+  var __XHRTransport_extraHeaders = dart.privateName(xhr_transport, "_#XHRTransport#extraHeaders");
+  var name = dart.privateName(polling_transport, "PollingTransport.name");
+  var supportsBinary$ = dart.privateName(polling_transport, "PollingTransport.supportsBinary");
+  var polling = dart.privateName(polling_transport, "PollingTransport.polling");
+  var port = dart.privateName(transport, "Transport.port");
+  var query = dart.privateName(transport, "Transport.query");
+  var timestampParam = dart.privateName(transport, "Transport.timestampParam");
+  var timestampRequests = dart.privateName(transport, "Transport.timestampRequests");
+  var readyState = dart.privateName(transport, "Transport.readyState");
+  var agent = dart.privateName(transport, "Transport.agent");
+  var socket$ = dart.privateName(transport, "Transport.socket");
+  var enablesXDR = dart.privateName(transport, "Transport.enablesXDR");
+  var writable = dart.privateName(transport, "Transport.writable");
+  var name$ = dart.privateName(transport, "Transport.name");
+  var supportsBinary$0 = dart.privateName(transport, "Transport.supportsBinary");
+  var __Transport_path = dart.privateName(transport, "_#Transport#path");
+  var __Transport_hostname = dart.privateName(transport, "_#Transport#hostname");
+  var __Transport_secure = dart.privateName(transport, "_#Transport#secure");
+  transport.Transport = class Transport extends event_emitter.EventEmitter {
+    get port() {
+      return this[port];
+    }
+    set port(value) {
+      this[port] = value;
+    }
+    get query() {
+      return this[query];
+    }
+    set query(value) {
+      this[query] = value;
+    }
+    get timestampParam() {
+      return this[timestampParam];
+    }
+    set timestampParam(value) {
+      this[timestampParam] = value;
+    }
+    get timestampRequests() {
+      return this[timestampRequests];
+    }
+    set timestampRequests(value) {
+      this[timestampRequests] = value;
+    }
+    get readyState() {
+      return this[readyState];
+    }
+    set readyState(value) {
+      this[readyState] = value;
+    }
+    get agent() {
+      return this[agent];
+    }
+    set agent(value) {
+      this[agent] = value;
+    }
+    get socket() {
+      return this[socket$];
+    }
+    set socket(value) {
+      this[socket$] = value;
+    }
+    get enablesXDR() {
+      return this[enablesXDR];
+    }
+    set enablesXDR(value) {
+      this[enablesXDR] = value;
+    }
+    get writable() {
+      return this[writable];
+    }
+    set writable(value) {
+      this[writable] = value;
+    }
+    get name() {
+      return this[name$];
+    }
+    set name(value) {
+      this[name$] = value;
+    }
+    get supportsBinary() {
+      return this[supportsBinary$0];
+    }
+    set supportsBinary(value) {
+      this[supportsBinary$0] = value;
+    }
+    get path() {
+      let t3;
+      t3 = this[__Transport_path];
+      return t3 == null ? dart.throw(new _internal.LateError.fieldNI("path")) : t3;
+    }
+    set path(t3) {
+      this[__Transport_path] = t3;
+    }
+    get hostname() {
+      let t4;
+      t4 = this[__Transport_hostname];
+      return t4 == null ? dart.throw(new _internal.LateError.fieldNI("hostname")) : t4;
+    }
+    set hostname(t4) {
+      this[__Transport_hostname] = t4;
+    }
+    get secure() {
+      let t5;
+      t5 = this[__Transport_secure];
+      return t5 == null ? dart.throw(new _internal.LateError.fieldNI("secure")) : t5;
+    }
+    set secure(t5) {
+      this[__Transport_secure] = t5;
+    }
+    onError(msg, desc = null) {
+      if (this.hasListeners("error")) {
+        this.emit("error", new (T.IdentityMapOfString$dynamic()).from(["msg", msg, "desc", desc, "type", "TransportError"]));
+      } else {
+        transport.Transport._logger.fine("ignored transport error " + dart.str(msg) + " (" + dart.str(desc) + ")");
+      }
+    }
+    open() {
+      if ("closed" === this.readyState || "" === this.readyState) {
+        this.readyState = "opening";
+        this.doOpen();
+      }
+    }
+    close() {
+      if ("opening" === this.readyState || "open" === this.readyState) {
+        this.doClose();
+        this.onClose();
+      }
+    }
+    send(packets) {
+      if ("open" === this.readyState) {
+        this.write(packets);
+      } else {
+        dart.throw(new core.StateError.new("Transport not open"));
+      }
+    }
+    onOpen() {
+      this.readyState = "open";
+      this.writable = true;
+      this.emit("open");
+    }
+    onData(data) {
+      let t6;
+      let packet = parser.PacketParser.decodePacket(data, {binaryType: (t6 = this.socket, t6 == null ? null : t6.binaryType), utf8decode: false});
+      this.onPacket(packet);
+    }
+    onPacket(packet) {
+      this.emit("packet", packet);
+    }
+    onClose() {
+      this.readyState = "closed";
+      this.emit("close");
+    }
+  };
+  (transport.Transport.new = function(opts) {
+    this[__Transport_path] = null;
+    this[__Transport_hostname] = null;
+    this[port] = null;
+    this[__Transport_secure] = null;
+    this[query] = null;
+    this[timestampParam] = null;
+    this[timestampRequests] = null;
+    this[readyState] = null;
+    this[agent] = null;
+    this[socket$] = null;
+    this[enablesXDR] = null;
+    this[writable] = null;
+    this[name$] = null;
+    this[supportsBinary$0] = null;
+    transport.Transport.__proto__.new.call(this);
+    this.path = core.String.as(opts[$_get]("path"));
+    this.hostname = core.String.as(opts[$_get]("hostname"));
+    this.port = T.intN().as(opts[$_get]("port"));
+    this.secure = core.bool.as(opts[$_get]("secure"));
+    this.query = T.MapN().as(opts[$_get]("query"));
+    this.timestampParam = T.StringN().as(opts[$_get]("timestampParam"));
+    this.timestampRequests = T.boolN().as(opts[$_get]("timestampRequests"));
+    this.readyState = "";
+    this.agent = T.boolN().as(opts[$_get]("agent || false"));
+    this.socket = T.SocketN().as(opts[$_get]("socket"));
+    this.enablesXDR = T.boolN().as(opts[$_get]("enablesXDR"));
+  }).prototype = transport.Transport.prototype;
+  dart.addTypeTests(transport.Transport);
+  dart.addTypeCaches(transport.Transport);
+  dart.setMethodSignature(transport.Transport, () => ({
+    __proto__: dart.getMethods(transport.Transport.__proto__),
+    onError: dart.fnType(dart.void, [dart.dynamic], [dart.dynamic]),
+    open: dart.fnType(dart.void, []),
+    close: dart.fnType(dart.void, []),
+    send: dart.fnType(dart.void, [core.List]),
+    onOpen: dart.fnType(dart.void, []),
+    onData: dart.fnType(dart.void, [dart.dynamic]),
+    onPacket: dart.fnType(dart.void, [dart.dynamic]),
+    onClose: dart.fnType(dart.void, [])
+  }));
+  dart.setGetterSignature(transport.Transport, () => ({
+    __proto__: dart.getGetters(transport.Transport.__proto__),
+    path: core.String,
+    hostname: core.String,
+    secure: core.bool
+  }));
+  dart.setSetterSignature(transport.Transport, () => ({
+    __proto__: dart.getSetters(transport.Transport.__proto__),
+    path: core.String,
+    hostname: core.String,
+    secure: core.bool
+  }));
+  dart.setLibraryUri(transport.Transport, I[0]);
+  dart.setFieldSignature(transport.Transport, () => ({
+    __proto__: dart.getFields(transport.Transport.__proto__),
+    [__Transport_path]: dart.fieldType(dart.nullable(core.String)),
+    [__Transport_hostname]: dart.fieldType(dart.nullable(core.String)),
+    port: dart.fieldType(dart.nullable(core.int)),
+    [__Transport_secure]: dart.fieldType(dart.nullable(core.bool)),
+    query: dart.fieldType(dart.nullable(core.Map)),
+    timestampParam: dart.fieldType(dart.nullable(core.String)),
+    timestampRequests: dart.fieldType(dart.nullable(core.bool)),
+    readyState: dart.fieldType(dart.nullable(core.String)),
+    agent: dart.fieldType(dart.nullable(core.bool)),
+    socket: dart.fieldType(dart.nullable(socket.Socket)),
+    enablesXDR: dart.fieldType(dart.nullable(core.bool)),
+    writable: dart.fieldType(dart.nullable(core.bool)),
+    name: dart.fieldType(dart.nullable(core.String)),
+    supportsBinary: dart.fieldType(dart.nullable(core.bool))
+  }));
+  dart.defineLazy(transport.Transport, {
+    /*transport.Transport._logger*/get _logger() {
+      return logger.Logger.new("socket_io_client:transport.Transport");
+    }
+  }, false);
+  polling_transport.PollingTransport = class PollingTransport extends transport.Transport {
+    get name() {
+      return this[name];
+    }
+    set name(value) {
+      this[name] = value;
+    }
+    get supportsBinary() {
+      return this[supportsBinary$];
+    }
+    set supportsBinary(value) {
+      this[supportsBinary$] = value;
+    }
+    get polling() {
+      return this[polling];
+    }
+    set polling(value) {
+      this[polling] = value;
+    }
+    doOpen() {
+      this.poll();
+    }
+    pause(onPause) {
+      let self = this;
+      this.readyState = "pausing";
+      let pause = dart.fn(() => {
+        polling_transport._logger.fine("paused");
+        self.readyState = "paused";
+        dart.dcall(onPause, []);
+      }, T.VoidToNull());
+      if (this.polling === true || this.writable !== true) {
+        let total = 0;
+        if (this.polling === true) {
+          polling_transport._logger.fine("we are currently polling - waiting to pause");
+          total = total + 1;
+          this.once("pollComplete", dart.fn(_ => {
+            polling_transport._logger.fine("pre-pause polling complete");
+            if ((total = total - 1) === 0) pause();
+          }, T.dynamicToNull()));
+        }
+        if (this.writable !== true) {
+          polling_transport._logger.fine("we are currently writing - waiting to pause");
+          total = total + 1;
+          this.once("drain", dart.fn(_ => {
+            polling_transport._logger.fine("pre-pause writing complete");
+            if ((total = total - 1) === 0) pause();
+          }, T.dynamicToNull()));
+        }
+      } else {
+        pause();
+      }
+    }
+    poll() {
+      polling_transport._logger.fine("polling");
+      this.polling = true;
+      this.doPoll();
+      this.emit("poll");
+    }
+    onData(data) {
+      let t3;
+      let self = this;
+      polling_transport._logger.fine("polling got data " + dart.str(data));
+      let callback = dart.fn((packet, index = null, total = null) => {
+        if ("opening" === self.readyState) {
+          self.onOpen();
+        }
+        if ("close" === dart.dsend(packet, '_get', ["type"])) {
+          self.onClose();
+          return false;
+        }
+        self.onPacket(packet);
+        return null;
+      }, T.dynamicAnddynamicAnddynamicToboolN());
+      parser.PacketParser.decodePayload(data, {binaryType: !dart.equals((t3 = this.socket, t3 == null ? null : t3.binaryType), true), callback: callback});
+      if ("closed" !== this.readyState) {
+        this.polling = false;
+        this.emit("pollComplete");
+        if ("open" === this.readyState) {
+          this.poll();
+        } else {
+          polling_transport._logger.fine("ignoring poll - transport state \"" + dart.str(this.readyState) + "\"");
+        }
+      }
+    }
+    doClose() {
+      let self = this;
+      let close = dart.fn((_ = null) => {
+        polling_transport._logger.fine("writing close packet");
+        self.write([new (T.IdentityMapOfString$String()).from(["type", "close"])]);
+      }, T.dynamicToNull$1());
+      if ("open" === this.readyState) {
+        polling_transport._logger.fine("transport open - closing");
+        close();
+      } else {
+        polling_transport._logger.fine("transport not open - deferring close");
+        this.once("open", close);
+      }
+    }
+    write(packets) {
+      let self = this;
+      this.writable = false;
+      let callbackfn = dart.fn(_ => {
+        self.writable = true;
+        self.emit("drain");
+      }, T.dynamicToNull());
+      parser.PacketParser.encodePayload(packets, {supportsBinary: this.supportsBinary !== false, callback: dart.fn(data => {
+          self.doWrite(data, callbackfn);
+        }, T.dynamicToNull())});
+    }
+    uri() {
+      let t3;
+      let query = (t3 = this.query, t3 == null ? new _js_helper.LinkedMap.new() : t3);
+      let schema = this.secure ? "https" : "http";
+      let port = "";
+      if (this.timestampRequests !== false) {
+        query[$_set](this.timestampParam, new core.DateTime.now().millisecondsSinceEpoch[$toRadixString](36));
+      }
+      if (this.supportsBinary === false && !query[$containsKey]("sid")) {
+        query[$_set]("b64", 1);
+      }
+      if (this.port != null && ("https" === schema && this.port !== 443 || "http" === schema && this.port !== 80)) {
+        port = ":" + dart.str(this.port);
+      }
+      let queryString = parseqs.encode(query);
+      if (queryString[$isNotEmpty]) {
+        queryString = "?" + queryString;
+      }
+      let ipv6 = this.hostname[$contains](":");
+      return schema + "://" + (ipv6 ? "[" + this.hostname + "]" : this.hostname) + port + this.path + queryString;
+    }
+  };
+  (polling_transport.PollingTransport.new = function(opts) {
+    this[name] = "polling";
+    this[supportsBinary$] = null;
+    this[polling] = null;
+    polling_transport.PollingTransport.__proto__.new.call(this, opts);
+    let forceBase64 = opts[$_get]("forceBase64");
+    if (dart.dtest(forceBase64)) {
+      this.supportsBinary = false;
+    }
+  }).prototype = polling_transport.PollingTransport.prototype;
+  dart.addTypeTests(polling_transport.PollingTransport);
+  dart.addTypeCaches(polling_transport.PollingTransport);
+  dart.setMethodSignature(polling_transport.PollingTransport, () => ({
+    __proto__: dart.getMethods(polling_transport.PollingTransport.__proto__),
+    doOpen: dart.fnType(dart.void, []),
+    pause: dart.fnType(dart.void, [dart.dynamic]),
+    poll: dart.fnType(dart.void, []),
+    doClose: dart.fnType(dart.void, []),
+    write: dart.fnType(dart.void, [core.List]),
+    uri: dart.fnType(core.String, [])
+  }));
+  dart.setLibraryUri(polling_transport.PollingTransport, I[1]);
+  dart.setFieldSignature(polling_transport.PollingTransport, () => ({
+    __proto__: dart.getFields(polling_transport.PollingTransport.__proto__),
+    name: dart.fieldType(dart.nullable(core.String)),
+    supportsBinary: dart.fieldType(dart.nullable(core.bool)),
+    polling: dart.fieldType(dart.nullable(core.bool))
+  }));
+  xhr_transport.XHRTransport = class XHRTransport extends polling_transport.PollingTransport {
+    get sendXhr() {
+      return this[sendXhr];
+    }
+    set sendXhr(value) {
+      this[sendXhr] = value;
+    }
+    get pollXhr() {
+      return this[pollXhr];
+    }
+    set pollXhr(value) {
+      this[pollXhr] = value;
+    }
+    get supportsBinary() {
+      return this[supportsBinary];
+    }
+    set supportsBinary(value) {
+      this[supportsBinary] = value;
+    }
+    get xd() {
+      let t0;
+      t0 = this[__XHRTransport_xd];
+      return t0 == null ? dart.throw(new _internal.LateError.fieldNI("xd")) : t0;
+    }
+    set xd(t0) {
+      this[__XHRTransport_xd] = t0;
+    }
+    get xs() {
+      let t1;
+      t1 = this[__XHRTransport_xs];
+      return t1 == null ? dart.throw(new _internal.LateError.fieldNI("xs")) : t1;
+    }
+    set xs(t1) {
+      this[__XHRTransport_xs] = t1;
+    }
+    get extraHeaders() {
+      let t2;
+      t2 = this[__XHRTransport_extraHeaders];
+      return t2 == null ? dart.throw(new _internal.LateError.fieldNI("extraHeaders")) : t2;
+    }
+    set extraHeaders(t2) {
+      this[__XHRTransport_extraHeaders] = t2;
+    }
+    request(opts = null) {
+      let t3, t3$;
+      opts = (t3 = opts, t3 == null ? new _js_helper.LinkedMap.new() : t3);
+      opts[$_set]("uri", this.uri());
+      opts[$_set]("xd", this.xd);
+      opts[$_set]("xs", this.xs);
+      opts[$_set]("agent", (t3$ = this.agent, t3$ == null ? false : t3$));
+      opts[$_set]("supportsBinary", this.supportsBinary);
+      opts[$_set]("enablesXDR", this.enablesXDR);
+      opts[$_set]("extraHeaders", this.extraHeaders);
+      return new xhr_transport.Request.new(opts);
+    }
+    doWrite(data, fn) {
+      let isBinary = !(typeof data == 'string');
+      let req = this.request(new _js_helper.LinkedMap.from(["method", "POST", "data", data, "isBinary", isBinary]));
+      req.on("success", T.dynamicTodynamic().as(fn));
+      req.on("error", dart.fn(err => {
+        this.onError("xhr post error", err);
+      }, T.dynamicToNull()));
+      this.sendXhr = req;
+    }
+    doPoll() {
+      xhr_transport._logger.fine("xhr poll");
+      let req = this.request();
+      req.on("data", dart.fn(data => {
+        this.onData(data);
+      }, T.dynamicToNull()));
+      req.on("error", dart.fn(err => {
+        this.onError("xhr poll error", err);
+      }, T.dynamicToNull()));
+      this.pollXhr = req;
+    }
+  };
+  (xhr_transport.XHRTransport.new = function(opts) {
+    let t0;
+    this[__XHRTransport_xd] = null;
+    this[__XHRTransport_xs] = null;
+    this[sendXhr] = null;
+    this[pollXhr] = null;
+    this[__XHRTransport_extraHeaders] = null;
+    this[supportsBinary] = true;
+    xhr_transport.XHRTransport.__proto__.new.call(this, opts);
+    this.extraHeaders = T.MapOfString$dynamic().as((t0 = opts[$_get]("extraHeaders"), t0 == null ? new (T.IdentityMapOfString$dynamic()).new() : t0));
+    let isSSL = "https:" === html.window[$location][$protocol];
+    let port = html.window[$location][$port];
+    if (port[$isEmpty]) {
+      port = isSSL ? "443" : "80";
+    }
+    this.xd = !dart.equals(opts[$_get]("hostname"), html.window[$location].hostname) || core.int.parse(port) !== opts[$_get]("port");
+    this.xs = !dart.equals(opts[$_get]("secure"), isSSL);
+  }).prototype = xhr_transport.XHRTransport.prototype;
+  dart.addTypeTests(xhr_transport.XHRTransport);
+  dart.addTypeCaches(xhr_transport.XHRTransport);
+  dart.setMethodSignature(xhr_transport.XHRTransport, () => ({
+    __proto__: dart.getMethods(xhr_transport.XHRTransport.__proto__),
+    request: dart.fnType(xhr_transport.Request, [], [dart.nullable(core.Map)]),
+    doWrite: dart.fnType(dart.void, [dart.dynamic, dart.dynamic]),
+    doPoll: dart.fnType(dart.void, [])
+  }));
+  dart.setGetterSignature(xhr_transport.XHRTransport, () => ({
+    __proto__: dart.getGetters(xhr_transport.XHRTransport.__proto__),
+    xd: core.bool,
+    xs: core.bool,
+    extraHeaders: core.Map$(core.String, dart.dynamic)
+  }));
+  dart.setSetterSignature(xhr_transport.XHRTransport, () => ({
+    __proto__: dart.getSetters(xhr_transport.XHRTransport.__proto__),
+    xd: core.bool,
+    xs: core.bool,
+    extraHeaders: core.Map$(core.String, dart.dynamic)
+  }));
+  dart.setLibraryUri(xhr_transport.XHRTransport, I[2]);
+  dart.setFieldSignature(xhr_transport.XHRTransport, () => ({
+    __proto__: dart.getFields(xhr_transport.XHRTransport.__proto__),
+    [__XHRTransport_xd]: dart.fieldType(dart.nullable(core.bool)),
+    [__XHRTransport_xs]: dart.fieldType(dart.nullable(core.bool)),
+    sendXhr: dart.fieldType(dart.nullable(xhr_transport.Request)),
+    pollXhr: dart.fieldType(dart.nullable(xhr_transport.Request)),
+    [__XHRTransport_extraHeaders]: dart.fieldType(dart.nullable(core.Map$(core.String, dart.dynamic))),
+    supportsBinary: dart.fieldType(dart.nullable(core.bool))
+  }));
+  var isBinary = dart.privateName(xhr_transport, "Request.isBinary");
+  var xhr = dart.privateName(xhr_transport, "Request.xhr");
+  var readyStateChange = dart.privateName(xhr_transport, "Request.readyStateChange");
+  var extraHeaders = dart.privateName(xhr_transport, "Request.extraHeaders");
+  var __Request_uri = dart.privateName(xhr_transport, "_#Request#uri");
+  var __Request_xd = dart.privateName(xhr_transport, "_#Request#xd");
+  var __Request_xs = dart.privateName(xhr_transport, "_#Request#xs");
+  var __Request_async = dart.privateName(xhr_transport, "_#Request#async");
+  var __Request_data = dart.privateName(xhr_transport, "_#Request#data");
+  var __Request_data_isSet = dart.privateName(xhr_transport, "_#Request#data#isSet");
+  var __Request_agent = dart.privateName(xhr_transport, "_#Request#agent");
+  var __Request_supportsBinary = dart.privateName(xhr_transport, "_#Request#supportsBinary");
+  var __Request_enablesXDR = dart.privateName(xhr_transport, "_#Request#enablesXDR");
+  var __Request_method = dart.privateName(xhr_transport, "_#Request#method");
+  xhr_transport.Request = class Request extends event_emitter.EventEmitter {
+    get isBinary() {
+      return this[isBinary];
+    }
+    set isBinary(value) {
+      this[isBinary] = value;
+    }
+    get xhr() {
+      return this[xhr];
+    }
+    set xhr(value) {
+      this[xhr] = value;
+    }
+    get readyStateChange() {
+      return this[readyStateChange];
+    }
+    set readyStateChange(value) {
+      this[readyStateChange] = value;
+    }
+    get extraHeaders() {
+      return this[extraHeaders];
+    }
+    set extraHeaders(value) {
+      this[extraHeaders] = value;
+    }
+    get uri() {
+      let t6;
+      t6 = this[__Request_uri];
+      return t6 == null ? dart.throw(new _internal.LateError.fieldNI("uri")) : t6;
+    }
+    set uri(t6) {
+      this[__Request_uri] = t6;
+    }
+    get xd() {
+      let t7;
+      t7 = this[__Request_xd];
+      return t7 == null ? dart.throw(new _internal.LateError.fieldNI("xd")) : t7;
+    }
+    set xd(t7) {
+      this[__Request_xd] = t7;
+    }
+    get xs() {
+      let t8;
+      t8 = this[__Request_xs];
+      return t8 == null ? dart.throw(new _internal.LateError.fieldNI("xs")) : t8;
+    }
+    set xs(t8) {
+      this[__Request_xs] = t8;
+    }
+    get async() {
+      let t9;
+      t9 = this[__Request_async];
+      return t9 == null ? dart.throw(new _internal.LateError.fieldNI("async")) : t9;
+    }
+    set async(t9) {
+      this[__Request_async] = t9;
+    }
+    get data() {
+      return this[__Request_data_isSet] ? this[__Request_data] : dart.throw(new _internal.LateError.fieldNI("data"));
+    }
+    set data(t10) {
+      this[__Request_data_isSet] = true;
+      this[__Request_data] = t10;
+    }
+    get agent() {
+      let t11;
+      t11 = this[__Request_agent];
+      return t11 == null ? dart.throw(new _internal.LateError.fieldNI("agent")) : t11;
+    }
+    set agent(t11) {
+      this[__Request_agent] = t11;
+    }
+    get supportsBinary() {
+      let t12;
+      t12 = this[__Request_supportsBinary];
+      return t12 == null ? dart.throw(new _internal.LateError.fieldNI("supportsBinary")) : t12;
+    }
+    set supportsBinary(t12) {
+      this[__Request_supportsBinary] = t12;
+    }
+    get enablesXDR() {
+      let t13;
+      t13 = this[__Request_enablesXDR];
+      return t13 == null ? dart.throw(new _internal.LateError.fieldNI("enablesXDR")) : t13;
+    }
+    set enablesXDR(t13) {
+      this[__Request_enablesXDR] = t13;
+    }
+    get method() {
+      let t14;
+      t14 = this[__Request_method];
+      return t14 == null ? dart.throw(new _internal.LateError.fieldNI("method")) : t14;
+    }
+    set method(t14) {
+      this[__Request_method] = t14;
+    }
+    create() {
+      let t15;
+      let xhr = this.xhr = html.HttpRequest.new();
+      let self = this;
+      try {
+        xhr_transport._logger.fine("xhr open " + this.method + ": " + this.uri);
+        xhr.open(this.method, this.uri, {async: this.async});
+        try {
+          if ((t15 = this.extraHeaders, t15 == null ? null : t15[$isNotEmpty]) === true) {
+            dart.nullCheck(this.extraHeaders)[$forEach](dart.fn((k, v) => {
+              xhr.setRequestHeader(k, core.String.as(v));
+            }, T.StringAnddynamicTovoid()));
+          }
+        } catch (e$) {
+          let e = dart.getThrown(e$);
+          if (core.Object.is(e)) {
+          } else
+            throw e$;
+        }
+        if ("POST" === this.method) {
+          try {
+            if (dart.nullCheck(this.isBinary)) {
+              xhr.setRequestHeader("Content-type", "application/octet-stream");
+            } else {
+              xhr.setRequestHeader("Content-type", "text/plain;charset=UTF-8");
+            }
+          } catch (e$0) {
+            let e = dart.getThrown(e$0);
+            if (core.Object.is(e)) {
+            } else
+              throw e$0;
+          }
+        }
+        try {
+          xhr.setRequestHeader("Accept", "*/*");
+        } catch (e$1) {
+          let e = dart.getThrown(e$1);
+          if (core.Object.is(e)) {
+          } else
+            throw e$1;
+        }
+        this.readyStateChange = xhr[$onReadyStateChange].listen(dart.fn(evt => {
+          if (xhr[$readyState] === 2) {
+            let contentType = null;
+            try {
+              contentType = xhr.getResponseHeader("Content-Type");
+            } catch (e$) {
+              let e = dart.getThrown(e$);
+              if (core.Object.is(e)) {
+              } else
+                throw e$;
+            }
+            if (dart.equals(contentType, "application/octet-stream")) {
+              xhr[$responseType] = "arraybuffer";
+            }
+          }
+          if (4 !== xhr[$readyState]) return;
+          if (200 === xhr.status || 1223 === xhr.status) {
+            self.onLoad();
+          } else {
+            async.Timer.run(dart.fn(() => self.onError(xhr.status), T.VoidTovoid()));
+          }
+        }, T.EventTovoid()));
+        xhr_transport._logger.fine("xhr data " + dart.str(this.data));
+        xhr.send(this.data);
+      } catch (e$2) {
+        let e = dart.getThrown(e$2);
+        if (core.Object.is(e)) {
+          async.Timer.run(dart.fn(() => this.onError(e), T.VoidTovoid()));
+          return;
+        } else
+          throw e$2;
+      }
+    }
+    onSuccess() {
+      this.emit("success");
+      this.cleanup();
+    }
+    onData(data) {
+      this.emit("data", data);
+      this.onSuccess();
+    }
+    onError(err) {
+      this.emit("error", err);
+      this.cleanup(true);
+    }
+    cleanup(fromError = null) {
+      let t20;
+      if (this.xhr == null) {
+        return;
+      }
+      if (this.hasXDR()) {
+      } else {
+        t20 = this.readyStateChange;
+        t20 == null ? null : t20.cancel();
+        this.readyStateChange = null;
+      }
+      if (fromError != null) {
+        try {
+          dart.nullCheck(this.xhr).abort();
+        } catch (e$) {
+          let e = dart.getThrown(e$);
+          if (core.Object.is(e)) {
+          } else
+            throw e$;
+        }
+      }
+      this.xhr = null;
+    }
+    onLoad() {
+      let t22;
+      let data = null;
+      try {
+        let contentType = null;
+        try {
+          contentType = dart.nullCheck(this.xhr).getResponseHeader("Content-Type");
+        } catch (e$) {
+          let e = dart.getThrown(e$);
+          if (core.Object.is(e)) {
+          } else
+            throw e$;
+        }
+        if (dart.equals(contentType, "application/octet-stream")) {
+          data = (t22 = dart.nullCheck(this.xhr)[$response], t22 == null ? dart.nullCheck(this.xhr).responseText : t22);
+        } else {
+          data = dart.nullCheck(this.xhr).responseText;
+        }
+      } catch (e$0) {
+        let e = dart.getThrown(e$0);
+        if (core.Object.is(e)) {
+          this.onError(e);
+        } else
+          throw e$0;
+      }
+      if (data != null) {
+        if (typed_data.ByteBuffer.is(data)) data = data[$asUint8List]();
+        this.onData(data);
+      }
+    }
+    hasXDR() {
+      return false;
+    }
+    abort() {
+      return this.cleanup();
+    }
+  };
+  (xhr_transport.Request.new = function(opts) {
+    let t6;
+    this[__Request_uri] = null;
+    this[__Request_xd] = null;
+    this[__Request_xs] = null;
+    this[__Request_async] = null;
+    this[__Request_data] = null;
+    this[__Request_data_isSet] = false;
+    this[__Request_agent] = null;
+    this[isBinary] = null;
+    this[__Request_supportsBinary] = null;
+    this[__Request_enablesXDR] = null;
+    this[xhr] = null;
+    this[__Request_method] = null;
+    this[readyStateChange] = null;
+    this[extraHeaders] = null;
+    xhr_transport.Request.__proto__.new.call(this);
+    this.method = core.String.as((t6 = opts[$_get]("method"), t6 == null ? "GET" : t6));
+    this.uri = core.String.as(opts[$_get]("uri"));
+    this.xd = dart.equals(opts[$_get]("xd"), true);
+    this.xs = dart.equals(opts[$_get]("xs"), true);
+    this.async = !dart.equals(opts[$_get]("async"), false);
+    this.data = opts[$_get]("data");
+    this.agent = core.bool.as(opts[$_get]("agent"));
+    this.isBinary = T.boolN().as(opts[$_get]("isBinary"));
+    this.supportsBinary = core.bool.as(opts[$_get]("supportsBinary"));
+    this.enablesXDR = core.bool.as(opts[$_get]("enablesXDR"));
+    this.extraHeaders = T.MapNOfString$dynamic().as(opts[$_get]("extraHeaders"));
+    this.create();
+  }).prototype = xhr_transport.Request.prototype;
+  dart.addTypeTests(xhr_transport.Request);
+  dart.addTypeCaches(xhr_transport.Request);
+  dart.setMethodSignature(xhr_transport.Request, () => ({
+    __proto__: dart.getMethods(xhr_transport.Request.__proto__),
+    create: dart.fnType(dart.void, []),
+    onSuccess: dart.fnType(dart.void, []),
+    onData: dart.fnType(dart.void, [dart.dynamic]),
+    onError: dart.fnType(dart.void, [dart.dynamic]),
+    cleanup: dart.fnType(dart.void, [], [dart.dynamic]),
+    onLoad: dart.fnType(dart.void, []),
+    hasXDR: dart.fnType(core.bool, []),
+    abort: dart.fnType(dart.void, [])
+  }));
+  dart.setGetterSignature(xhr_transport.Request, () => ({
+    __proto__: dart.getGetters(xhr_transport.Request.__proto__),
+    uri: core.String,
+    xd: core.bool,
+    xs: core.bool,
+    async: core.bool,
+    data: dart.dynamic,
+    agent: core.bool,
+    supportsBinary: core.bool,
+    enablesXDR: core.bool,
+    method: core.String
+  }));
+  dart.setSetterSignature(xhr_transport.Request, () => ({
+    __proto__: dart.getSetters(xhr_transport.Request.__proto__),
+    uri: core.String,
+    xd: core.bool,
+    xs: core.bool,
+    async: core.bool,
+    data: dart.dynamic,
+    agent: core.bool,
+    supportsBinary: core.bool,
+    enablesXDR: core.bool,
+    method: core.String
+  }));
+  dart.setLibraryUri(xhr_transport.Request, I[2]);
+  dart.setFieldSignature(xhr_transport.Request, () => ({
+    __proto__: dart.getFields(xhr_transport.Request.__proto__),
+    [__Request_uri]: dart.fieldType(dart.nullable(core.String)),
+    [__Request_xd]: dart.fieldType(dart.nullable(core.bool)),
+    [__Request_xs]: dart.fieldType(dart.nullable(core.bool)),
+    [__Request_async]: dart.fieldType(dart.nullable(core.bool)),
+    [__Request_data]: dart.fieldType(dart.dynamic),
+    [__Request_data_isSet]: dart.fieldType(core.bool),
+    [__Request_agent]: dart.fieldType(dart.nullable(core.bool)),
+    isBinary: dart.fieldType(dart.nullable(core.bool)),
+    [__Request_supportsBinary]: dart.fieldType(dart.nullable(core.bool)),
+    [__Request_enablesXDR]: dart.fieldType(dart.nullable(core.bool)),
+    xhr: dart.fieldType(dart.nullable(html.HttpRequest)),
+    [__Request_method]: dart.fieldType(dart.nullable(core.String)),
+    readyStateChange: dart.fieldType(dart.nullable(async.StreamSubscription)),
+    extraHeaders: dart.fieldType(dart.nullable(core.Map$(core.String, dart.dynamic)))
+  }));
+  dart.defineLazy(xhr_transport, {
+    /*xhr_transport._logger*/get _logger() {
+      return logger.Logger.new("socket_io_client:transport.XHRTransport");
+    }
+  }, false);
+  var name$0 = dart.privateName(websocket_transport, "WebSocketTransport.name");
+  var supportsBinary$1 = dart.privateName(websocket_transport, "WebSocketTransport.supportsBinary");
+  var ws = dart.privateName(websocket_transport, "WebSocketTransport.ws");
+  var __WebSocketTransport_protocols = dart.privateName(websocket_transport, "_#WebSocketTransport#protocols");
+  var __WebSocketTransport_protocols_isSet = dart.privateName(websocket_transport, "_#WebSocketTransport#protocols#isSet");
+  var __WebSocketTransport_perMessageDeflate = dart.privateName(websocket_transport, "_#WebSocketTransport#perMessageDeflate");
+  websocket_transport.WebSocketTransport = class WebSocketTransport extends transport.Transport {
+    get name() {
+      return this[name$0];
+    }
+    set name(value) {
+      this[name$0] = value;
+    }
+    get supportsBinary() {
+      return this[supportsBinary$1];
+    }
+    set supportsBinary(value) {
+      this[supportsBinary$1] = value;
+    }
+    get ws() {
+      return this[ws];
+    }
+    set ws(value) {
+      this[ws] = value;
+    }
+    get protocols() {
+      return this[__WebSocketTransport_protocols_isSet] ? this[__WebSocketTransport_protocols] : dart.throw(new _internal.LateError.fieldNI("protocols"));
+    }
+    set protocols(t23) {
+      this[__WebSocketTransport_protocols_isSet] = true;
+      this[__WebSocketTransport_protocols] = t23;
+    }
+    get perMessageDeflate() {
+      let t24;
+      t24 = this[__WebSocketTransport_perMessageDeflate];
+      return t24 == null ? dart.throw(new _internal.LateError.fieldNI("perMessageDeflate")) : t24;
+    }
+    set perMessageDeflate(t24) {
+      this[__WebSocketTransport_perMessageDeflate] = t24;
+    }
+    doOpen() {
+      let uri = this.uri();
+      let protocols = this.protocols;
+      try {
+        this.ws = html.WebSocket.new(uri, protocols);
+      } catch (e) {
+        let err = dart.getThrown(e);
+        if (core.Object.is(err)) {
+          return this.emit("error", err);
+        } else
+          throw e;
+      }
+      if (dart.nullCheck(this.ws).binaryType == null) {
+        this.supportsBinary = false;
+      }
+      dart.nullCheck(this.ws).binaryType = "arraybuffer";
+      this.addEventListeners();
+    }
+    addEventListeners() {
+      let t26;
+      t26 = dart.nullCheck(this.ws);
+      (() => {
+        t26[$onOpen].listen(dart.fn(_ => this.onOpen(), T.EventTovoid()));
+        t26[$onClose].listen(dart.fn(_ => this.onClose(), T.CloseEventTovoid()));
+        t26[$onMessage].listen(dart.fn(evt => this.onData(evt[$data]), T.MessageEventTovoid()));
+        t26[$onError].listen(dart.fn(e => {
+          this.onError("websocket error");
+        }, T.EventTovoid()));
+        return t26;
+      })();
+    }
+    write(packets) {
+      this.writable = false;
+      let done = dart.fn(() => {
+        this.emit("flush");
+        async.Timer.run(dart.fn(() => {
+          this.writable = true;
+          this.emit("drain");
+        }, T.VoidTovoid()));
+      }, T.VoidToNull());
+      let total = packets[$length];
+      packets[$forEach](dart.fn(packet => {
+        parser.PacketParser.encodePacket(core.Map.as(packet), {supportsBinary: this.supportsBinary, fromClient: true, callback: dart.fn(data => {
+            try {
+              dart.nullCheck(this.ws).send(data);
+            } catch (e$) {
+              let e = dart.getThrown(e$);
+              if (core.Object.is(e)) {
+                websocket_transport.WebSocketTransport._logger.fine("websocket closed before onclose event");
+              } else
+                throw e$;
+            }
+            if ((total = total - 1) === 0) done();
+          }, T.dynamicToNull())});
+      }, T.dynamicTovoid()));
+    }
+    doClose() {
+      let t27;
+      t27 = this.ws;
+      t27 == null ? null : t27.close();
+    }
+    uri() {
+      let t27;
+      let query = (t27 = this.query, t27 == null ? new _js_helper.LinkedMap.new() : t27);
+      let schema = this.secure ? "wss" : "ws";
+      let port = "";
+      if (this.port != null && ("wss" === schema && this.port !== 443 || "ws" === schema && this.port !== 80)) {
+        port = ":" + dart.str(this.port);
+      }
+      if (this.timestampRequests === true) {
+        query[$_set](this.timestampParam, new core.DateTime.now().millisecondsSinceEpoch[$toRadixString](36));
+      }
+      if (this.supportsBinary === false) {
+        query[$_set]("b64", 1);
+      }
+      let queryString = parseqs.encode(query);
+      if (queryString[$isNotEmpty]) {
+        queryString = "?" + queryString;
+      }
+      let ipv6 = this.hostname[$contains](":");
+      return schema + "://" + (ipv6 ? "[" + this.hostname + "]" : this.hostname) + port + this.path + queryString;
+    }
+  };
+  (websocket_transport.WebSocketTransport.new = function(opts) {
+    this[name$0] = "websocket";
+    this[__WebSocketTransport_protocols] = null;
+    this[__WebSocketTransport_protocols_isSet] = false;
+    this[supportsBinary$1] = null;
+    this[__WebSocketTransport_perMessageDeflate] = null;
+    this[ws] = null;
+    websocket_transport.WebSocketTransport.__proto__.new.call(this, opts);
+    let forceBase64 = opts[$_get]("forceBase64");
+    this.supportsBinary = !dart.dtest(forceBase64);
+    this.perMessageDeflate = core.Map.as(opts[$_get]("perMessageDeflate"));
+    this.protocols = opts[$_get]("protocols");
+  }).prototype = websocket_transport.WebSocketTransport.prototype;
+  dart.addTypeTests(websocket_transport.WebSocketTransport);
+  dart.addTypeCaches(websocket_transport.WebSocketTransport);
+  dart.setMethodSignature(websocket_transport.WebSocketTransport, () => ({
+    __proto__: dart.getMethods(websocket_transport.WebSocketTransport.__proto__),
+    doOpen: dart.fnType(dart.void, []),
+    addEventListeners: dart.fnType(dart.void, []),
+    write: dart.fnType(dart.void, [core.List]),
+    doClose: dart.fnType(dart.void, []),
+    uri: dart.fnType(core.String, [])
+  }));
+  dart.setGetterSignature(websocket_transport.WebSocketTransport, () => ({
+    __proto__: dart.getGetters(websocket_transport.WebSocketTransport.__proto__),
+    protocols: dart.dynamic,
+    perMessageDeflate: core.Map
+  }));
+  dart.setSetterSignature(websocket_transport.WebSocketTransport, () => ({
+    __proto__: dart.getSetters(websocket_transport.WebSocketTransport.__proto__),
+    protocols: dart.dynamic,
+    perMessageDeflate: core.Map
+  }));
+  dart.setLibraryUri(websocket_transport.WebSocketTransport, I[3]);
+  dart.setFieldSignature(websocket_transport.WebSocketTransport, () => ({
+    __proto__: dart.getFields(websocket_transport.WebSocketTransport.__proto__),
+    name: dart.fieldType(dart.nullable(core.String)),
+    [__WebSocketTransport_protocols]: dart.fieldType(dart.dynamic),
+    [__WebSocketTransport_protocols_isSet]: dart.fieldType(core.bool),
+    supportsBinary: dart.fieldType(dart.nullable(core.bool)),
+    [__WebSocketTransport_perMessageDeflate]: dart.fieldType(dart.nullable(core.Map)),
+    ws: dart.fieldType(dart.nullable(html.WebSocket))
+  }));
+  dart.defineLazy(websocket_transport.WebSocketTransport, {
+    /*websocket_transport.WebSocketTransport._logger*/get _logger() {
+      return logger.Logger.new("socket_io_client:transport.WebSocketTransport");
+    }
+  }, false);
+  var script = dart.privateName(jsonp_transport, "JSONPTransport.script");
+  var form = dart.privateName(jsonp_transport, "JSONPTransport.form");
+  var iframe = dart.privateName(jsonp_transport, "JSONPTransport.iframe");
+  var area = dart.privateName(jsonp_transport, "JSONPTransport.area");
+  var iframeId = dart.privateName(jsonp_transport, "JSONPTransport.iframeId");
+  var supportsBinary$2 = dart.privateName(jsonp_transport, "JSONPTransport.supportsBinary");
+  var __JSONPTransport_index = dart.privateName(jsonp_transport, "_#JSONPTransport#index");
+  jsonp_transport.JSONPTransport = class JSONPTransport extends polling_transport.PollingTransport {
+    get script() {
+      return this[script];
+    }
+    set script(value) {
+      this[script] = value;
+    }
+    get form() {
+      return this[form];
+    }
+    set form(value) {
+      this[form] = value;
+    }
+    get iframe() {
+      return this[iframe];
+    }
+    set iframe(value) {
+      this[iframe] = value;
+    }
+    get area() {
+      return this[area];
+    }
+    set area(value) {
+      this[area] = value;
+    }
+    get iframeId() {
+      return this[iframeId];
+    }
+    set iframeId(value) {
+      this[iframeId] = value;
+    }
+    get supportsBinary() {
+      return this[supportsBinary$2];
+    }
+    set supportsBinary(value) {
+      this[supportsBinary$2] = value;
+    }
+    get index() {
+      let t27;
+      t27 = this[__JSONPTransport_index];
+      return t27 == null ? dart.throw(new _internal.LateError.fieldNI("index")) : t27;
+    }
+    set index(t27) {
+      this[__JSONPTransport_index] = t27;
+    }
+    doClose() {
+      if (this.script != null) {
+        dart.nullCheck(this.script)[$remove]();
+        this.script = null;
+      }
+      if (this.form != null) {
+        dart.nullCheck(this.form)[$remove]();
+        this.form = null;
+        this.iframe = null;
+      }
+      super.doClose();
+    }
+    doPoll() {
+      let t28, t28$;
+      let script = html.ScriptElement.as(html.document[$createElement]("script"));
+      t28 = this.script;
+      t28 == null ? null : t28[$remove]();
+      this.script = null;
+      script.async = true;
+      script[$src] = this.uri();
+      script[$onError].listen(dart.fn(e => {
+        this.onError("jsonp poll error");
+      }, T.EventTovoid()));
+      let scripts = html.document[$getElementsByTagName]("script");
+      let insertAt = scripts[$isNotEmpty] ? html.ScriptElement.as(scripts[$first]) : null;
+      if (insertAt != null) {
+        dart.nullCheck(insertAt.parentNode)[$insertBefore](script, insertAt);
+      } else {
+        (t28$ = html.document[$head], t28$ == null ? dart.nullCheck(html.document.body) : t28$)[$append](script);
+      }
+      this.script = script;
+      let isUAgecko = html.window[$navigator][$userAgent][$contains]("gecko");
+      if (isUAgecko) {
+        async.Timer.new(new core.Duration.new({milliseconds: 100}), dart.fn(() => {
+          let iframe = html.document[$createElement]("iframe");
+          dart.nullCheck(html.document.body)[$append](iframe);
+          iframe[$remove]();
+        }, T.VoidTovoid()));
+      }
+    }
+    doWrite(data, fn) {
+      if (this.form == null) {
+        let form = html.FormElement.as(html.document[$createElement]("form"));
+        let area = html.TextAreaElement.as(html.document[$createElement]("textarea"));
+        let id = this.iframeId = "eio_iframe_" + dart.str(this.index);
+        form[$className] = "socketio";
+        form[$style][$position] = "absolute";
+        form[$style][$top] = "-1000px";
+        form[$style][$left] = "-1000px";
+        form.target = id;
+        form.method = "POST";
+        form[$setAttribute]("accept-charset", "utf-8");
+        area[$name] = "d";
+        form[$append](area);
+        dart.nullCheck(html.document.body)[$append](form);
+        this.form = form;
+        this.area = area;
+      }
+      dart.nullCheck(this.form).action = this.uri();
+      let initIframe = dart.fn(() => {
+        if (this.iframe != null) {
+          try {
+            dart.nullCheck(this.iframe)[$remove]();
+          } catch (e$) {
+            let e = dart.getThrown(e$);
+            if (core.Object.is(e)) {
+              this.onError("jsonp polling iframe removal error", e);
+            } else
+              throw e$;
+          }
+        }
+        this.iframe = html.IFrameElement.as(html.document[$createElement]("iframe"));
+        dart.nullCheck(this.iframe).name = this.iframeId;
+        dart.nullCheck(this.iframe).src = "javascript:0";
+        dart.nullCheck(this.iframe)[$id] = dart.nullCheck(this.iframeId);
+        dart.nullCheck(this.form)[$append](dart.nullCheck(this.iframe));
+        this.iframe = this.iframe;
+      }, T.VoidToNull());
+      initIframe();
+      data = dart.dsend(data, 'replaceAll', [jsonp_transport.rEscapedNewline, "\\\n"]);
+      dart.nullCheck(this.area).value = T.StringN().as(dart.dsend(data, 'replaceAll', [jsonp_transport.rNewline, "\\n"]));
+      try {
+        dart.nullCheck(this.form).submit();
+      } catch (e$) {
+        let e = dart.getThrown(e$);
+        if (core.Object.is(e)) {
+        } else
+          throw e$;
+      }
+      dart.nullCheck(this.iframe)[$onLoad].listen(dart.fn(_ => {
+        initIframe();
+        dart.dcall(fn, [_]);
+      }, T.EventTovoid()));
+    }
+  };
+  (jsonp_transport.JSONPTransport.new = function(opts) {
+    this[__JSONPTransport_index] = null;
+    this[script] = null;
+    this[form] = null;
+    this[iframe] = null;
+    this[area] = null;
+    this[iframeId] = null;
+    this[supportsBinary$2] = false;
+    jsonp_transport.JSONPTransport.__proto__.new.call(this, opts);
+    this.query == null ? this.query = new _js_helper.LinkedMap.new() : null;
+    if (jsonp_transport.callbacks == null) {
+      if (core.Object.as(dart.global.self).___eio == null) {
+        js_util.setProperty(core.Object.as(dart.global.self), "___eio", new dart.global.Array());
+      }
+      jsonp_transport.callbacks = core.Object.as(dart.global.self).___eio;
+    }
+    this.index = core.int.as(dart.dload(jsonp_transport.callbacks, 'length'));
+    js_util.callMethod(core.Object.as(jsonp_transport.callbacks), "push", T.JSArrayOfObjectN().of([js.allowInterop(core.Function, dart.fn(msg => {
+        this.onData(msg);
+      }, T.dynamicToNull()))]));
+    dart.nullCheck(this.query)[$_set]("j", this.index);
+  }).prototype = jsonp_transport.JSONPTransport.prototype;
+  dart.addTypeTests(jsonp_transport.JSONPTransport);
+  dart.addTypeCaches(jsonp_transport.JSONPTransport);
+  dart.setMethodSignature(jsonp_transport.JSONPTransport, () => ({
+    __proto__: dart.getMethods(jsonp_transport.JSONPTransport.__proto__),
+    doPoll: dart.fnType(dart.void, []),
+    doWrite: dart.fnType(dart.void, [dart.dynamic, dart.dynamic])
+  }));
+  dart.setGetterSignature(jsonp_transport.JSONPTransport, () => ({
+    __proto__: dart.getGetters(jsonp_transport.JSONPTransport.__proto__),
+    index: core.int
+  }));
+  dart.setSetterSignature(jsonp_transport.JSONPTransport, () => ({
+    __proto__: dart.getSetters(jsonp_transport.JSONPTransport.__proto__),
+    index: core.int
+  }));
+  dart.setLibraryUri(jsonp_transport.JSONPTransport, I[4]);
+  dart.setFieldSignature(jsonp_transport.JSONPTransport, () => ({
+    __proto__: dart.getFields(jsonp_transport.JSONPTransport.__proto__),
+    [__JSONPTransport_index]: dart.fieldType(dart.nullable(core.int)),
+    script: dart.fieldType(dart.nullable(html.ScriptElement)),
+    form: dart.fieldType(dart.nullable(html.FormElement)),
+    iframe: dart.fieldType(dart.nullable(html.IFrameElement)),
+    area: dart.fieldType(dart.nullable(html.TextAreaElement)),
+    iframeId: dart.fieldType(dart.nullable(core.String)),
+    supportsBinary: dart.fieldType(dart.nullable(core.bool))
+  }));
+  dart.defineLazy(jsonp_transport, {
+    /*jsonp_transport.rNewline*/get rNewline() {
+      return core.RegExp.new("\\n");
+    },
+    /*jsonp_transport.rEscapedNewline*/get rEscapedNewline() {
+      return core.RegExp.new("\\\\n");
+    },
+    /*jsonp_transport.callbacks*/get callbacks() {
+      return null;
+    },
+    set callbacks(_) {}
+  }, false);
+  transports.Transports = class Transports extends core.Object {
+    static upgradesTo(from) {
+      if ("polling" === from) {
+        return T.JSArrayOfString().of(["websocket"]);
+      }
+      return T.JSArrayOfString().of([]);
+    }
+    static newInstance(name, options) {
+      if ("websocket" === name) {
+        return new websocket_transport.WebSocketTransport.new(core.Map.as(options));
+      } else if ("polling" === name) {
+        if (!dart.equals(dart.dsend(options, '_get', ["forceJSONP"]), true)) {
+          return new xhr_transport.XHRTransport.new(core.Map.as(options));
+        } else {
+          if (!dart.equals(dart.dsend(options, '_get', ["jsonp"]), false)) return new jsonp_transport.JSONPTransport.new(core.Map.as(options));
+          dart.throw(new core.StateError.new("JSONP disabled"));
+        }
+      } else {
+        dart.throw(new core.UnsupportedError.new("Unknown transport " + name));
+      }
+    }
+  };
+  (transports.Transports.new = function() {
+    ;
+  }).prototype = transports.Transports.prototype;
+  dart.addTypeTests(transports.Transports);
+  dart.addTypeCaches(transports.Transports);
+  dart.setLibraryUri(transports.Transports, I[5]);
+  dart.defineLazy(polling_transport, {
+    /*polling_transport._logger*/get _logger() {
+      return logger.Logger.new("socket_io:transport.PollingTransport");
+    }
+  }, false);
+  var agent$ = dart.privateName(socket, "Socket.agent");
+  var port$ = dart.privateName(socket, "Socket.port");
+  var upgrade = dart.privateName(socket, "Socket.upgrade");
+  var forceJSONP = dart.privateName(socket, "Socket.forceJSONP");
+  var jsonp = dart.privateName(socket, "Socket.jsonp");
+  var forceBase64 = dart.privateName(socket, "Socket.forceBase64");
+  var enablesXDR$ = dart.privateName(socket, "Socket.enablesXDR");
+  var timestampParam$ = dart.privateName(socket, "Socket.timestampParam");
+  var timestampRequests$ = dart.privateName(socket, "Socket.timestampRequests");
+  var readyState$ = dart.privateName(socket, "Socket.readyState");
+  var writeBuffer = dart.privateName(socket, "Socket.writeBuffer");
+  var prevBufferLen = dart.privateName(socket, "Socket.prevBufferLen");
+  var policyPort = dart.privateName(socket, "Socket.policyPort");
+  var rememberUpgrade = dart.privateName(socket, "Socket.rememberUpgrade");
+  var binaryType = dart.privateName(socket, "Socket.binaryType");
+  var onlyBinaryUpgrades = dart.privateName(socket, "Socket.onlyBinaryUpgrades");
+  var id = dart.privateName(socket, "Socket.id");
+  var pingIntervalTimer = dart.privateName(socket, "Socket.pingIntervalTimer");
+  var pingTimeoutTimer = dart.privateName(socket, "Socket.pingTimeoutTimer");
+  var requestTimeout = dart.privateName(socket, "Socket.requestTimeout");
+  var transport$ = dart.privateName(socket, "Socket.transport");
+  var supportsBinary$3 = dart.privateName(socket, "Socket.supportsBinary");
+  var upgrading = dart.privateName(socket, "Socket.upgrading");
+  var extraHeaders$ = dart.privateName(socket, "Socket.extraHeaders");
+  var __Socket_opts = dart.privateName(socket, "_#Socket#opts");
+  var __Socket_uri = dart.privateName(socket, "_#Socket#uri");
+  var __Socket_secure = dart.privateName(socket, "_#Socket#secure");
+  var __Socket_hostname = dart.privateName(socket, "_#Socket#hostname");
+  var __Socket_query = dart.privateName(socket, "_#Socket#query");
+  var __Socket_path = dart.privateName(socket, "_#Socket#path");
+  var __Socket_transports = dart.privateName(socket, "_#Socket#transports");
+  var __Socket_transportOptions = dart.privateName(socket, "_#Socket#transportOptions");
+  var __Socket_perMessageDeflate = dart.privateName(socket, "_#Socket#perMessageDeflate");
+  var __Socket_upgrades = dart.privateName(socket, "_#Socket#upgrades");
+  var __Socket_pingInterval = dart.privateName(socket, "_#Socket#pingInterval");
+  var __Socket_pingTimeout = dart.privateName(socket, "_#Socket#pingTimeout");
+  socket.Socket = class Socket extends event_emitter.EventEmitter {
+    get agent() {
+      return this[agent$];
+    }
+    set agent(value) {
+      this[agent$] = value;
+    }
+    get port() {
+      return this[port$];
+    }
+    set port(value) {
+      this[port$] = value;
+    }
+    get upgrade() {
+      return this[upgrade];
+    }
+    set upgrade(value) {
+      this[upgrade] = value;
+    }
+    get forceJSONP() {
+      return this[forceJSONP];
+    }
+    set forceJSONP(value) {
+      this[forceJSONP] = value;
+    }
+    get jsonp() {
+      return this[jsonp];
+    }
+    set jsonp(value) {
+      this[jsonp] = value;
+    }
+    get forceBase64() {
+      return this[forceBase64];
+    }
+    set forceBase64(value) {
+      this[forceBase64] = value;
+    }
+    get enablesXDR() {
+      return this[enablesXDR$];
+    }
+    set enablesXDR(value) {
+      this[enablesXDR$] = value;
+    }
+    get timestampParam() {
+      return this[timestampParam$];
+    }
+    set timestampParam(value) {
+      this[timestampParam$] = value;
+    }
+    get timestampRequests() {
+      return this[timestampRequests$];
+    }
+    set timestampRequests(value) {
+      this[timestampRequests$] = value;
+    }
+    get readyState() {
+      return this[readyState$];
+    }
+    set readyState(value) {
+      this[readyState$] = value;
+    }
+    get writeBuffer() {
+      return this[writeBuffer];
+    }
+    set writeBuffer(value) {
+      this[writeBuffer] = value;
+    }
+    get prevBufferLen() {
+      return this[prevBufferLen];
+    }
+    set prevBufferLen(value) {
+      this[prevBufferLen] = value;
+    }
+    get policyPort() {
+      return this[policyPort];
+    }
+    set policyPort(value) {
+      this[policyPort] = value;
+    }
+    get rememberUpgrade() {
+      return this[rememberUpgrade];
+    }
+    set rememberUpgrade(value) {
+      this[rememberUpgrade] = value;
+    }
+    get binaryType() {
+      return this[binaryType];
+    }
+    set binaryType(value) {
+      this[binaryType] = value;
+    }
+    get onlyBinaryUpgrades() {
+      return this[onlyBinaryUpgrades];
+    }
+    set onlyBinaryUpgrades(value) {
+      this[onlyBinaryUpgrades] = value;
+    }
+    get id() {
+      return this[id];
+    }
+    set id(value) {
+      this[id] = value;
+    }
+    get pingIntervalTimer() {
+      return this[pingIntervalTimer];
+    }
+    set pingIntervalTimer(value) {
+      this[pingIntervalTimer] = value;
+    }
+    get pingTimeoutTimer() {
+      return this[pingTimeoutTimer];
+    }
+    set pingTimeoutTimer(value) {
+      this[pingTimeoutTimer] = value;
+    }
+    get requestTimeout() {
+      return this[requestTimeout];
+    }
+    set requestTimeout(value) {
+      this[requestTimeout] = value;
+    }
+    get transport() {
+      return this[transport$];
+    }
+    set transport(value) {
+      this[transport$] = value;
+    }
+    get supportsBinary() {
+      return this[supportsBinary$3];
+    }
+    set supportsBinary(value) {
+      this[supportsBinary$3] = value;
+    }
+    get upgrading() {
+      return this[upgrading];
+    }
+    set upgrading(value) {
+      this[upgrading] = value;
+    }
+    get extraHeaders() {
+      return this[extraHeaders$];
+    }
+    set extraHeaders(value) {
+      this[extraHeaders$] = value;
+    }
+    get opts() {
+      let t30;
+      t30 = this[__Socket_opts];
+      return t30 == null ? dart.throw(new _internal.LateError.fieldNI("opts")) : t30;
+    }
+    set opts(t30) {
+      this[__Socket_opts] = t30;
+    }
+    get uri() {
+      let t31;
+      t31 = this[__Socket_uri];
+      return t31 == null ? dart.throw(new _internal.LateError.fieldNI("uri")) : t31;
+    }
+    set uri(t31) {
+      this[__Socket_uri] = t31;
+    }
+    get secure() {
+      let t32;
+      t32 = this[__Socket_secure];
+      return t32 == null ? dart.throw(new _internal.LateError.fieldNI("secure")) : t32;
+    }
+    set secure(t32) {
+      this[__Socket_secure] = t32;
+    }
+    get hostname() {
+      let t33;
+      t33 = this[__Socket_hostname];
+      return t33 == null ? dart.throw(new _internal.LateError.fieldNI("hostname")) : t33;
+    }
+    set hostname(t33) {
+      this[__Socket_hostname] = t33;
+    }
+    get query() {
+      let t34;
+      t34 = this[__Socket_query];
+      return t34 == null ? dart.throw(new _internal.LateError.fieldNI("query")) : t34;
+    }
+    set query(t34) {
+      this[__Socket_query] = t34;
+    }
+    get path() {
+      let t35;
+      t35 = this[__Socket_path];
+      return t35 == null ? dart.throw(new _internal.LateError.fieldNI("path")) : t35;
+    }
+    set path(t35) {
+      this[__Socket_path] = t35;
+    }
+    get transports() {
+      let t36;
+      t36 = this[__Socket_transports];
+      return t36 == null ? dart.throw(new _internal.LateError.fieldNI("transports")) : t36;
+    }
+    set transports(t36) {
+      this[__Socket_transports] = t36;
+    }
+    get transportOptions() {
+      let t37;
+      t37 = this[__Socket_transportOptions];
+      return t37 == null ? dart.throw(new _internal.LateError.fieldNI("transportOptions")) : t37;
+    }
+    set transportOptions(t37) {
+      this[__Socket_transportOptions] = t37;
+    }
+    get perMessageDeflate() {
+      let t38;
+      t38 = this[__Socket_perMessageDeflate];
+      return t38 == null ? dart.throw(new _internal.LateError.fieldNI("perMessageDeflate")) : t38;
+    }
+    set perMessageDeflate(t38) {
+      this[__Socket_perMessageDeflate] = t38;
+    }
+    get upgrades() {
+      let t39;
+      t39 = this[__Socket_upgrades];
+      return t39 == null ? dart.throw(new _internal.LateError.fieldNI("upgrades")) : t39;
+    }
+    set upgrades(t39) {
+      this[__Socket_upgrades] = t39;
+    }
+    get pingInterval() {
+      let t40;
+      t40 = this[__Socket_pingInterval];
+      return t40 == null ? dart.throw(new _internal.LateError.fieldNI("pingInterval")) : t40;
+    }
+    set pingInterval(t40) {
+      this[__Socket_pingInterval] = t40;
+    }
+    get pingTimeout() {
+      let t41;
+      t41 = this[__Socket_pingTimeout];
+      return t41 == null ? dart.throw(new _internal.LateError.fieldNI("pingTimeout")) : t41;
+    }
+    set pingTimeout(t41) {
+      this[__Socket_pingTimeout] = t41;
+    }
+    createTransport(name, options = null) {
+      let t42, t42$, t42$0, t42$1, t42$2, t42$3, t42$4, t42$5, t42$6, t42$7, t42$8, t42$9, t42$10, t42$11, t42$12, t42$13;
+      {
+        socket._logger.fine("creating transport \"" + dart.str(name) + "\"");
+        let query = collection.LinkedHashMap.from(this.query);
+        query[$_set]("EIO", parser.protocol);
+        query[$_set]("transport", name);
+        let options = (t42 = this.transportOptions[$_get](name), t42 == null ? new _js_helper.LinkedMap.new() : t42);
+        if (this.id != null) query[$_set]("sid", this.id);
+        let transport = transports.Transports.newInstance(core.String.as(name), new (T.IdentityMapOfString$dynamic()).from(["query", query, "socket", this, "agent", (t42$ = dart.dsend(options, '_get', ["agent"]), t42$ == null ? this.agent : t42$), "hostname", (t42$0 = dart.dsend(options, '_get', ["hostname"]), t42$0 == null ? this.hostname : t42$0), "port", (t42$1 = dart.dsend(options, '_get', ["port"]), t42$1 == null ? this.port : t42$1), "secure", (t42$2 = dart.dsend(options, '_get', ["secure"]), t42$2 == null ? this.secure : t42$2), "path", (t42$3 = dart.dsend(options, '_get', ["path"]), t42$3 == null ? this.path : t42$3), "forceJSONP", (t42$4 = dart.dsend(options, '_get', ["forceJSONP"]), t42$4 == null ? this.forceJSONP : t42$4), "jsonp", (t42$5 = dart.dsend(options, '_get', ["jsonp"]), t42$5 == null ? this.jsonp : t42$5), "forceBase64", (t42$6 = dart.dsend(options, '_get', ["forceBase64"]), t42$6 == null ? this.forceBase64 : t42$6), "enablesXDR", (t42$7 = dart.dsend(options, '_get', ["enablesXDR"]), t42$7 == null ? this.enablesXDR : t42$7), "timestampRequests", (t42$8 = dart.dsend(options, '_get', ["timestampRequests"]), t42$8 == null ? this.timestampRequests : t42$8), "timestampParam", (t42$9 = dart.dsend(options, '_get', ["timestampParam"]), t42$9 == null ? this.timestampParam : t42$9), "policyPort", (t42$10 = dart.dsend(options, '_get', ["policyPort"]), t42$10 == null ? this.policyPort : t42$10), "perMessageDeflate", (t42$11 = dart.dsend(options, '_get', ["perMessageDeflate"]), t42$11 == null ? this.perMessageDeflate : t42$11), "extraHeaders", (t42$12 = dart.dsend(options, '_get', ["extraHeaders"]), t42$12 == null ? this.extraHeaders : t42$12), "requestTimeout", (t42$13 = dart.dsend(options, '_get', ["requestTimeout"]), t42$13 == null ? this.requestTimeout : t42$13), "protocols", dart.dsend(options, '_get', ["protocols"])]));
+        return transport;
+      }
+    }
+    open() {
+      let transport = null;
+      if (this.rememberUpgrade != null && socket.Socket.priorWebsocketSuccess && this.transports[$contains]("websocket")) {
+        transport = "websocket";
+      } else if (this.transports[$isEmpty]) {
+        async.Timer.run(dart.fn(() => this.emit("error", "No transports available"), T.VoidTovoid()));
+        return;
+      } else {
+        transport = this.transports[$_get](0);
+      }
+      this.readyState = "opening";
+      try {
+        transport = this.createTransport(transport);
+      } catch (e$) {
+        let e = dart.getThrown(e$);
+        if (core.Object.is(e)) {
+          this.transports[$removeAt](0);
+          this.open();
+          return;
+        } else
+          throw e$;
+      }
+      dart.dsend(transport, 'open', []);
+      this.setTransport(transport);
+    }
+    setTransport(transport) {
+      let t43, t43$;
+      socket._logger.fine("setting transport " + dart.str((t43 = transport, t43 == null ? null : dart.dload(t43, 'name'))));
+      if (this.transport != null) {
+        socket._logger.fine("clearing existing transport " + dart.str(dart.nullCheck(this.transport).name));
+        dart.nullCheck(this.transport).clearListeners();
+      }
+      this.transport = T.TransportN().as(transport);
+      t43$ = transport;
+      (() => {
+        dart.dsend(t43$, 'on', ["drain", dart.fn(_ => this.onDrain(), T.dynamicTovoid())]);
+        dart.dsend(t43$, 'on', ["packet", dart.fn(packet => this.onPacket(core.Map.as(packet)), T.dynamicTovoid())]);
+        dart.dsend(t43$, 'on', ["error", dart.fn(e => this.onError(e), T.dynamicTovoid())]);
+        dart.dsend(t43$, 'on', ["close", dart.fn(_ => this.onClose("transport close"), T.dynamicTovoid())]);
+        return t43$;
+      })();
+    }
+    probe(name) {
+      socket._logger.fine("probing transport \"" + dart.str(name) + "\"");
+      let transport = this.createTransport(name, new (T.IdentityMapOfString$bool()).from(["probe", true]));
+      let failed = false;
+      let cleanup = null;
+      socket.Socket.priorWebsocketSuccess = false;
+      let onTransportOpen = dart.fn(_ => {
+        if (this.onlyBinaryUpgrades === true) {
+          let upgradeLosesBinary = this.supportsBinary === false && dart.nullCheck(transport).supportsBinary === false;
+          failed = failed || upgradeLosesBinary;
+        }
+        if (failed) return;
+        socket._logger.fine("probe transport \"" + dart.str(name) + "\" opened");
+        dart.nullCheck(transport).send([new (T.IdentityMapOfString$String()).from(["type", "ping", "data", "probe"])]);
+        dart.nullCheck(transport).once("packet", dart.fn(msg => {
+          let t43;
+          if (failed) return;
+          if ("pong" === dart.dsend(msg, '_get', ["type"]) && "probe" === dart.dsend(msg, '_get', ["data"])) {
+            socket._logger.fine("probe transport \"" + dart.str(name) + "\" pong");
+            this.upgrading = true;
+            this.emit("upgrading", transport);
+            if (transport == null) return;
+            socket.Socket.priorWebsocketSuccess = "websocket" === dart.nullCheck(transport).name;
+            socket._logger.fine("pausing current transport \"" + dart.str((t43 = transport, t43 == null ? null : t43.name)) + "\"");
+            if (polling_transport.PollingTransport.is(this.transport)) {
+              polling_transport.PollingTransport.as(this.transport).pause(dart.fn(() => {
+                if (failed) return;
+                if ("closed" === this.readyState) return;
+                socket._logger.fine("changing transport and sending upgrade packet");
+                dart.dcall(cleanup, []);
+                this.setTransport(transport);
+                dart.nullCheck(transport).send([new (T.IdentityMapOfString$String()).from(["type", "upgrade"])]);
+                this.emit("upgrade", transport);
+                transport = null;
+                this.upgrading = false;
+                this.flush();
+              }, T.VoidToNull()));
+            }
+          } else {
+            socket._logger.fine("probe transport \"" + dart.str(name) + "\" failed");
+            this.emit("upgradeError", new (T.IdentityMapOfString$StringN()).from(["error", "probe error", "transport", dart.nullCheck(transport).name]));
+          }
+        }, T.dynamicToNull()));
+      }, T.dynamicToNull());
+      let freezeTransport = dart.fn(() => {
+        if (failed) return;
+        failed = true;
+        dart.dcall(cleanup, []);
+        dart.nullCheck(transport).close();
+        transport = null;
+      }, T.VoidToNull());
+      let onerror = dart.fn(err => {
+        let oldTransport = transport;
+        freezeTransport();
+        socket._logger.fine("probe transport \"" + dart.str(name) + "\" failed because of error: " + dart.str(err));
+        this.emit("upgradeError", new (T.IdentityMapOfString$StringN()).from(["error", "probe error: " + dart.str(err), "transport", dart.nullCheck(oldTransport).name]));
+      }, T.dynamicToNull());
+      let onTransportClose = dart.fn(_ => onerror("transport closed"), T.dynamicToNull());
+      let onclose = dart.fn(_ => onerror("socket closed"), T.dynamicToNull());
+      let onupgrade = dart.fn(to => {
+        let t43, t43$;
+        if (transport != null && !dart.equals(dart.dload(to, 'name'), dart.nullCheck(transport).name)) {
+          socket._logger.fine("\"" + dart.str((t43 = to, t43 == null ? null : dart.dload(t43, 'name'))) + "\" works - aborting \"" + dart.str((t43$ = transport, t43$ == null ? null : t43$.name)) + "\"");
+          freezeTransport();
+        }
+      }, T.dynamicToNull());
+      cleanup = dart.fn(() => {
+        dart.nullCheck(transport).off("open", onTransportOpen);
+        dart.nullCheck(transport).off("error", onerror);
+        dart.nullCheck(transport).off("close", onTransportClose);
+        this.off("close", onclose);
+        this.off("upgrading", onupgrade);
+      }, T.VoidToNull());
+      dart.nullCheck(transport).once("open", onTransportOpen);
+      dart.nullCheck(transport).once("error", onerror);
+      dart.nullCheck(transport).once("close", onTransportClose);
+      this.once("close", onclose);
+      this.once("upgrading", onupgrade);
+      dart.nullCheck(transport).open();
+    }
+    onOpen() {
+      socket._logger.fine("socket open");
+      this.readyState = "open";
+      socket.Socket.priorWebsocketSuccess = "websocket" === dart.nullCheck(this.transport).name;
+      this.emit("open");
+      this.flush();
+      if ("open" === this.readyState && this.upgrade === true && polling_transport.PollingTransport.is(this.transport)) {
+        socket._logger.fine("starting upgrade probes");
+        for (let i = 0, l = this.upgrades[$length]; i < l; i = i + 1) {
+          this.probe(this.upgrades[$_get](i));
+        }
+      }
+    }
+    onPacket(packet) {
+      let t43;
+      if ("opening" === this.readyState || "open" === this.readyState || "closing" === this.readyState) {
+        let type = packet[$_get]("type");
+        let data = packet[$_get]("data");
+        socket._logger.fine("socket receive: type \"" + dart.str(type) + "\", data \"" + dart.str(data) + "\"");
+        this.emit("packet", packet);
+        this.emit("heartbeat");
+        switch (type) {
+          case "open":
+          {
+            this.onHandshake(core.Map.as(convert.json.decode(core.String.as((t43 = data, t43 == null ? "null" : t43)))));
+            break;
+          }
+          case "pong":
+          {
+            this.setPing();
+            this.emit("pong");
+            break;
+          }
+          case "error":
+          {
+            this.onError(new (T.IdentityMapOfString$dynamic()).from(["error", "server error", "code", data]));
+            break;
+          }
+          case "message":
+          {
+            this.emit("data", data);
+            this.emit("message", data);
+            break;
+          }
+        }
+      } else {
+        socket._logger.fine("packet received with socket readyState \"" + this.readyState + "\"");
+      }
+    }
+    onHandshake(data) {
+      this.emit("handshake", data);
+      this.id = T.StringN().as(data[$_get]("sid"));
+      dart.nullCheck(dart.nullCheck(this.transport).query)[$_set]("sid", data[$_get]("sid"));
+      this.upgrades = this.filterUpgrades(core.List.as(data[$_get]("upgrades")));
+      this.pingInterval = core.int.as(data[$_get]("pingInterval"));
+      this.pingTimeout = core.int.as(data[$_get]("pingTimeout"));
+      this.onOpen();
+      if ("closed" === this.readyState) return;
+      this.setPing();
+      this.off("heartbeat", dart.bind(this, 'onHeartbeat'));
+      this.on("heartbeat", dart.bind(this, 'onHeartbeat'));
+    }
+    onHeartbeat(timeout) {
+      let t43, t43$;
+      t43 = this.pingTimeoutTimer;
+      t43 == null ? null : t43.cancel();
+      this.pingTimeoutTimer = async.Timer.new(new core.Duration.new({milliseconds: core.int.as((t43$ = timeout, t43$ == null ? this.pingInterval + this.pingTimeout : t43$))}), dart.fn(() => {
+        if ("closed" === this.readyState) return;
+        this.onClose("ping timeout");
+      }, T.VoidTovoid()));
+    }
+    setPing() {
+      let t43;
+      t43 = this.pingIntervalTimer;
+      t43 == null ? null : t43.cancel();
+      this.pingIntervalTimer = async.Timer.new(new core.Duration.new({milliseconds: this.pingInterval}), dart.fn(() => {
+        socket._logger.fine("writing ping packet - expecting pong within " + dart.str(this.pingTimeout) + "ms");
+        this.ping();
+        this.onHeartbeat(this.pingTimeout);
+      }, T.VoidTovoid()));
+    }
+    ping() {
+      this.sendPacket({type: "ping", callback: dart.fn(_ => this.emit("ping"), T.dynamicTovoid())});
+    }
+    onDrain() {
+      this.writeBuffer[$removeRange](0, this.prevBufferLen);
+      this.prevBufferLen = 0;
+      if (this.writeBuffer[$isEmpty]) {
+        this.emit("drain");
+      } else {
+        this.flush();
+      }
+    }
+    flush() {
+      if ("closed" !== this.readyState && dart.nullCheck(this.transport).writable === true && this.upgrading !== true && this.writeBuffer[$isNotEmpty]) {
+        socket._logger.fine("flushing " + dart.str(this.writeBuffer[$length]) + " packets in socket");
+        dart.nullCheck(this.transport).send(this.writeBuffer);
+        this.prevBufferLen = this.writeBuffer[$length];
+        this.emit("flush");
+      }
+    }
+    write(msg, options, fn = null) {
+      return this.send(msg, options, fn);
+    }
+    send(msg, options, fn = null) {
+      this.sendPacket({type: "message", data: msg, options: options, callback: fn});
+      return this;
+    }
+    sendPacket(opts) {
+      let t43;
+      let type = opts && 'type' in opts ? opts.type : null;
+      let data = opts && 'data' in opts ? opts.data : null;
+      let options = opts && 'options' in opts ? opts.options : null;
+      let callback = opts && 'callback' in opts ? opts.callback : null;
+      if ("closing" === this.readyState || "closed" === this.readyState) {
+        return;
+      }
+      options = (t43 = options, t43 == null ? new _js_helper.LinkedMap.new() : t43);
+      dart.dsend(options, '_set', ["compress", false !== dart.dsend(options, '_get', ["compress"])]);
+      let packet = new (T.IdentityMapOfString$dynamic()).from(["type", type, "data", data, "options", options]);
+      this.emit("packetCreate", packet);
+      this.writeBuffer[$add](packet);
+      if (callback != null) this.once("flush", callback);
+      this.flush();
+    }
+    close() {
+      let close = dart.fn(() => {
+        this.onClose("forced close");
+        socket._logger.fine("socket closing - telling transport to close");
+        dart.nullCheck(this.transport).close();
+      }, T.VoidToNull());
+      let temp = null;
+      let cleanupAndClose = dart.fn(_ => {
+        this.off("upgrade", T.dynamicToNdynamic().as(temp));
+        this.off("upgradeError", T.dynamicToNdynamic().as(temp));
+        close();
+      }, T.dynamicToNull());
+      temp = cleanupAndClose;
+      let waitForUpgrade = dart.fn(() => {
+        this.once("upgrade", cleanupAndClose);
+        this.once("upgradeError", cleanupAndClose);
+      }, T.VoidToNull());
+      if ("opening" === this.readyState || "open" === this.readyState) {
+        this.readyState = "closing";
+        if (this.writeBuffer[$isNotEmpty]) {
+          this.once("drain", dart.fn(_ => {
+            if (this.upgrading === true) {
+              waitForUpgrade();
+            } else {
+              close();
+            }
+          }, T.dynamicToNull()));
+        } else if (this.upgrading === true) {
+          waitForUpgrade();
+        } else {
+          close();
+        }
+      }
+      return this;
+    }
+    onError(err) {
+      socket._logger.fine("socket error " + dart.str(err));
+      socket.Socket.priorWebsocketSuccess = false;
+      this.emit("error", err);
+      this.onClose("transport error", err);
+    }
+    onClose(reason, desc = null) {
+      let t43, t43$;
+      if ("opening" === this.readyState || "open" === this.readyState || "closing" === this.readyState) {
+        socket._logger.fine("socket close with reason: \"" + dart.str(reason) + "\"");
+        t43 = this.pingIntervalTimer;
+        t43 == null ? null : t43.cancel();
+        t43$ = this.pingTimeoutTimer;
+        t43$ == null ? null : t43$.cancel();
+        dart.nullCheck(this.transport).off("close");
+        dart.nullCheck(this.transport).close();
+        dart.nullCheck(this.transport).clearListeners();
+        this.readyState = "closed";
+        this.id = null;
+        this.emit("close", new (T.IdentityMapOfString$dynamic()).from(["reason", reason, "desc", desc]));
+        this.writeBuffer = [];
+        this.prevBufferLen = 0;
+      }
+    }
+    filterUpgrades(upgrades) {
+      return this.transports[$where](dart.fn(_ => upgrades[$contains](_), T.StringTobool()))[$toList]();
+    }
+  };
+  (socket.Socket.new = function(uri, opts) {
+    let t30, t30$, t30$0, t30$1, t30$2, t30$3, t30$4, t30$5, t30$6, t30$7;
+    this[__Socket_opts] = null;
+    this[__Socket_uri] = null;
+    this[__Socket_secure] = null;
+    this[agent$] = null;
+    this[__Socket_hostname] = null;
+    this[port$] = null;
+    this[__Socket_query] = null;
+    this[upgrade] = null;
+    this[__Socket_path] = null;
+    this[forceJSONP] = null;
+    this[jsonp] = null;
+    this[forceBase64] = null;
+    this[enablesXDR$] = null;
+    this[timestampParam$] = null;
+    this[timestampRequests$] = null;
+    this[__Socket_transports] = null;
+    this[__Socket_transportOptions] = null;
+    this[readyState$] = "";
+    this[writeBuffer] = [];
+    this[prevBufferLen] = 0;
+    this[policyPort] = null;
+    this[rememberUpgrade] = null;
+    this[binaryType] = null;
+    this[onlyBinaryUpgrades] = null;
+    this[__Socket_perMessageDeflate] = null;
+    this[id] = null;
+    this[__Socket_upgrades] = null;
+    this[__Socket_pingInterval] = null;
+    this[__Socket_pingTimeout] = null;
+    this[pingIntervalTimer] = null;
+    this[pingTimeoutTimer] = null;
+    this[requestTimeout] = null;
+    this[transport$] = null;
+    this[supportsBinary$3] = null;
+    this[upgrading] = null;
+    this[extraHeaders$] = null;
+    socket.Socket.__proto__.new.call(this);
+    opts = (t30 = opts, t30 == null ? new _js_helper.LinkedMap.new() : t30);
+    if (uri[$isNotEmpty]) {
+      this.uri = core.Uri.parse(uri);
+      opts[$_set]("hostname", this.uri.host);
+      opts[$_set]("secure", this.uri.scheme === "https" || this.uri.scheme === "wss");
+      opts[$_set]("port", this.uri.port);
+      if (this.uri.hasQuery) opts[$_set]("query", this.uri.query);
+    } else if (opts[$containsKey]("host")) {
+      opts[$_set]("hostname", core.Uri.parse(core.String.as(opts[$_get]("host"))).host);
+    }
+    this.secure = core.bool.as(opts[$_get]("secure"));
+    if (opts[$_get]("hostname") != null && !opts[$containsKey]("port")) {
+      opts[$_set]("port", this.secure ? "443" : "80");
+    }
+    this.agent = T.boolN().as((t30$ = opts[$_get]("agent"), t30$ == null ? false : t30$));
+    this.hostname = core.String.as(opts[$_get]("hostname"));
+    this.port = T.intN().as(opts[$_get]("port"));
+    let query = (t30$0 = opts[$_get]("query"), t30$0 == null ? new _js_helper.LinkedMap.new() : t30$0);
+    if (typeof query == 'string') {
+      this.query = parseqs.decode(query);
+    } else if (core.Map.is(query)) {
+      this.query = query;
+    }
+    this.upgrade = !dart.equals(opts[$_get]("upgrade"), false);
+    this.path = dart.toString((t30$1 = opts[$_get]("path"), t30$1 == null ? "/engine.io" : t30$1))[$replaceFirst](core.RegExp.new("\\/$"), "") + "/";
+    this.forceJSONP = dart.equals(opts[$_get]("forceJSONP"), true);
+    this.jsonp = !dart.equals(opts[$_get]("jsonp"), false);
+    this.forceBase64 = dart.equals(opts[$_get]("forceBase64"), true);
+    this.enablesXDR = dart.equals(opts[$_get]("enablesXDR"), true);
+    this.timestampParam = T.StringN().as((t30$2 = opts[$_get]("timestampParam"), t30$2 == null ? "t" : t30$2));
+    this.timestampRequests = opts[$_get]("timestampRequests");
+    this.transports = T.ListOfString().as((t30$3 = opts[$_get]("transports"), t30$3 == null ? T.JSArrayOfString().of(["polling", "websocket"]) : t30$3));
+    this.transportOptions = core.Map.as((t30$4 = opts[$_get]("transportOptions"), t30$4 == null ? new _js_helper.LinkedMap.new() : t30$4));
+    this.policyPort = T.intN().as((t30$5 = opts[$_get]("policyPort"), t30$5 == null ? 843 : t30$5));
+    this.rememberUpgrade = T.boolN().as((t30$6 = opts[$_get]("rememberUpgrade"), t30$6 == null ? false : t30$6));
+    this.binaryType = null;
+    this.onlyBinaryUpgrades = T.boolN().as(opts[$_get]("onlyBinaryUpgrades"));
+    if (!opts[$containsKey]("perMessageDeflate") || dart.equals(opts[$_get]("perMessageDeflate"), true)) {
+      this.perMessageDeflate = core.Map.as(core.Map.is(opts[$_get]("perMessageDeflate")) ? opts[$_get]("perMessageDeflate") : new _js_helper.LinkedMap.new());
+      if (!this.perMessageDeflate[$containsKey]("threshold")) {
+        this.perMessageDeflate[$_set]("threshold", 1024);
+      }
+    }
+    this.extraHeaders = T.MapN().as((t30$7 = opts[$_get]("extraHeaders"), t30$7 == null ? new (T.IdentityMapOfString$dynamic()).new() : t30$7));
+    this.open();
+  }).prototype = socket.Socket.prototype;
+  dart.addTypeTests(socket.Socket);
+  dart.addTypeCaches(socket.Socket);
+  dart.setMethodSignature(socket.Socket, () => ({
+    __proto__: dart.getMethods(socket.Socket.__proto__),
+    createTransport: dart.fnType(transport.Transport, [dart.dynamic], [dart.dynamic]),
+    open: dart.fnType(dart.void, []),
+    setTransport: dart.fnType(dart.void, [dart.dynamic]),
+    probe: dart.fnType(dart.void, [dart.dynamic]),
+    onOpen: dart.fnType(dart.void, []),
+    onPacket: dart.fnType(dart.void, [core.Map]),
+    onHandshake: dart.fnType(dart.void, [core.Map]),
+    onHeartbeat: dart.fnType(dart.void, [dart.dynamic]),
+    setPing: dart.fnType(dart.void, []),
+    ping: dart.fnType(dart.void, []),
+    onDrain: dart.fnType(dart.void, []),
+    flush: dart.fnType(dart.void, []),
+    write: dart.fnType(socket.Socket, [dart.dynamic, dart.dynamic], [dart.nullable(dart.fnType(dart.dynamic, [dart.dynamic]))]),
+    send: dart.fnType(socket.Socket, [dart.dynamic, dart.dynamic], [dart.nullable(dart.fnType(dart.dynamic, [dart.dynamic]))]),
+    sendPacket: dart.fnType(dart.void, [], {callback: dart.nullable(dart.fnType(dart.dynamic, [dart.dynamic])), data: dart.dynamic, options: dart.dynamic, type: dart.dynamic}, {}),
+    close: dart.fnType(socket.Socket, []),
+    onError: dart.fnType(dart.void, [dart.dynamic]),
+    onClose: dart.fnType(dart.void, [dart.dynamic], [dart.dynamic]),
+    filterUpgrades: dart.fnType(core.List, [core.List])
+  }));
+  dart.setGetterSignature(socket.Socket, () => ({
+    __proto__: dart.getGetters(socket.Socket.__proto__),
+    opts: core.Map,
+    uri: core.Uri,
+    secure: core.bool,
+    hostname: core.String,
+    query: core.Map,
+    path: core.String,
+    transports: core.List$(core.String),
+    transportOptions: core.Map,
+    perMessageDeflate: core.Map,
+    upgrades: core.List,
+    pingInterval: core.int,
+    pingTimeout: core.int
+  }));
+  dart.setSetterSignature(socket.Socket, () => ({
+    __proto__: dart.getSetters(socket.Socket.__proto__),
+    opts: core.Map,
+    uri: core.Uri,
+    secure: core.bool,
+    hostname: core.String,
+    query: core.Map,
+    path: core.String,
+    transports: core.List$(core.String),
+    transportOptions: core.Map,
+    perMessageDeflate: core.Map,
+    upgrades: core.List,
+    pingInterval: core.int,
+    pingTimeout: core.int
+  }));
+  dart.setLibraryUri(socket.Socket, I[6]);
+  dart.setFieldSignature(socket.Socket, () => ({
+    __proto__: dart.getFields(socket.Socket.__proto__),
+    [__Socket_opts]: dart.fieldType(dart.nullable(core.Map)),
+    [__Socket_uri]: dart.fieldType(dart.nullable(core.Uri)),
+    [__Socket_secure]: dart.fieldType(dart.nullable(core.bool)),
+    agent: dart.fieldType(dart.nullable(core.bool)),
+    [__Socket_hostname]: dart.fieldType(dart.nullable(core.String)),
+    port: dart.fieldType(dart.nullable(core.int)),
+    [__Socket_query]: dart.fieldType(dart.nullable(core.Map)),
+    upgrade: dart.fieldType(dart.nullable(core.bool)),
+    [__Socket_path]: dart.fieldType(dart.nullable(core.String)),
+    forceJSONP: dart.fieldType(dart.nullable(core.bool)),
+    jsonp: dart.fieldType(dart.nullable(core.bool)),
+    forceBase64: dart.fieldType(dart.nullable(core.bool)),
+    enablesXDR: dart.fieldType(dart.nullable(core.bool)),
+    timestampParam: dart.fieldType(dart.nullable(core.String)),
+    timestampRequests: dart.fieldType(dart.dynamic),
+    [__Socket_transports]: dart.fieldType(dart.nullable(core.List$(core.String))),
+    [__Socket_transportOptions]: dart.fieldType(dart.nullable(core.Map)),
+    readyState: dart.fieldType(core.String),
+    writeBuffer: dart.fieldType(core.List),
+    prevBufferLen: dart.fieldType(core.int),
+    policyPort: dart.fieldType(dart.nullable(core.int)),
+    rememberUpgrade: dart.fieldType(dart.nullable(core.bool)),
+    binaryType: dart.fieldType(dart.dynamic),
+    onlyBinaryUpgrades: dart.fieldType(dart.nullable(core.bool)),
+    [__Socket_perMessageDeflate]: dart.fieldType(dart.nullable(core.Map)),
+    id: dart.fieldType(dart.nullable(core.String)),
+    [__Socket_upgrades]: dart.fieldType(dart.nullable(core.List)),
+    [__Socket_pingInterval]: dart.fieldType(dart.nullable(core.int)),
+    [__Socket_pingTimeout]: dart.fieldType(dart.nullable(core.int)),
+    pingIntervalTimer: dart.fieldType(dart.nullable(async.Timer)),
+    pingTimeoutTimer: dart.fieldType(dart.nullable(async.Timer)),
+    requestTimeout: dart.fieldType(dart.nullable(core.int)),
+    transport: dart.fieldType(dart.nullable(transport.Transport)),
+    supportsBinary: dart.fieldType(dart.nullable(core.bool)),
+    upgrading: dart.fieldType(dart.nullable(core.bool)),
+    extraHeaders: dart.fieldType(dart.nullable(core.Map))
+  }));
+  dart.defineLazy(socket.Socket, {
+    /*socket.Socket.priorWebsocketSuccess*/get priorWebsocketSuccess() {
+      return false;
+    },
+    set priorWebsocketSuccess(_) {},
+    /*socket.Socket.protocol*/get protocol() {
+      return parser.protocol;
+    },
+    set protocol(_) {}
+  }, false);
+  dart.defineLazy(socket, {
+    /*socket._logger*/get _logger() {
+      return logger.Logger.new("socket_io_client:engine.Socket");
+    }
+  }, false);
+  dart.trackLibraries("packages/socket_io_client/src/engine/transport/xhr_transport.dart", {
+    "package:socket_io_client/src/engine/transport/xhr_transport.dart": xhr_transport,
+    "package:socket_io_client/src/engine/transport/websocket_transport.dart": websocket_transport,
+    "package:socket_io_client/src/engine/transport/jsonp_transport.dart": jsonp_transport,
+    "package:socket_io_client/src/engine/transport/transports.dart": transports,
+    "package:socket_io_client/src/engine/transport/transport.dart": transport,
+    "package:socket_io_client/src/engine/transport/polling_transport.dart": polling_transport,
+    "package:socket_io_client/src/engine/socket.dart": socket
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["transport.dart","polling_transport.dart","xhr_transport.dart","websocket_transport.dart","jsonp_transport.dart","transports.dart","../socket.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../../../../D:/packages/socket_io_client/src/engine/transport/xhr_transport.dart.lib.js"}');
+  // Exports:
+  return {
+    src__engine__transport__xhr_transport: xhr_transport,
+    src__engine__transport__websocket_transport: websocket_transport,
+    src__engine__transport__jsonp_transport: jsonp_transport,
+    src__engine__transport__transports: transports,
+    src__engine__transport__transport: transport,
+    src__engine__transport__polling_transport: polling_transport,
+    src__engine__socket: socket
+  };
+}));
+
+//# sourceMappingURL=xhr_transport.dart.lib.js.map

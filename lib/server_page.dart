@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:sdp_transform/sdp_transform.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -39,10 +40,13 @@ class _ServerPageState extends State<ServerPage> {
   JsonDecoder _decoder = JsonDecoder();
   JsonEncoder _encoder = new JsonEncoder();
   bool inCalling = false;
+  bool calling = false;
   //Random Number Generation for UserID
   var _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
   Random _rnd = Random();
   String? sdpData;
+  // ignore: deprecated_member_use
+  var candy = [];
   int? arrayUserLength;
   late MediaStream _localStream;
   List<MediaStream> _remoteStreams = <MediaStream>[];
@@ -62,7 +66,7 @@ class _ServerPageState extends State<ServerPage> {
   void initState() {
     connect();
     initRenders();
-
+    refresh();
     _createPeerConnection().then((pc) {
       _peerConnection = pc;
     });
@@ -72,7 +76,7 @@ class _ServerPageState extends State<ServerPage> {
 
   _getUserMedia() async {
     final Map<String, dynamic> mediaConstraints = {
-      'audio': false,
+      'audio': true,
       'video': {
         'facingMode': 'user',
       },
@@ -101,7 +105,7 @@ class _ServerPageState extends State<ServerPage> {
 
   void connect() {
     socket = IO.io(
-        'http://4caa-2405-201-600c-d806-5f2-73bb-4040-5c0f.ngrok.io',
+        'https://3e09-2405-201-600c-dd42-92b-eba6-a6e4-8b65.in.ngrok.io',
         IO.OptionBuilder()
             .setTransports(['websocket'])
             .disableAutoConnect()
@@ -114,7 +118,12 @@ class _ServerPageState extends State<ServerPage> {
       print("Not connected");
     }
     socket.emit('connection', _selfId);
-    socket.on('broadcastingMessage', (data) => {refresh()});
+    socket.on(
+        'broadcastingMessage',
+        (data) => {
+              print("  "),
+              if (data != null) {refresh()}
+            });
     socket.on(
         "broadcastingMessagesdp",
         (data) => {
@@ -123,7 +132,12 @@ class _ServerPageState extends State<ServerPage> {
               // refresh(),
               if (data != null) {broadcastMessage(), checkTheOffer(data)}
             });
-    socket.on('recCandy', (candy) => {_addCandidate(candy.toString())});
+    socket.on(
+        "recCandy",
+        (candy) => {
+              print("This is the candidate I received " + candy.toString()),
+              _addCandidate(candy.toString())
+            });
     socket.on('answer', (data) => print(json.decode(data)));
   }
 
@@ -152,9 +166,12 @@ class _ServerPageState extends State<ServerPage> {
     };
 
     _localStream = await _getUserMedia();
-    RTCPeerConnection pc =
-        await createPeerConnection(configuration, offerSdpConstraints);
+    RTCPeerConnection pc = await createPeerConnection(
+      configuration,
+      offerSdpConstraints,
+    );
     pc.addStream(_localStream);
+    print("local stream " + _localStream.id);
     var limit = 0;
     pc.onIceCandidate = (e) {
       if (limit == 0) {
@@ -165,23 +182,33 @@ class _ServerPageState extends State<ServerPage> {
             'sdpMlineIndex': e.sdpMlineIndex
           }));
         }
-        var candy = (json.encode({
+        print("This is candidate in _createPeerConnection");
+        candy.add(json.encode({
           'candidate': e.candidate.toString(),
           'sdpMid': e.sdpMid.toString(),
           'sdpMlineIndex': e.sdpMlineIndex
         }));
-        socket.emit("sendingCandidate", candy);
-        limit = 1;
+
+        print("Candidate stored here" + candy.first);
+        socket.emit("sendingCandidate", candy.first);
+        print("Iterating through candy ");
+        for (final e in candy) {
+          //
+          print("This is inside for loop " + e);
+        }
       }
+      limit = 1;
     };
     pc.onIceConnectionState = (e) {
       print(e);
     };
-
     pc.onAddStream = (stream) {
       // <---------- Getting the remote stream here
-      print('addStream: ' + stream.id);
-      _guestRenderer.srcObject = stream;
+      print('Guest Stream ' + stream.id);
+      setState(() {
+        _guestRenderer.srcObject = stream;
+        inCalling = true;
+      });
     };
     print("At the end of peerconnection");
     return pc;
@@ -196,10 +223,11 @@ class _ServerPageState extends State<ServerPage> {
     datas[1].add(data);
     socket.emit(event, data);
     socket.emit("rec", peerid);
-    print("This is the request form user -> " + data);
+    // socket.emit("sendingCandidate", candy);
+    //   print("This is the request form user -> " + data);
   }
 
-  _sendAns(event, data, peerid) {
+  _sendAns(event, data, peerid) async {
     var request = Map();
     request["type"] = event;
     request["data"] = data;
@@ -207,20 +235,21 @@ class _ServerPageState extends State<ServerPage> {
     datas[0].add(event);
     datas[1].add(data);
     socket.emit(event, data);
-    socket.emit("recAns", peerid);
-    print("This is the request form user -> " + data);
 
-    //socket.emit("sendingCandidate", candy);
+    socket.emit("sendingCandidate", candy);
+    await new Future.delayed(const Duration(seconds: 5));
+    socket.emit("recAns", peerid);
+    //  print("This is the request form user -> " + data);
   }
 
   _createOffer(String peerId) async {
-    RTCSessionDescription description = await _peerConnection.createOffer({
-      'offerToReceiveVideo': 1
-    }); //      <------------ createOffer()  initiates the creation of an SDP offer for the purpose of starting a new WebRTC connection to a remote peer.
+    RTCSessionDescription description =
+        await _peerConnection.createOffer({'offerToReceiveVideo': 1});
+    //      <------------ createOffer()  initiates the creation of an SDP offer for the purpose of starting a new WebRTC connection to a remote peer.
     var session = parse(description.sdp!.toString());
     _offer = true;
     _peerConnection.setLocalDescription(description);
-    debugPrint("Printing before Sending sdp -> " + json.encode(session));
+    print("  This is local session description -> " + json.encode(session));
     _send("offer", json.encode(session), peerId);
   }
 
@@ -232,15 +261,17 @@ class _ServerPageState extends State<ServerPage> {
         await _peerConnection.createAnswer({'offerToReceiveVideo': 1});
 
     var session = parse(description.sdp.toString());
-    print(json.encode(session));
+    //    print(json.encode(session));
     _peerConnection.setLocalDescription(description);
+    print("  This is local session description -> " + json.encode(session));
     _sendAns("answer", json.encode(session), peerId);
   }
 
   void _setRemoteDescription(_sdp) async {
+    print("SDP " + _sdp);
     String data = _sdp.toString();
     dynamic session = await jsonDecode("$_sdp");
-    print(" This is session " + session.toString());
+    print(" This is remote session description -> " + session.toString());
     String sdp = write(session, null);
     RTCSessionDescription description =
         new RTCSessionDescription(sdp, _offer ? 'answer' : 'offer');
@@ -264,9 +295,9 @@ class _ServerPageState extends State<ServerPage> {
 
   call(String string) async {
     String peerId = string;
-    setState(() {
-      inCalling = true;
-    });
+    // setState(() {
+    //   inCalling = true;
+    // });
 
     _createOffer(peerId);
   }
@@ -292,7 +323,7 @@ class _ServerPageState extends State<ServerPage> {
         // appBar: AppBar(
         //   title: Text("Server Page"),
         // ),
-        body: inCalling
+        body: inCalling || calling
             ? Container(
                 child: Stack(children: <Widget>[
                   Positioned(
@@ -323,10 +354,14 @@ class _ServerPageState extends State<ServerPage> {
                           children: <Widget>[
                             FloatingActionButton(
                               child: const Icon(Icons.switch_camera),
-                              onPressed: null,
+                              onPressed: () {
+                                _peerConnection.close();
+                                inCalling = false;
+                              },
                             ),
                             FloatingActionButton(
                               onPressed: () {
+                                // _peerConnection.close();
                                 setState(() {
                                   inCalling = false;
                                 });

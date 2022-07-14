@@ -1,0 +1,450 @@
+define(['dart_sdk'], (function load__packages__webrtc_interface__src__mediadevices_dart(dart_sdk) {
+  'use strict';
+  const core = dart_sdk.core;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  var mediadevices = Object.create(dart.library);
+  dart._checkModuleNullSafetyMode(true);
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  var I = ["package:webrtc_interface/src/mediadevices.dart"];
+  var audio$ = dart.privateName(mediadevices, "MediaStreamConstraints.audio");
+  var video$ = dart.privateName(mediadevices, "MediaStreamConstraints.video");
+  mediadevices.MediaStreamConstraints = class MediaStreamConstraints extends core.Object {
+    get audio() {
+      return this[audio$];
+    }
+    set audio(value) {
+      this[audio$] = value;
+    }
+    get video() {
+      return this[video$];
+    }
+    set video(value) {
+      this[video$] = value;
+    }
+  };
+  (mediadevices.MediaStreamConstraints.new = function(opts) {
+    let audio = opts && 'audio' in opts ? opts.audio : null;
+    let video = opts && 'video' in opts ? opts.video : null;
+    this[audio$] = audio;
+    this[video$] = video;
+    ;
+  }).prototype = mediadevices.MediaStreamConstraints.prototype;
+  dart.addTypeTests(mediadevices.MediaStreamConstraints);
+  dart.addTypeCaches(mediadevices.MediaStreamConstraints);
+  dart.setLibraryUri(mediadevices.MediaStreamConstraints, I[0]);
+  dart.setFieldSignature(mediadevices.MediaStreamConstraints, () => ({
+    __proto__: dart.getFields(mediadevices.MediaStreamConstraints.__proto__),
+    audio: dart.fieldType(dart.dynamic),
+    video: dart.fieldType(dart.dynamic)
+  }));
+  var aspectRatio$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.aspectRatio");
+  var autoGainControl$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.autoGainControl");
+  var brightness$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.brightness");
+  var channelCount$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.channelCount");
+  var colorTemperature$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.colorTemperature");
+  var contrast$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.contrast");
+  var deviceId$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.deviceId");
+  var echoCancellation$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.echoCancellation");
+  var exposureCompensation$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.exposureCompensation");
+  var exposureMode$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.exposureMode");
+  var exposureTime$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.exposureTime");
+  var facingMode$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.facingMode");
+  var focusDistance$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.focusDistance");
+  var focusMode$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.focusMode");
+  var frameRate$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.frameRate");
+  var groupId$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.groupId");
+  var height$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.height");
+  var iso$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.iso");
+  var latency$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.latency");
+  var noiseSuppression$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.noiseSuppression");
+  var pan$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.pan");
+  var pointsOfInterest$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.pointsOfInterest");
+  var resizeMode$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.resizeMode");
+  var sampleRate$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.sampleRate");
+  var sampleSize$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.sampleSize");
+  var saturation$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.saturation");
+  var sharpness$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.sharpness");
+  var tilt$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.tilt");
+  var torch$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.torch");
+  var whiteBalanceMode$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.whiteBalanceMode");
+  var width$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.width");
+  var zoom$ = dart.privateName(mediadevices, "MediaTrackSupportedConstraints.zoom");
+  mediadevices.MediaTrackSupportedConstraints = class MediaTrackSupportedConstraints extends core.Object {
+    get aspectRatio() {
+      return this[aspectRatio$];
+    }
+    set aspectRatio(value) {
+      super.aspectRatio = value;
+    }
+    get autoGainControl() {
+      return this[autoGainControl$];
+    }
+    set autoGainControl(value) {
+      super.autoGainControl = value;
+    }
+    get brightness() {
+      return this[brightness$];
+    }
+    set brightness(value) {
+      super.brightness = value;
+    }
+    get channelCount() {
+      return this[channelCount$];
+    }
+    set channelCount(value) {
+      super.channelCount = value;
+    }
+    get colorTemperature() {
+      return this[colorTemperature$];
+    }
+    set colorTemperature(value) {
+      super.colorTemperature = value;
+    }
+    get contrast() {
+      return this[contrast$];
+    }
+    set contrast(value) {
+      super.contrast = value;
+    }
+    get deviceId() {
+      return this[deviceId$];
+    }
+    set deviceId(value) {
+      super.deviceId = value;
+    }
+    get echoCancellation() {
+      return this[echoCancellation$];
+    }
+    set echoCancellation(value) {
+      super.echoCancellation = value;
+    }
+    get exposureCompensation() {
+      return this[exposureCompensation$];
+    }
+    set exposureCompensation(value) {
+      super.exposureCompensation = value;
+    }
+    get exposureMode() {
+      return this[exposureMode$];
+    }
+    set exposureMode(value) {
+      super.exposureMode = value;
+    }
+    get exposureTime() {
+      return this[exposureTime$];
+    }
+    set exposureTime(value) {
+      super.exposureTime = value;
+    }
+    get facingMode() {
+      return this[facingMode$];
+    }
+    set facingMode(value) {
+      super.facingMode = value;
+    }
+    get focusDistance() {
+      return this[focusDistance$];
+    }
+    set focusDistance(value) {
+      super.focusDistance = value;
+    }
+    get focusMode() {
+      return this[focusMode$];
+    }
+    set focusMode(value) {
+      super.focusMode = value;
+    }
+    get frameRate() {
+      return this[frameRate$];
+    }
+    set frameRate(value) {
+      super.frameRate = value;
+    }
+    get groupId() {
+      return this[groupId$];
+    }
+    set groupId(value) {
+      super.groupId = value;
+    }
+    get height() {
+      return this[height$];
+    }
+    set height(value) {
+      super.height = value;
+    }
+    get iso() {
+      return this[iso$];
+    }
+    set iso(value) {
+      super.iso = value;
+    }
+    get latency() {
+      return this[latency$];
+    }
+    set latency(value) {
+      super.latency = value;
+    }
+    get noiseSuppression() {
+      return this[noiseSuppression$];
+    }
+    set noiseSuppression(value) {
+      super.noiseSuppression = value;
+    }
+    get pan() {
+      return this[pan$];
+    }
+    set pan(value) {
+      super.pan = value;
+    }
+    get pointsOfInterest() {
+      return this[pointsOfInterest$];
+    }
+    set pointsOfInterest(value) {
+      super.pointsOfInterest = value;
+    }
+    get resizeMode() {
+      return this[resizeMode$];
+    }
+    set resizeMode(value) {
+      super.resizeMode = value;
+    }
+    get sampleRate() {
+      return this[sampleRate$];
+    }
+    set sampleRate(value) {
+      super.sampleRate = value;
+    }
+    get sampleSize() {
+      return this[sampleSize$];
+    }
+    set sampleSize(value) {
+      super.sampleSize = value;
+    }
+    get saturation() {
+      return this[saturation$];
+    }
+    set saturation(value) {
+      super.saturation = value;
+    }
+    get sharpness() {
+      return this[sharpness$];
+    }
+    set sharpness(value) {
+      super.sharpness = value;
+    }
+    get tilt() {
+      return this[tilt$];
+    }
+    set tilt(value) {
+      super.tilt = value;
+    }
+    get torch() {
+      return this[torch$];
+    }
+    set torch(value) {
+      super.torch = value;
+    }
+    get whiteBalanceMode() {
+      return this[whiteBalanceMode$];
+    }
+    set whiteBalanceMode(value) {
+      super.whiteBalanceMode = value;
+    }
+    get width() {
+      return this[width$];
+    }
+    set width(value) {
+      super.width = value;
+    }
+    get zoom() {
+      return this[zoom$];
+    }
+    set zoom(value) {
+      super.zoom = value;
+    }
+  };
+  (mediadevices.MediaTrackSupportedConstraints.new = function(opts) {
+    let aspectRatio = opts && 'aspectRatio' in opts ? opts.aspectRatio : false;
+    let autoGainControl = opts && 'autoGainControl' in opts ? opts.autoGainControl : false;
+    let brightness = opts && 'brightness' in opts ? opts.brightness : false;
+    let channelCount = opts && 'channelCount' in opts ? opts.channelCount : false;
+    let colorTemperature = opts && 'colorTemperature' in opts ? opts.colorTemperature : false;
+    let contrast = opts && 'contrast' in opts ? opts.contrast : false;
+    let deviceId = opts && 'deviceId' in opts ? opts.deviceId : false;
+    let echoCancellation = opts && 'echoCancellation' in opts ? opts.echoCancellation : false;
+    let exposureCompensation = opts && 'exposureCompensation' in opts ? opts.exposureCompensation : false;
+    let exposureMode = opts && 'exposureMode' in opts ? opts.exposureMode : false;
+    let exposureTime = opts && 'exposureTime' in opts ? opts.exposureTime : false;
+    let facingMode = opts && 'facingMode' in opts ? opts.facingMode : false;
+    let focusDistance = opts && 'focusDistance' in opts ? opts.focusDistance : false;
+    let focusMode = opts && 'focusMode' in opts ? opts.focusMode : false;
+    let frameRate = opts && 'frameRate' in opts ? opts.frameRate : false;
+    let groupId = opts && 'groupId' in opts ? opts.groupId : false;
+    let height = opts && 'height' in opts ? opts.height : false;
+    let iso = opts && 'iso' in opts ? opts.iso : false;
+    let latency = opts && 'latency' in opts ? opts.latency : false;
+    let noiseSuppression = opts && 'noiseSuppression' in opts ? opts.noiseSuppression : false;
+    let pan = opts && 'pan' in opts ? opts.pan : false;
+    let pointsOfInterest = opts && 'pointsOfInterest' in opts ? opts.pointsOfInterest : false;
+    let resizeMode = opts && 'resizeMode' in opts ? opts.resizeMode : false;
+    let sampleRate = opts && 'sampleRate' in opts ? opts.sampleRate : false;
+    let sampleSize = opts && 'sampleSize' in opts ? opts.sampleSize : false;
+    let saturation = opts && 'saturation' in opts ? opts.saturation : false;
+    let sharpness = opts && 'sharpness' in opts ? opts.sharpness : false;
+    let tilt = opts && 'tilt' in opts ? opts.tilt : false;
+    let torch = opts && 'torch' in opts ? opts.torch : false;
+    let whiteBalanceMode = opts && 'whiteBalanceMode' in opts ? opts.whiteBalanceMode : false;
+    let width = opts && 'width' in opts ? opts.width : false;
+    let zoom = opts && 'zoom' in opts ? opts.zoom : false;
+    this[aspectRatio$] = aspectRatio;
+    this[autoGainControl$] = autoGainControl;
+    this[brightness$] = brightness;
+    this[channelCount$] = channelCount;
+    this[colorTemperature$] = colorTemperature;
+    this[contrast$] = contrast;
+    this[deviceId$] = deviceId;
+    this[echoCancellation$] = echoCancellation;
+    this[exposureCompensation$] = exposureCompensation;
+    this[exposureMode$] = exposureMode;
+    this[exposureTime$] = exposureTime;
+    this[facingMode$] = facingMode;
+    this[focusDistance$] = focusDistance;
+    this[focusMode$] = focusMode;
+    this[frameRate$] = frameRate;
+    this[groupId$] = groupId;
+    this[height$] = height;
+    this[iso$] = iso;
+    this[latency$] = latency;
+    this[noiseSuppression$] = noiseSuppression;
+    this[pan$] = pan;
+    this[pointsOfInterest$] = pointsOfInterest;
+    this[resizeMode$] = resizeMode;
+    this[sampleRate$] = sampleRate;
+    this[sampleSize$] = sampleSize;
+    this[saturation$] = saturation;
+    this[sharpness$] = sharpness;
+    this[tilt$] = tilt;
+    this[torch$] = torch;
+    this[whiteBalanceMode$] = whiteBalanceMode;
+    this[width$] = width;
+    this[zoom$] = zoom;
+    ;
+  }).prototype = mediadevices.MediaTrackSupportedConstraints.prototype;
+  dart.addTypeTests(mediadevices.MediaTrackSupportedConstraints);
+  dart.addTypeCaches(mediadevices.MediaTrackSupportedConstraints);
+  dart.setLibraryUri(mediadevices.MediaTrackSupportedConstraints, I[0]);
+  dart.setFieldSignature(mediadevices.MediaTrackSupportedConstraints, () => ({
+    __proto__: dart.getFields(mediadevices.MediaTrackSupportedConstraints.__proto__),
+    aspectRatio: dart.finalFieldType(core.bool),
+    autoGainControl: dart.finalFieldType(core.bool),
+    brightness: dart.finalFieldType(core.bool),
+    channelCount: dart.finalFieldType(core.bool),
+    colorTemperature: dart.finalFieldType(core.bool),
+    contrast: dart.finalFieldType(core.bool),
+    deviceId: dart.finalFieldType(core.bool),
+    echoCancellation: dart.finalFieldType(core.bool),
+    exposureCompensation: dart.finalFieldType(core.bool),
+    exposureMode: dart.finalFieldType(core.bool),
+    exposureTime: dart.finalFieldType(core.bool),
+    facingMode: dart.finalFieldType(core.bool),
+    focusDistance: dart.finalFieldType(core.bool),
+    focusMode: dart.finalFieldType(core.bool),
+    frameRate: dart.finalFieldType(core.bool),
+    groupId: dart.finalFieldType(core.bool),
+    height: dart.finalFieldType(core.bool),
+    iso: dart.finalFieldType(core.bool),
+    latency: dart.finalFieldType(core.bool),
+    noiseSuppression: dart.finalFieldType(core.bool),
+    pan: dart.finalFieldType(core.bool),
+    pointsOfInterest: dart.finalFieldType(core.bool),
+    resizeMode: dart.finalFieldType(core.bool),
+    sampleRate: dart.finalFieldType(core.bool),
+    sampleSize: dart.finalFieldType(core.bool),
+    saturation: dart.finalFieldType(core.bool),
+    sharpness: dart.finalFieldType(core.bool),
+    tilt: dart.finalFieldType(core.bool),
+    torch: dart.finalFieldType(core.bool),
+    whiteBalanceMode: dart.finalFieldType(core.bool),
+    width: dart.finalFieldType(core.bool),
+    zoom: dart.finalFieldType(core.bool)
+  }));
+  mediadevices.MediaDevices = class MediaDevices extends core.Object {
+    getSupportedConstraints() {
+      dart.throw(new core.UnimplementedError.new());
+    }
+  };
+  (mediadevices.MediaDevices.new = function() {
+    ;
+  }).prototype = mediadevices.MediaDevices.prototype;
+  dart.addTypeTests(mediadevices.MediaDevices);
+  dart.addTypeCaches(mediadevices.MediaDevices);
+  dart.setMethodSignature(mediadevices.MediaDevices, () => ({
+    __proto__: dart.getMethods(mediadevices.MediaDevices.__proto__),
+    getSupportedConstraints: dart.fnType(mediadevices.MediaTrackSupportedConstraints, [])
+  }));
+  dart.setLibraryUri(mediadevices.MediaDevices, I[0]);
+  var deviceId$0 = dart.privateName(mediadevices, "MediaDeviceInfo.deviceId");
+  var groupId$0 = dart.privateName(mediadevices, "MediaDeviceInfo.groupId");
+  var kind$ = dart.privateName(mediadevices, "MediaDeviceInfo.kind");
+  var label$ = dart.privateName(mediadevices, "MediaDeviceInfo.label");
+  mediadevices.MediaDeviceInfo = class MediaDeviceInfo extends core.Object {
+    get deviceId() {
+      return this[deviceId$0];
+    }
+    set deviceId(value) {
+      super.deviceId = value;
+    }
+    get groupId() {
+      return this[groupId$0];
+    }
+    set groupId(value) {
+      super.groupId = value;
+    }
+    get kind() {
+      return this[kind$];
+    }
+    set kind(value) {
+      super.kind = value;
+    }
+    get label() {
+      return this[label$];
+    }
+    set label(value) {
+      super.label = value;
+    }
+  };
+  (mediadevices.MediaDeviceInfo.new = function(opts) {
+    let kind = opts && 'kind' in opts ? opts.kind : null;
+    let label = opts && 'label' in opts ? opts.label : null;
+    let groupId = opts && 'groupId' in opts ? opts.groupId : null;
+    let deviceId = opts && 'deviceId' in opts ? opts.deviceId : null;
+    this[kind$] = kind;
+    this[label$] = label;
+    this[groupId$0] = groupId;
+    this[deviceId$0] = deviceId;
+    ;
+  }).prototype = mediadevices.MediaDeviceInfo.prototype;
+  dart.addTypeTests(mediadevices.MediaDeviceInfo);
+  dart.addTypeCaches(mediadevices.MediaDeviceInfo);
+  dart.setLibraryUri(mediadevices.MediaDeviceInfo, I[0]);
+  dart.setFieldSignature(mediadevices.MediaDeviceInfo, () => ({
+    __proto__: dart.getFields(mediadevices.MediaDeviceInfo.__proto__),
+    deviceId: dart.finalFieldType(core.String),
+    groupId: dart.finalFieldType(dart.nullable(core.String)),
+    kind: dart.finalFieldType(dart.nullable(core.String)),
+    label: dart.finalFieldType(core.String)
+  }));
+  dart.trackLibraries("packages/webrtc_interface/src/mediadevices.dart", {
+    "package:webrtc_interface/src/mediadevices.dart": mediadevices
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["mediadevices.dart"],"names":[],"mappings":";;;;;;;;;;;;;;IAUU;;;;;;IAOA;;;;;;;;QAdqB;QAAY;IAAZ;IAAY;;EAAO;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAuDrC;;;;;;IACP;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;;;QAjEG;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;IA/BA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;;EACL;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AA0D0B,MAA1B,WAAM;IACR;;;;EACF;;;;;;;;;;;;;IAiBe;;;;;;IAKC;;;;;;IAIA;;;;;;IAID;;;;;;;;QAxBN;QACS;QACT;QACS;IAHT;IACS;IACT;IACS;;EACd","file":"../../../../../../../../../../../../D:/packages/webrtc_interface/src/mediadevices.dart.lib.js"}');
+  // Exports:
+  return {
+    src__mediadevices: mediadevices
+  };
+}));
+
+//# sourceMappingURL=mediadevices.dart.lib.js.map

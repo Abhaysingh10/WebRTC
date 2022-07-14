@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "E:\\Flutter\\WebRTC\\WebSocket\\build\\shared_preferences\\intermediates\\res\\merged\\release\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\Abhay\\.gradle\\caches\\transforms-2\\files-2.1\\8ea4cb97a77cb0487022c16fd2fc35cb\\core-1.6.0\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "E:\\Flutter\\WebRTC\\WebSocket\\build\\shared_preferences\\intermediates\\res\\merged\\release\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\Abhay\\.gradle\\caches\\transforms-2\\files-2.1\\8ea4cb97a77cb0487022c16fd2fc35cb\\core-1.6.0\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "E:\\Flutter\\WebRTC\\WebSocket\\build\\shared_preferences\\intermediates\\res\\merged\\release\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\Abhay\\.gradle\\caches\\transforms-2\\files-2.1\\8ea4cb97a77cb0487022c16fd2fc35cb\\core-1.6.0\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "E:\\Flutter\\WebRTC\\WebSocket\\build\\shared_preferences\\intermediates\\res\\merged\\release\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\Abhay\\.gradle\\caches\\transforms-2\\files-2.1\\8ea4cb97a77cb0487022c16fd2fc35cb\\core-1.6.0\\res\\drawable\\notification_icon_background.xml"
+    }
+]
